@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>367571001987-itv5n6t1vtmfjmfpp86mut7s0u21hc45.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.367571001987-itv5n6t1vtmfjmfpp86mut7s0u21hc45</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAdVUN_b6X1ReiWNM7kOka6xswRods2Bjo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>367571001987</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.cryptoWalletLicenta</string>
+	<key>PROJECT_ID</key>
+	<string>iwallet-e809a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>iwallet-e809a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:367571001987:ios:b292c3e9d727f36bd531b6</string>
+</dict>
+</plist>

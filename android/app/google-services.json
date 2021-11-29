@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "367571001987",
+    "project_id": "iwallet-e809a",
+    "storage_bucket": "iwallet-e809a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367571001987:android:e5f1b1c175d4c35bd531b6",
+        "android_client_info": {
+          "package_name": "com.example.crypto_wallet_licenta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367571001987-in57ueug6o6cpn2ma96n81ofp1hik99h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPYuVvCY5IYJu_Tlg-F9WHoj0GxoQ0q0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367571001987-in57ueug6o6cpn2ma96n81ofp1hik99h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "367571001987-itv5n6t1vtmfjmfpp86mut7s0u21hc45.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cryptoWalletLicenta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

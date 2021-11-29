@@ -1,0 +1,64 @@
+name: crypto_wallet_licenta
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+#Flutterfire dependencies:
+  firebase_core: ^1.6.0
+  firebase_auth: ^3.1.1
+  cloud_firestore: ^2.5.2
+  permission_handler: ^8.1.6
+  google_sign_in: ^5.1.1
+  intl_phone_number_input: ^0.7.0+2
+
+#Cupertion, Google fonts, http, modal, provider
+  modal_bottom_sheet: ^2.0.0
+  font_awesome_flutter: ^9.1.0
+  cupertino_icons: ^1.0.3
+  google_fonts: ^2.1.0
+  http: ^0.13.3
+  provider: ^5.0.0-nullsafety.1
+
+#Credit card
+  #flutter_credit_card: ^0.1.4
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# The following section is specific to Flutter.
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - lib/images/
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
