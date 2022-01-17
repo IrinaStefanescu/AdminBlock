@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "367571001987",
-    "project_id": "iwallet-e809a",
-    "storage_bucket": "iwallet-e809a.appspot.com"
+    "project_number": "347091080630",
+    "project_id": "adminblock",
+    "storage_bucket": "adminblock.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:367571001987:android:e5f1b1c175d4c35bd531b6",
+        "mobilesdk_app_id": "1:347091080630:android:4c398b367aaa2edf33dd17",
         "android_client_info": {
-          "package_name": "com.example.crypto_wallet_licenta"
+          "package_name": "com.irinastef.adminblock"
         }
       },
       "oauth_client": [
         {
-          "client_id": "367571001987-in57ueug6o6cpn2ma96n81ofp1hik99h.apps.googleusercontent.com",
+          "client_id": "347091080630-qla45fhibnjlkms62u32emojreae1sjv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBPYuVvCY5IYJu_Tlg-F9WHoj0GxoQ0q0s"
+          "current_key": "AIzaSyCdDF5ffPtmJXZUOP9EfXu1_9SXFIUZXyI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "367571001987-in57ueug6o6cpn2ma96n81ofp1hik99h.apps.googleusercontent.com",
+              "client_id": "347091080630-qla45fhibnjlkms62u32emojreae1sjv.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "367571001987-itv5n6t1vtmfjmfpp86mut7s0u21hc45.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.cryptoWalletLicenta"
-              }
             }
           ]
         }

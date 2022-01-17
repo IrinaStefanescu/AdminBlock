@@ -1,4 +1,4 @@
-//import 'package:crypto_wallet_licenta/auth/register.dart';
+import 'package:crypto_wallet_licenta/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -241,10 +241,10 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
                       ],
                      ),
                     onPressed: () async {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => EmailPassSignUpScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginPage()));
                     }),
               ),
               Row(
