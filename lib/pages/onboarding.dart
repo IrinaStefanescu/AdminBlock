@@ -1,4 +1,5 @@
 import 'package:crypto_wallet_licenta/pages/login.dart';
+import 'package:crypto_wallet_licenta/pages/register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,7 +44,7 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
             children: [
               Image.asset('lib/images/logo.png', width: 280, height: 260,),
               Padding(
-                padding: EdgeInsets.fromLTRB(70, 0, 0, 0),
+                padding: EdgeInsets.fromLTRB(70, 10, 0, 0),
                 child: Row(
                   children: [
                     Image.asset(
@@ -93,7 +94,7 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
                         children: [
                           TextSpan(
                             text:
-                            'Download ans send archived \n documents with password.',
+                            'Download and send archived \n documents with password.',
                             style: GoogleFonts.inter(
                               color: Colors.grey[700],
                               fontWeight: FontWeight.bold,
@@ -195,7 +196,7 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
                         children: [
                           TextSpan(
                             text:
-                            'All from your device.',
+                            'All from your mobile device.',
                             style: GoogleFonts.inter(
                               color: Colors.grey[700],
                               fontWeight: FontWeight.bold,
@@ -244,7 +245,7 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginPage()));
+                              builder: (context) => RegisterPage()));
                     }),
               ),
               Row(
