@@ -278,10 +278,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       onPressed: () async {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterPage()));
+                        if (_formKey.currentState!.validate()){
+                          setState(() {
+                            email = emailController.text;
+                            password = passwordController.text;
+                            confirmPassword = confirmPasswordController.text;
+                          });
+                          registerUser();
+                        }
                       }),
                 ),
               ),
@@ -290,10 +294,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   TextButton(
                     onPressed: (){
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginPage()));
+                          PageRouteBuilder(
+                              pageBuilder: (context, animation1, animation2) => LoginPage(),
+                            transitionDuration: Duration(seconds: 0),
+                          ),
+                      );
                     },
                     child: Text.rich(
                       TextSpan(
