@@ -1,7 +1,7 @@
 import 'package:crypto_wallet_licenta/pages/forgot_password.dart';
-import 'package:crypto_wallet_licenta/pages/home.dart';
 import 'package:crypto_wallet_licenta/pages/onboarding.dart';
 import 'package:crypto_wallet_licenta/pages/register.dart';
+import 'package:crypto_wallet_licenta/pages/user_main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   userLogin() async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserMain()));
     } on FirebaseAuthException catch(error) {
       if (error.code == 'user-not-found'){
         print("No user found for that email");
