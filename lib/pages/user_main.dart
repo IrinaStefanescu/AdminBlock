@@ -3,6 +3,7 @@ import 'package:crypto_wallet_licenta/user/indexes.dart';
 import 'package:crypto_wallet_licenta/user/meeting.dart';
 import 'package:crypto_wallet_licenta/user/pay_bill.dart';
 import 'package:crypto_wallet_licenta/user/send_docs.dart';
+import 'package:crypto_wallet_licenta/user/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -56,7 +57,12 @@ class _UserMainState extends State<UserMain> {
             IconButton(
               constraints: BoxConstraints(),
               icon: Icon(Icons.settings, color: Colors.brown,),
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SettingsPage()));
+              },
             ),
           ],
         ),
@@ -66,7 +72,7 @@ class _UserMainState extends State<UserMain> {
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Color(0xFFF8A37A)),
+        data: Theme.of(context).copyWith(canvasColor: Color(0xF5F3A866)),
         child: BottomNavigationBar(
           items: const<BottomNavigationBarItem>[
             BottomNavigationBarItem(
