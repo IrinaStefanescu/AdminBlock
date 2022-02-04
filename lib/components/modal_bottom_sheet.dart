@@ -19,7 +19,7 @@ class ModalBottomSheet {
             Material(
               type: MaterialType.transparency,
               child: Container(
-                height: MediaQuery.of(context).size.height / 20,
+                height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 color: headerColor.withOpacity(isTransparent ? 0.0 : 1.0),
                 child: Align(

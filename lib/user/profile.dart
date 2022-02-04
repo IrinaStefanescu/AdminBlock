@@ -1,3 +1,4 @@
+import 'package:admin_block/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,24 +33,24 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Text(
-      //         "Your Profile",
-      //         style: GoogleFonts.mukta(
-      //           fontSize: 26,
-      //           color: Colors.white,
-      //           fontWeight: FontWeight.w500,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      //   backgroundColor: Color(0xF5F3A866),
-      //   shadowColor: Colors.orange,
-      //   automaticallyImplyLeading: false,
-      // ),
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Your Profile",
+              style: GoogleFonts.mukta(
+                fontSize: 26,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: Color(0xD3F5B75B),
+        shadowColor: Color(0xD3F5B75B),
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
@@ -66,6 +67,19 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.w600,
                   ),),
               ],
+            ),
+            Text(
+              'Email: $email',
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              child: Text(
+                  'Logout'
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

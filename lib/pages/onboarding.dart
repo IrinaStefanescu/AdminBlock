@@ -1,4 +1,4 @@
-import 'package:crypto_wallet_licenta/pages/register.dart';
+import 'package:admin_block/pages/register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,4 +1,4 @@
-name: crypto_wallet_licenta
+name: admin_block
 description: A new Flutter project.
 publish_to: 'none'
 version: 1.0.0+1
@@ -10,13 +10,15 @@ dependencies:
   flutter:
     sdk: flutter
 
-#Flutterfire dependencies:
+#Firebase dependencies:
   firebase_core: ^1.6.0
   firebase_auth: ^3.1.1
   cloud_firestore: ^2.5.2
+  firebase_storage: ^10.2.4
+
+  image_picker: ^0.8.4+4
   permission_handler: ^8.1.6
   google_sign_in: ^5.1.1
-  intl_phone_number_input: ^0.7.0+2
 
 #Cupertion, Google fonts, http, modal, provider
   modal_bottom_sheet: ^2.0.0
@@ -24,7 +26,6 @@ dependencies:
   cupertino_icons: ^1.0.3
   google_fonts: ^2.1.0
   http: ^0.13.3
-  provider: ^5.0.0-nullsafety.1
 
 #Credit card
   #flutter_credit_card: ^0.1.4

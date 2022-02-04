@@ -1,10 +1,10 @@
-import 'package:crypto_wallet_licenta/user/dashboard.dart';
-import 'package:crypto_wallet_licenta/user/indexes.dart';
-import 'package:crypto_wallet_licenta/user/meeting.dart';
-import 'package:crypto_wallet_licenta/user/pay_bill.dart';
-import 'package:crypto_wallet_licenta/user/profile.dart';
-import 'package:crypto_wallet_licenta/user/send_docs.dart';
-import 'package:crypto_wallet_licenta/pages/settings.dart';
+import 'package:admin_block/user/dashboard.dart';
+import 'package:admin_block/user/indexes.dart';
+import 'package:admin_block/user/meeting.dart';
+import 'package:admin_block/user/pay_bill.dart';
+import 'package:admin_block/user/profile.dart';
+import 'package:admin_block/user/send_docs.dart';
+import 'package:admin_block/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
