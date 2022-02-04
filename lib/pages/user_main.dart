@@ -2,10 +2,12 @@ import 'package:crypto_wallet_licenta/user/dashboard.dart';
 import 'package:crypto_wallet_licenta/user/indexes.dart';
 import 'package:crypto_wallet_licenta/user/meeting.dart';
 import 'package:crypto_wallet_licenta/user/pay_bill.dart';
+import 'package:crypto_wallet_licenta/user/profile.dart';
 import 'package:crypto_wallet_licenta/user/send_docs.dart';
-import 'package:crypto_wallet_licenta/user/settings.dart';
+import 'package:crypto_wallet_licenta/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class UserMain extends StatefulWidget {
   const UserMain({Key? key}) : super(key: key);
@@ -52,8 +54,15 @@ class _UserMainState extends State<UserMain> {
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(),
               icon: Icon(Icons.person, color: Colors.brown,),
-              onPressed: (){},
-            ),
+              onPressed: (){
+                showCupertinoModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Profile();
+                  },
+                );
+              //Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
+              }),
             IconButton(
               constraints: BoxConstraints(),
               icon: Icon(Icons.settings, color: Colors.brown,),

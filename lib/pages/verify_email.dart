@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Profile extends StatefulWidget {
+
+class VerifyEmail extends StatefulWidget {
 
   @override
-  _ProfileState createState() => _ProfileState();
+  _VerifyEmailState createState() => _VerifyEmailState();
 }
 
-class _ProfileState extends State<Profile> {
+class _VerifyEmailState extends State<VerifyEmail> {
 
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
@@ -23,7 +25,12 @@ class _ProfileState extends State<Profile> {
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.black26,
-        content: Text(''),
+        content: Text(' Verification email has been sent ',
+        style: GoogleFonts.inter(
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+          fontSize: 18,),
+        ),
       ),);
     }
   }
@@ -32,24 +39,24 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Text(
-      //         "Your Profile",
-      //         style: GoogleFonts.mukta(
-      //           fontSize: 26,
-      //           color: Colors.white,
-      //           fontWeight: FontWeight.w500,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      //   backgroundColor: Color(0xF5F3A866),
-      //   shadowColor: Colors.orange,
-      //   automaticallyImplyLeading: false,
-      // ),
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Verify Email",
+              style: GoogleFonts.mukta(
+                fontSize: 26,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: Color(0xF5F3A866),
+        shadowColor: Colors.orange,
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
@@ -60,11 +67,11 @@ class _ProfileState extends State<Profile> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('You are one step away from \naccessing our features!',
-                  style: GoogleFonts.mukta(
-                    fontSize: 25,
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w600,
-                  ),),
+                style: GoogleFonts.mukta(
+                  fontSize: 25,
+                  color: Colors.grey[500],
+                  fontWeight: FontWeight.w600,
+                ),),
               ],
             ),
             Row(
@@ -78,10 +85,9 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
-          ],
+        ],
         ),
       ),
     );
   }
-
 }

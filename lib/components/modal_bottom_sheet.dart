@@ -35,7 +35,7 @@ class ModalBottomSheet {
                           'Cancel',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                           ),

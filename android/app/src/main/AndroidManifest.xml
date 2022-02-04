@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.crypto_wallet_licenta">
+    package="com.example.admin_block">
    <application
-        android:label="crypto_wallet_licenta"
+        android:label="admin_block"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

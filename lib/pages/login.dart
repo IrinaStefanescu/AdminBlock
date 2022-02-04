@@ -1,10 +1,11 @@
-import 'package:crypto_wallet_licenta/pages/forgot_password.dart';
-import 'package:crypto_wallet_licenta/pages/onboarding.dart';
-import 'package:crypto_wallet_licenta/pages/register.dart';
-import 'package:crypto_wallet_licenta/pages/user_main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'forgot_password.dart';
+import 'onboarding.dart';
+import 'register.dart';
+import 'user_main.dart';
+import 'verify_email.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

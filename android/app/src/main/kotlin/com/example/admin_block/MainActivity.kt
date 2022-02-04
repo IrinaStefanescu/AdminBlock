@@ -1,4 +1,4 @@
-package com.example.crypto_wallet_licenta
+package com.example.admin_block
 
 import io.flutter.embedding.android.FlutterActivity
 
