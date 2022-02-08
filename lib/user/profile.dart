@@ -1,4 +1,4 @@
-import 'package:admin_block/pages/login.dart';
+import 'package:admin_block/pages/auth/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,6 +57,31 @@ class _ProfileState extends State<Profile> {
           children: [
             SizedBox(height: 30,),
             Image.asset('lib/images/verify_email.png'),
+            Stack(
+              children: <Widget>[
+                CircleAvatar(
+                  radius: 80.0,
+                  backgroundImage: AssetImage('lib/images/placeholder.png',),
+                  backgroundColor: Colors.grey[700],
+                ),
+                Positioned(
+                  bottom: 30,
+                  right: 20,
+                  child: InkWell(
+                    onTap: (){
+                      showModalBottomSheet(
+                          context: context,
+                          builder: ((builder) => bottomSheet()),
+                      );
+                    },
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.grey[700],
+                      size: 30,
+                    ),
+                  ),),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -94,6 +119,43 @@ class _ProfileState extends State<Profile> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget bottomSheet(){
+    return Container(
+      height: 100,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: [
+          Text('Choose profile photo',
+            style: GoogleFonts.mukta(
+              fontSize: 20,
+              color: Colors.grey[500],
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 10,),
+          Row(
+            children: [
+              FlatButton.icon(
+                  onPressed: (){},
+                  icon: Icon(Icons.camera),
+                  label: Text('Camera'),
+              ),
+              FlatButton.icon(
+                onPressed: (){},
+                icon: Icon(Icons.image),
+                label: Text('Gallery'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
