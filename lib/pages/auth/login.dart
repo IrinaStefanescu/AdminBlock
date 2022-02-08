@@ -1,91 +1,68 @@
-import 'package:admin_block/pages/onboarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'forgot_password.dart';
+import '../onboarding.dart';
+import 'register.dart';
+import '../user_main.dart';
+import '../verify_email.dart';
 
-import 'login.dart';
-
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
 
   var email = "";
   var password = "";
-  var confirmPassword = "";
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
 
-  registerUser() async{
-    if (password == confirmPassword){
-      try{
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-        print(userCredential);
+  userLogin() async {
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserMain()));
+    } on FirebaseAuthException catch(error) {
+      if (error.code == 'user-not-found'){
+        print("No user found for that email");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.orangeAccent,
-          content: Text('Registered successfully. Please Login',
-            style:  GoogleFonts.inter(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-          ),),
+          content: Text('No user found for that email',
+            style: GoogleFonts.inter(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+            ),
+          ),
         ),);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
-      } on FirebaseAuthException catch(error){
-        if (error.code == 'weak-password'){
-          print('Password is too weak.');
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text('Password is too weak.',
-              style:  GoogleFonts.inter(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),),
-          ),);
-        }
-        else if (error.code == 'email-already-in-use'){
-          print('Account already exists.');
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text('Account already exists.',
-              style:  GoogleFonts.inter(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),),
-          ),);
-        }
-    }
-    }
-    else{
-      print('Passwords don\'t match.');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.orangeAccent,
-        content: Text('Passwords don\'t match.',
-          style:  GoogleFonts.inter(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),),
-      ),);
+      }
+      else if (error.code == 'wrong-password'){
+        print("Wrong password provided by the user");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.orangeAccent,
+          content: Text('Wrong password provided by the user',
+            style: GoogleFonts.inter(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+            ),
+          ),
+        ),);
+      }
     }
   }
 
   @override
   void dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
-    confirmPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -97,12 +74,12 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OnBoardingUser()));
-                }
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OnBoardingUser()));
+              }
             ),
             Text(
               "Onboarding",
@@ -126,11 +103,11 @@ class _RegisterPageState extends State<RegisterPage> {
           child: ListView(
             children: [
               SizedBox(height: 20,),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 40.0),
+              Padding( padding: EdgeInsets.symmetric(horizontal: 40.0),
                 child:  Image.asset('lib/images/logo.png', width: 280, height: 240,),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
                   'Provide your email address',
                   style: GoogleFonts.inter(
@@ -141,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
                 child: TextFormField(
                   autofocus: false,
                   decoration: InputDecoration(
@@ -164,11 +141,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: emailController,
                   validator: (value){
                     if (value == null || value.isEmpty)
-                    {
-                      return 'Please provide email address';
-                    }
+                      {
+                        return 'Please provide email address';
+                      }
                     else if (!value.contains('@')){
-                      return 'Please enter valid email';
+                        return 'Please enter valid email';
                     }
                     return null;
                   },
@@ -186,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
                 child: TextFormField(
                   autofocus: false,
                   obscureText: true,
@@ -217,48 +194,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: Text(
-                  'Confirm your password',
-                  style: GoogleFonts.inter(
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
-                child: TextFormField(
-                  autofocus: false,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.password_rounded, color: Colors.orange,),
-                    fillColor: Color(0x70E0E0E0),
-                    filled: true,
-                    focusColor: Colors.grey[700],
-                    hoverColor: Colors.grey[700],
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                    ),
-                    errorStyle: TextStyle(
-                      color: Colors.black26,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                  controller: confirmPasswordController,
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
-                      return 'Please provide password';
-                    }
-                    return null;
-                  },
-                ),
+              SizedBox(
+                height: 20,
               ),
               Center(
                 child: Container(
@@ -270,7 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   child: MaterialButton(
                       child: Text(
-                        'REGISTER',
+                        'LOGIN',
                         style: GoogleFonts.inter(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -278,40 +215,37 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       onPressed: () async {
-                        if (_formKey.currentState!.validate()){
+                       if (_formKey.currentState!.validate()){
                           setState(() {
                             email = emailController.text;
                             password = passwordController.text;
-                            confirmPassword = confirmPasswordController.text;
                           });
-                          registerUser();
-                        }
-                      }),
+                          userLogin();
+                       }
+                      },
+                  ),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: (){
-                      Navigator.pushReplacement(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (context, animation1, animation2) => LoginPage(),
-                            transitionDuration: Duration(seconds: 0),
-                          ),
-                      );
-                    },
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPage()));
+                      },
                     child: Text.rich(
                       TextSpan(
-                        text: 'Already a member? ',
+                        text: 'Don\'t have an account? ',
                         style: GoogleFonts.inter(
                           color: Colors.black45,
                           fontSize: 16,
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                            text: 'Login.',
+                            text: 'Register.',
                             style: GoogleFonts.inter(
                               color: Colors.black45,
                               fontSize: 16,
@@ -319,6 +253,24 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                    },
+                    child: Text(
+                      'Forget Password?',
+                      style: GoogleFonts.inter(
+                        color: Colors.orange,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
