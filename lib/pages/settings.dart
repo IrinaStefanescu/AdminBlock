@@ -1,3 +1,4 @@
+import 'package:admin_block/pages/user_main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,15 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar:  AppBar(
         title: Row(
           children: [
+            IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserMain()));
+                }
+            ),
             Text(
               "Settings",
               style: GoogleFonts.mukta(

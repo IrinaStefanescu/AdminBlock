@@ -5,6 +5,7 @@ import 'package:admin_block/user/pay_bill.dart';
 import 'package:admin_block/user/profile.dart';
 import 'package:admin_block/user/send_docs.dart';
 import 'package:admin_block/pages/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -36,6 +37,9 @@ class _UserMainState extends State<UserMain> {
 
   @override
   Widget build(BuildContext context) {
+
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -79,7 +83,36 @@ class _UserMainState extends State<UserMain> {
         shadowColor: Colors.orange,
         automaticallyImplyLeading: false,
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('users').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("Loading");
+          }
+
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index){
+              return ListTile(
+                title: Text(snapshot.data!.docs[index]['name']),
+                subtitle: Column(
+                  children: [
+                    Text(snapshot.data!.docs[index]['street']),
+                    Text(snapshot.data!.docs[index]['streetNumber']),
+                    Text(snapshot.data!.docs[index]['building']),
+                    Text(snapshot.data!.docs[index]['apartment']),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
+      //_widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Color(0xF5F3A866)),
         child: BottomNavigationBar(
