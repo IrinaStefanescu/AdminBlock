@@ -34,6 +34,13 @@ class _UserMainState extends State<UserMain> {
       _selectedIndex = index;
     });
   }
+  void _onPressed() {
+    FirebaseFirestore.instance.collection("users").get().then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        print(result.data());
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
