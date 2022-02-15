@@ -6,6 +6,7 @@ import 'package:admin_block/user/profile.dart';
 import 'package:admin_block/user/send_docs.dart';
 import 'package:admin_block/pages/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -34,19 +35,9 @@ class _UserMainState extends State<UserMain> {
       _selectedIndex = index;
     });
   }
-  void _onPressed() {
-    FirebaseFirestore.instance.collection("users").get().then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        print(result.data());
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -91,35 +82,58 @@ class _UserMainState extends State<UserMain> {
         automaticallyImplyLeading: false,
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('users').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if (snapshot.hasError) {
-            return Text('Something went wrong');
-          }
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.active) {
+              return Center(child: CircularProgressIndicator()); // 👈 user is loading
+            }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
-          }
+            final user = FirebaseAuth.instance.currentUser;
+            final uid = user!.uid;// 👈 get the UID
+            if (user != null) {
+              print(user);
 
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index){
-              return ListTile(
-                title: Text(snapshot.data!.docs[index]['name']),
-                subtitle: Column(
-                  children: [
-                    Text(snapshot.data!.docs[index]['street']),
-                    Text(snapshot.data!.docs[index]['streetNumber']),
-                    Text(snapshot.data!.docs[index]['building']),
-                    Text(snapshot.data!.docs[index]['apartment']),
-                  ],
-                ),
+              CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+              return FutureBuilder<DocumentSnapshot>(
+                future: users.doc(uid).get(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text("Something went wrong");
+                  }
+
+                  if (snapshot.hasData && !snapshot.data!.exists) {
+                    return Text("Document does not exist");
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
+                      child: Container(
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          height: MediaQuery.of(context).size.height / 6,
+                          color: Color(0x56018477),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text("Hello, ${data['name']}"),
+                              Text("${data['street']}"),
+                              Text("${data['streetNumber']}"),
+                              Text("${data['building']}"),
+                              Text("${data['apartment']}"),
+                            ],
+                          )),
+                    );
+                  }
+                  return Text("loading");
+                },
               );
-            },
-          );
-        },
-      ),
-      //_widgetOptions.elementAt(_selectedIndex),
+            } else {
+              return Text("user is not logged in");
+            }
+          },),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Color(0xF5F3A866)),
         child: BottomNavigationBar(

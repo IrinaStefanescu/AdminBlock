@@ -29,14 +29,14 @@ class _UserAddressState extends State<UserAddress> {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
 
-  User? user = FirebaseAuth.instance.currentUser;
-
 
   @override
   void dispose() {
     nameController.dispose();
     streetController.dispose();
     numberStreetController.dispose();
+    buildingController.dispose();
+    apartmentController.dispose();
     super.dispose();
   }
 
@@ -45,6 +45,7 @@ class _UserAddressState extends State<UserAddress> {
   Widget build(BuildContext context) {
 
     CollectionReference users = FirebaseFirestore.instance.collection('users');
+    final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -297,7 +298,7 @@ class _UserAddressState extends State<UserAddress> {
                                 content: Text('Sending data to Cloud Firestore'),
                               ),
                             );
-                            await users.add({'name': name, 'street': street, 'streetNumber': numberStreet, 'building': building, 'apartment': apartment
+                            await users.doc(user!.uid).set({'name': name, 'street': street, 'streetNumber': numberStreet, 'building': building, 'apartment': apartment
                             }).then((value) => print ("User added")).catchError((error) => print('Failed to add user: $error'));
                             print("Name: $name");
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserMain()));
