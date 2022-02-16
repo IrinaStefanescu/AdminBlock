@@ -1,3 +1,4 @@
+import 'package:admin_block/pages/user_main.dart';
 import 'package:admin_block/user/user_address.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'forgot_password.dart';
 import '../onboarding.dart';
 import 'register.dart';
-import '../user_main.dart';
-import '../verify_email.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   userLogin() async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserAddress()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserMain()));
     } on FirebaseAuthException catch(error) {
       if (error.code == 'user-not-found'){
         print("No user found for that email");

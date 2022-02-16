@@ -1,6 +1,7 @@
 import 'package:admin_block/pages/onboarding.dart';
 import 'package:admin_block/pages/user_main.dart';
 import 'package:admin_block/service/auth_service.dart';
+import 'package:admin_block/user/user_address.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
   var email = "";
   var password = "";
   var confirmPassword = "";
+  bool isRegistered = false;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -32,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (password == confirmPassword){
       try{
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+        isRegistered = true;
         print(userCredential);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.orangeAccent,
@@ -42,6 +45,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 fontSize: 18,
           ),),
         ),);
+        isRegistered == true
+            ?
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserAddress()))
+            :
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
       } on FirebaseAuthException catch(error){
         if (error.code == 'weak-password'){
@@ -322,6 +329,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             confirmPassword = confirmPasswordController.text;
                           });
                           registerUser();
+                          isRegistered = false;
                         }
                       }),
                 ),

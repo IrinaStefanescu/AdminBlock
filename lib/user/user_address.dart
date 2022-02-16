@@ -1,3 +1,4 @@
+import 'package:admin_block/pages/auth/login.dart';
 import 'package:admin_block/pages/user_main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -301,7 +302,7 @@ class _UserAddressState extends State<UserAddress> {
                             await users.doc(user!.uid).set({'name': name, 'street': street, 'streetNumber': numberStreet, 'building': building, 'apartment': apartment
                             }).then((value) => print ("User added")).catchError((error) => print('Failed to add user: $error'));
                             print("Name: $name");
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserMain()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
                         }
                       },
                     ),
