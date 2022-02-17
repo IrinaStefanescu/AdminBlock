@@ -82,30 +82,10 @@ class _ProfileState extends State<Profile> {
                   ),),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('You are one step away from \naccessing our features!',
-                  style: GoogleFonts.mukta(
-                    fontSize: 25,
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w600,
-                  ),),
-              ],
-            ),
             Text(
               'Email: $email',
             ),
-            ElevatedButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-              child: Text(
-                  'Logout'
-              ),
-            ),
+            Image.asset('lib/images/verify_email.png'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

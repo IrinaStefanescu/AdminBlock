@@ -1,7 +1,10 @@
 import 'package:admin_block/pages/user_main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'auth/login.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -283,7 +286,10 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontSize: 20),
                       ),
                       onPressed: () async {
-                      },
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => LoginPage()));
+                          }
                     ),
                   ],
                 ),
