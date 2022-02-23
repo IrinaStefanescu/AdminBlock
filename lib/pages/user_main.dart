@@ -83,6 +83,27 @@ class _UserMainState extends State<UserMain> {
       ),
       body: Column(
         children: [
+          SizedBox(height: 20,),
+          Text('Dashboard', style: GoogleFonts.inter(
+            color: Colors.grey[900],
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+
+          ),),
+          SizedBox(height: 20,),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              children: [
+                Text('Your information', style: GoogleFonts.inter(
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+
+                ),),
+              ],
+            ),
+          ),
           StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
@@ -112,19 +133,59 @@ class _UserMainState extends State<UserMain> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
                         return Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                           child: Container(
-                              width: MediaQuery.of(context).size.width / 1.2,
-                              height: MediaQuery.of(context).size.height / 6,
-                              color: Color(0x56018477),
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 8,
+                              decoration: BoxDecoration(color: Color(0x88A56333), borderRadius: BorderRadius.all(Radius.circular(10))),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text("Hello, ${data['name']}"),
-                                  Text("${data['street']}"),
-                                  Text("${data['streetNumber']}"),
-                                  Text("${data['building']}"),
-                                  Text("${data['apartment']}"),
+                                  Text("Hello, ${data['name']}", style: GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+
+                                  ),),
+                                  Row(
+                                    children: [
+                                      Text("Street: ${data['street']}", style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+
+                                      ),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Street no.: ${data['streetNumber']}", style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+
+                                      ),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Building: ${data['building']}", style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+
+                                      ),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("Apartment: ${data['apartment']}", style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+
+                                      ),),
+                                    ],
+                                  ),
                                 ],
                               )),
                         );
@@ -136,7 +197,38 @@ class _UserMainState extends State<UserMain> {
                   return Text("user is not logged in");
                 }
               },),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
+          Container(
+            margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+            height: MediaQuery.of(context).size.height / 12,
+            decoration: BoxDecoration(color: Colors.orangeAccent, borderRadius: BorderRadius.all(Radius.circular(10))),
+            child: Center(
+              child: TextButton(
+                onPressed: (){},
+                child: Text('Calculate your maintenance',
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),),
+          SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              children: [
+                Text('Standardized applications', style: GoogleFonts.inter(
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+
+                ),),
+              ],
+            ),
+          ),
+          SizedBox(height: 10,),
           Container(
             margin: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: Stack(

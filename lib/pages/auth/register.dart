@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
         print(userCredential);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.orangeAccent,
-          content: Text('Registered successfully. Please Login',
+          content: Text('Registered successfully',
             style:  GoogleFonts.inter(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,

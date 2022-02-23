@@ -296,7 +296,12 @@ class _UserAddressState extends State<UserAddress> {
                         if (_addressFormKey.currentState!.validate()){
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Sending data to Cloud Firestore'),
+                                content: Text('Sending data...',
+                                  style:  GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18,
+                                  ),),
                               ),
                             );
                             await users.doc(user!.uid).set({'name': name, 'street': street, 'streetNumber': numberStreet, 'building': building, 'apartment': apartment

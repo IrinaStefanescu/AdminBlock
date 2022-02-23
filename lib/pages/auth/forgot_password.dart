@@ -64,7 +64,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Center(child: Text("RESET PASSWORD")),
+        title: Row(
+          children: [
+            IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LoginPage()));
+                }
+            ),
+            Center(child: Text("RESET PASSWORD")),
+          ],
+        ),
         backgroundColor: Color(0xF5F3A866),
         shadowColor: Colors.orange,
         automaticallyImplyLeading: false,
@@ -218,6 +231,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                 ),
               ),
+            ),
+            Row(
+              children: [
+                Image.asset(
+                  'lib/images/custom_elipses.png',
+                  width: 160,
+                  height: 140,
+                ),
+              ],
             ),
           ],
         ),

@@ -53,7 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            SizedBox(height: 100,),
+            SizedBox(height: 20,),
             Card(
               margin: EdgeInsets.only(bottom: 1),
               shape: RoundedRectangleBorder(
@@ -295,7 +295,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-
+            Row(
+              children: [
+                Image.asset(
+                  'lib/images/custom_elipses.png',
+                  width: 160,
+                  height: 165,
+                ),
+              ],
+            ),
           ],
         ),
       ),
