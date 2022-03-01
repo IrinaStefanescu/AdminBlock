@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'package:admin_block/pages/download_standardized_app.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,6 +14,18 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  Future<void> downloadFileExample() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    File downloadToFile = File('${appDocDir.path}/document1.jpg');
+
+    try {
+      await FirebaseStorage.instance
+          .ref('documents/document1.jpg')
+          .writeToFile(downloadToFile);
+    } on FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,45 +188,47 @@ class _DashboardState extends State<Dashboard> {
                     decoration: BoxDecoration(color: Color(0xFFEC936E), borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: 120,
                     height: 120,
-                    child: Center(child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text('Remove person from housekeeping', style: GoogleFonts.inter(
+                    child: TextButton(
+                      onPressed: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Documents()));
+                      },
+                      child: Center(
+                        child: Text('Remove person from house-keeping', style: GoogleFonts.inter(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-
-                      ),),
-                    ),),),),
+                    ),),
+                      ),),),),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Container(
                     decoration: BoxDecoration(color: Color(0xFF795C48), borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: 120,
                     height: 120,
-                    child: Center(child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text('Meter reading form', style: GoogleFonts.inter(
+                    child: TextButton(
+                      onPressed: (){},
+                      child: Center(
+                        child: Text('Meter reading form', style: GoogleFonts.inter(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-
-                      ),),
-                    ),),),),
+                    ),),
+                      ),),),),
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
                     decoration: BoxDecoration(color: Color(0xFFEE882F), borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: 120,
                     height: 120,
-                    child: Center(child: Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Text('Return working capital', style: GoogleFonts.inter(
+                    child: TextButton(
+                      onPressed: (){},
+                      child: Center(
+                        child: Text('Returning working capital', style: GoogleFonts.inter(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
-
-                      ),),
-                    ),),),),
+                    ),),
+                      ),),),),
               ],
             ),
           ),
@@ -227,44 +245,39 @@ class _DashboardState extends State<Dashboard> {
                     decoration: BoxDecoration(color: Color(0xFF993737), borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: 120,
                     height: 120,
-                    child: Center(child: Padding(
-                      padding: const EdgeInsets.all(3.0),
+                    child: TextButton(
+                      onPressed: (){},
                       child: Text('Sale-purchase certificate', style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-
-                      ),),
-                    ),),),),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),),),),),
                 Align(
                   alignment: Alignment.topCenter,
                   child: Container(
                     decoration: BoxDecoration(color: Color(0x88A56333), borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: 120,
                     height: 120,
-                    child: Center(child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    child: TextButton(
+                      onPressed: (){},
                       child: Text('Owners association application', style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-
-                      ),),
-                    ),),),),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),),),),),
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
                     decoration: BoxDecoration(color: Color(0xFFE7C878), borderRadius: BorderRadius.all(Radius.circular(10))),
                     width: 120,
                     height: 120,
-                    child: Center(child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text('Add person for housekeeping', style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                      ),),
-                    ),),),),
+                    child: TextButton(
+                      onPressed: (){},
+                      child: Text('Add person for house-keeping', style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),),),),),
               ],
             ),
           ),
@@ -274,12 +287,14 @@ class _DashboardState extends State<Dashboard> {
             height: MediaQuery.of(context).size.height / 12,
             decoration: BoxDecoration(color: Color(0xFFAC4B32), borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Center(
-              child: Text('Complaints related to neighbours',
+              child: TextButton(
+                onPressed: (){},
+                child: Text('Complaints related to neighbours',
                 style: GoogleFonts.inter(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
-                ),
+                ),),
               ),
             ),
           ),

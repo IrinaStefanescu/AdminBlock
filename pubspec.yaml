@@ -15,11 +15,14 @@ dependencies:
   firebase_auth: ^3.1.1
   cloud_firestore: ^2.5.2
   firebase_storage: ^10.2.4
+  open_file: ^3.2.1
 
   image_picker: ^0.8.4+4
   file_picker: ^4.3.0
   permission_handler: ^8.1.6
   google_sign_in: ^5.1.1
+  path: ^1.8.0
+
 
 #Cupertion, Google fonts, http, modal, provider
   modal_bottom_sheet: ^2.0.0
