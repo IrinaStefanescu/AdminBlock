@@ -1,3 +1,4 @@
+import 'package:admin_block/components/onboarding_component.dart';
 import 'package:admin_block/pages/auth/register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,176 +43,31 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
           child: Column(
             children: [
               Image.asset('lib/images/logo.png', width: 280, height: 260,),
-              Padding(
-                padding: EdgeInsets.fromLTRB(70, 10, 0, 0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'lib/images/onboarding-icon-one.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                            'Control and manage your \n housekeeping online.',
-                            style: GoogleFonts.inter(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
-                        //textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
+              OnboardingComponent(
+                title: 'Control and manage your \n housekeeping online.',
+                image: 'lib/images/onboarding-icon-one.png',
               ),
-              SizedBox(
-                height: 20,
+              SizedBox(height: 20,),
+              OnboardingComponent(
+                title: 'Download and send archived \n documents with password.',
+                image: 'lib/images/onboarding-icon-two.png',
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(70, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'lib/images/onboarding-icon-two.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                            'Download and send archived \n documents with password.',
-                            style: GoogleFonts.inter(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
-                        //textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
+              SizedBox(height: 20,),
+              OnboardingComponent(
+                title: 'Take pictures of your indexes.',
+                image: 'lib/images/onboarding-icon-three.png',
               ),
-              SizedBox(
-                height: 20,
+              SizedBox(height: 20,),
+              OnboardingComponent(
+                title: 'Complaints about neighbours.',
+                image: 'lib/images/onboarding-icon-four.png',
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(70, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'lib/images/onboarding-icon-three.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                            'Take pictures of your indexes.',
-                            style: GoogleFonts.inter(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
-                        //textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
+              SizedBox(height: 20,),
+              OnboardingComponent(
+                title:  'All from your mobile device.',
+                image: 'lib/images/onboarding-icon-five.png',
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(70, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'lib/images/onboarding-icon-four.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                            'Complaints about neighbours.',
-                            style: GoogleFonts.inter(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
-                        //textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(70, 0, 0, 0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'lib/images/onboarding-icon-five.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text:
-                            'All from your mobile device.',
-                            style: GoogleFonts.inter(
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
-                        //textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30,),
               Container(
                 width: MediaQuery.of(context).size.width / 2.2,
                 height: 60,
