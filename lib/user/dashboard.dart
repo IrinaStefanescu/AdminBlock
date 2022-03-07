@@ -26,6 +26,8 @@ class _DashboardState extends State<Dashboard> {
       // e.g, e.code == 'canceled'
     }
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +141,10 @@ class _DashboardState extends State<Dashboard> {
                             )),
                       );
                     }
-                    return Text("loading");
+                    return CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+
+                    );
                   },
                 );
               } else {

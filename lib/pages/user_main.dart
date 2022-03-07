@@ -19,6 +19,12 @@ class _UserMainState extends State<UserMain> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0),
+          ),
+        ),
         title: Row(
           children: [
             Text(
