@@ -142,7 +142,7 @@ class _DashboardState extends State<Dashboard> {
                       );
                     }
                     return CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
 
                     );
                   },

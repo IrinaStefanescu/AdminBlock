@@ -14,7 +14,7 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   final List<Widget> _children = [
     SendDocs(),
     PayBill(),

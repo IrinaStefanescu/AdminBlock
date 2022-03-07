@@ -18,6 +18,8 @@ dependencies:
   open_file: ^3.2.1
 
   image_picker: ^0.8.4+4
+  image_gallery_saver: ^1.6.9
+  dio: ^4.0.0
   file_picker: ^4.3.0
   permission_handler: ^8.1.6
   google_sign_in: ^5.1.1
