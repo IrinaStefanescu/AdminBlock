@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:admin_block/pages/user_main.dart';
 import 'package:admin_block/service/storage.dart';
-import 'package:admin_block/user/dashboard.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,12 +8,12 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 
-class Documents extends StatefulWidget {
-  const Documents({Key? key}) : super(key: key);
-  @override _DocumentsState createState() => _DocumentsState();
+class DocumentThree extends StatefulWidget {
+  const DocumentThree({Key? key}) : super(key: key);
+  @override _DocumentThreeState createState() => _DocumentThreeState();
 }
 
-class _DocumentsState extends State<Documents> {
+class _DocumentThreeState extends State<DocumentThree> {
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +28,9 @@ class _DocumentsState extends State<Documents> {
         var response = await Dio()
             .get(url, options: Options(responseType: ResponseType.bytes));
         final result = await ImageGallerySaver.saveImage(
-          Uint8List.fromList(response.data),
-          quality: 60,
-          name: "document1"
+            Uint8List.fromList(response.data),
+            quality: 60,
+            name: "document3"
         );
         print(result);
       }
@@ -80,7 +79,7 @@ class _DocumentsState extends State<Documents> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: Container(
-                color: Colors.white,
+                  color: Colors.white,
                   child: Image.asset('lib/images/download_jpg.png', width: 280, height: 240,)),
             ),
             Container(
@@ -111,7 +110,7 @@ class _DocumentsState extends State<Documents> {
                       Spacer(),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.4,
-                        child: Text('The image will be saved in your local directory.',
+                        child: Text('The image will be saved in your local device directory.',
                           style: GoogleFonts.mukta(
                             fontSize: 22,
                             color: Colors.black45,
@@ -150,37 +149,37 @@ class _DocumentsState extends State<Documents> {
             //   child: Text('Upload file'),
             // ),
             FutureBuilder(
-              future: storage.downloadURL('document1.jpg'),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot){
-                if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width / 1.4,
-                    height: MediaQuery.of(context).size.width / 7,
-                    child: RaisedButton(
-                      color: Color(0xFFEEB162),
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.deepOrange),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      onPressed: (){
-                        _save();
-                      }, child: Text('document1.jpg',
-                      style: GoogleFonts.mukta(
+                future: storage.downloadURL('document3.jpg'),
+                builder: (BuildContext context, AsyncSnapshot<String> snapshot){
+                  if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width / 1.4,
+                      height: MediaQuery.of(context).size.width / 7,
+                      child: RaisedButton(
+                        color: Color(0xFFEEB162),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.deepOrange),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        onPressed: (){
+                          _save();
+                        }, child: Text('document3.jpg',
+                        style: GoogleFonts.mukta(
                           fontSize: 22,
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                  );
-                }
-                if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData){
-                  return CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
-                  );
-                }
-                return Container();
-              }),
+                      ),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData){
+                    return CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
+                    );
+                  }
+                  return Container();
+                }),
           ],
         ),
       ),

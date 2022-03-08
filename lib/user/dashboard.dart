@@ -1,5 +1,10 @@
 import 'dart:io';
-import 'package:admin_block/pages/download_standardized_app.dart';
+import 'package:admin_block/pages/download_standardized_document_five.dart';
+import 'package:admin_block/pages/download_standardized_document_four.dart';
+import 'package:admin_block/pages/download_standardized_document_one.dart';
+import 'package:admin_block/pages/download_standardized_document_six.dart';
+import 'package:admin_block/pages/download_standardized_document_three.dart';
+import 'package:admin_block/pages/download_standardized_document_two.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -195,7 +200,7 @@ class _DashboardState extends State<Dashboard> {
                     height: 120,
                     child: TextButton(
                       onPressed: (){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Documents()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DocumentOne()));
                       },
                       child: Center(
                         child: Text('Remove person from house-keeping', style: GoogleFonts.inter(
@@ -211,7 +216,9 @@ class _DashboardState extends State<Dashboard> {
                     width: 120,
                     height: 120,
                     child: TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DocumentTwo()));
+                      },
                       child: Center(
                         child: Text('Meter reading form', style: GoogleFonts.inter(
                         color: Colors.white,
@@ -226,7 +233,9 @@ class _DashboardState extends State<Dashboard> {
                     width: 120,
                     height: 120,
                     child: TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DocumentThree()));
+                      },
                       child: Center(
                         child: Text('Returning working capital', style: GoogleFonts.inter(
                         color: Colors.white,
@@ -251,7 +260,9 @@ class _DashboardState extends State<Dashboard> {
                     width: 120,
                     height: 120,
                     child: TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DocumentFour()));
+                      },
                       child: Text('Sale-purchase certificate', style: GoogleFonts.inter(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -264,7 +275,9 @@ class _DashboardState extends State<Dashboard> {
                     width: 120,
                     height: 120,
                     child: TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DocumentFive()));
+                      },
                       child: Text('Owners association application', style: GoogleFonts.inter(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -277,7 +290,9 @@ class _DashboardState extends State<Dashboard> {
                     width: 120,
                     height: 120,
                     child: TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DocumentSix()));
+                      },
                       child: Text('Add person for house-keeping', style: GoogleFonts.inter(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
