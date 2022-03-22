@@ -30,7 +30,7 @@ class _DocumentOneState extends State<DocumentOne> {
         final result = await ImageGallerySaver.saveImage(
           Uint8List.fromList(response.data),
           quality: 60,
-          name: "document1"
+          name: "remove-person"
         );
         print(result);
       }
@@ -149,7 +149,7 @@ class _DocumentOneState extends State<DocumentOne> {
             //   child: Text('Upload file'),
             // ),
             FutureBuilder(
-              future: storage.downloadURL('document1.jpg'),
+              future: storage.downloadURL('remove-person.jpg'),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot){
                 if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
                   return Container(
@@ -163,7 +163,7 @@ class _DocumentOneState extends State<DocumentOne> {
                       ),
                       onPressed: (){
                         _save();
-                      }, child: Text('document1.jpg',
+                      }, child: Text('remove-person.jpg',
                       style: GoogleFonts.mukta(
                           fontSize: 22,
                           color: Colors.white,

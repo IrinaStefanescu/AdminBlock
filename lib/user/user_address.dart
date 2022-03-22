@@ -304,8 +304,10 @@ class _UserAddressState extends State<UserAddress> {
                                   ),),
                               ),
                             );
-                            await users.doc(user!.uid).set({'name': name, 'street': street, 'streetNumber': numberStreet, 'building': building, 'apartment': apartment
-                            }).then((value) => print ("User added")).catchError((error) => print('Failed to add user: $error'));
+                            await users.doc(user!.uid).set({'name': name, 'street': street,
+                              'streetNumber': numberStreet, 'building': building, 'apartment': apartment
+                            }).then((value) => print ("User added")).catchError((error)
+                            => print('Failed to add user: $error'));
                             print("Name: $name");
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
                         }

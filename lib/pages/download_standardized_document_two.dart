@@ -20,7 +20,7 @@ class _DocumentTwoState extends State<DocumentTwo> {
 
     final Storage storage = Storage();
 
-    final url = "https://www.factura-fiscala.com/wp-content/uploads/2020/07/cerere-introduce-persoane-la-intretinere.jpg";
+    final url = "https://imgv2-1-f.scribdassets.com/img/document/36206655/original/3ade4fcc21/1645519679?v=1";
 
     _save() async {
       var status = await Permission.storage.request();
@@ -30,7 +30,7 @@ class _DocumentTwoState extends State<DocumentTwo> {
         final result = await ImageGallerySaver.saveImage(
             Uint8List.fromList(response.data),
             quality: 60,
-            name: "document2"
+            name: "meter-reading"
         );
         print(result);
       }
@@ -149,7 +149,7 @@ class _DocumentTwoState extends State<DocumentTwo> {
             //   child: Text('Upload file'),
             // ),
             FutureBuilder(
-                future: storage.downloadURL('document2.jpg'),
+                future: storage.downloadURL('meter-reading.jpg'),
                 builder: (BuildContext context, AsyncSnapshot<String> snapshot){
                   if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
                     return Container(
@@ -163,7 +163,7 @@ class _DocumentTwoState extends State<DocumentTwo> {
                         ),
                         onPressed: (){
                           _save();
-                        }, child: Text('document2.jpg',
+                        }, child: Text('meter-reading.jpg',
                         style: GoogleFonts.mukta(
                           fontSize: 22,
                           color: Colors.white,
