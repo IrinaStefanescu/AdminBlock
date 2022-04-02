@@ -42,7 +42,9 @@ class _WrapperState extends State<Wrapper> {
             ),
             child: Theme(
               data: Theme.of(context).copyWith(canvasColor: Color(0xF5F3A866)),
-              child: BottomNavigationBar(
+              child: BottomNavigationBar(onTap: onTabTapped,
+                type: BottomNavigationBarType.fixed,
+              elevation: 0,
               items:<BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.document_scanner,),
@@ -63,7 +65,6 @@ class _WrapperState extends State<Wrapper> {
     currentIndex: _currentIndex,
     selectedItemColor: Color(0xFF7B4937),
     backgroundColor:  Color(0xF5F3A866),
-    onTap: onTabTapped,
               ),
             ),
           ),

@@ -23,6 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   var password = "";
   var confirmPassword = "";
   bool isRegistered = false;
+  late bool _isCheckedTC;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -94,6 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void dispose() {
     super.dispose();
+    _isCheckedTC = false;
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
