@@ -5,6 +5,7 @@ import 'package:admin_block/pages/download_standardized_document_one.dart';
 import 'package:admin_block/pages/download_standardized_document_six.dart';
 import 'package:admin_block/pages/download_standardized_document_three.dart';
 import 'package:admin_block/pages/download_standardized_document_two.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,19 +20,29 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  Future<void> downloadFileExample() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    File downloadToFile = File('${appDocDir.path}/document1.jpg');
 
-    try {
-      await FirebaseStorage.instance
-          .ref('documents/document1.jpg')
-          .writeToFile(downloadToFile);
-    } on FirebaseException catch (e) {
-      // e.g, e.code == 'canceled'
-    }
+  ImagePicker image = ImagePicker();
+  String url = "";
+  File ? file;
+
+  getImg() async {
+    var img = await image.pickImage(source: ImageSource.gallery);
+    setState(() {
+      file = File(img!.path);
+    });
   }
 
+  uploadFile() async {
+    var imageFile = FirebaseStorage.instance.ref().child("profile-images").child("/.jpg");
+    UploadTask task = imageFile.putFile(file!);
+    TaskSnapshot snapshot = await task;
+
+   url =  await snapshot.ref.getDownloadURL();
+   await FirebaseFirestore.instance.collection("images").doc().set({
+     "imageUrl": url,
+   });
+   print(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,27 +50,7 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          SizedBox(height: 10,),
-          Text('Dashboard', style: GoogleFonts.inter(
-            color: Colors.grey[900],
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-
-          ),),
           SizedBox(height: 20,),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: Row(
-              children: [
-                Text('Your information', style: GoogleFonts.inter(
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-
-                ),),
-              ],
-            ),
-          ),
           StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
@@ -93,57 +84,66 @@ class _DashboardState extends State<Dashboard> {
                         child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height / 8,
-                            decoration: BoxDecoration(color: Color(0x88A56333), borderRadius: BorderRadius.all(Radius.circular(10))),
-                            child: Column(
+                            child: Row(
                               children: [
-                                Text("Hello, ${data['name']}", style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-
-                                ),),
-                                Row(
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Column(
                                   children: [
-                                    Text("Street: ${data['street']}", style: GoogleFonts.inter(
-                                      color: Colors.white,
+                                    Text("${data['name']}", style: GoogleFonts.inter(
+                                      color: Colors.black45,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+
+                                    ),),
+                                    SizedBox(height: 2,),
+                                    Text("${data['street']} street, no ${data['streetNumber']}", style: GoogleFonts.inter(
+                                      color: Colors.black45,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+
+                                    ),),
+                                    SizedBox(height: 2,),
+                                    Text("Building ${data['building']}", style: GoogleFonts.inter(
+                                      color: Colors.black45,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+
+                                    ),),
+                                    SizedBox(height: 2,),
+                                    Text("Apartment ${data['apartment']}", style: GoogleFonts.inter(
+                                      color: Colors.black45,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
 
                                     ),),
                                   ],
+                              ),
                                 ),
-                                Row(
-                                  children: [
-                                    Text("Street no.: ${data['streetNumber']}", style: GoogleFonts.inter(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                                Spacer(),
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: file == null ?
+                                        AssetImage("") :
+                                        FileImage(File(file!.path)) as ImageProvider,
+                                      ),
+                                      FlatButton(
+                                          onPressed: (){
+                                            uploadFile();
+                                          },
+                                          child: Text('Upload'),
+                                      ),
 
-                                    ),),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                                Row(
-                                  children: [
-                                    Text("Building: ${data['building']}", style: GoogleFonts.inter(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-
-                                    ),),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("Apartment: ${data['apartment']}", style: GoogleFonts.inter(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-
-                                    ),),
-                                  ],
-                                ),
-                              ],
-                            )),
+                            ],
+                            ),
+                        ),
                       );
                     }
                     return CircularProgressIndicator(
@@ -156,10 +156,10 @@ class _DashboardState extends State<Dashboard> {
                 return Text("user is not logged in");
               }
             },),
-          SizedBox(height: 20),
+          SizedBox(height: 40),
           Container(
             margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-            height: MediaQuery.of(context).size.height / 12,
+            height: MediaQuery.of(context).size.height / 14,
             decoration: BoxDecoration(color: Colors.orangeAccent, borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Center(
               child: TextButton(
@@ -176,16 +176,12 @@ class _DashboardState extends State<Dashboard> {
           SizedBox(height: 10,),
           Padding(
             padding: const EdgeInsets.only(left: 10.0),
-            child: Row(
-              children: [
-                Text('Standardized applications', style: GoogleFonts.inter(
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
+            child: Text('Standardized applications', style: GoogleFonts.inter(
+              color: Colors.grey[700],
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
 
-                ),),
-              ],
-            ),
+            ),),
           ),
           SizedBox(height: 10,),
           Container(
@@ -300,6 +296,16 @@ class _DashboardState extends State<Dashboard> {
                     ),),),),),
               ],
             ),
+          ),
+          SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Text('Complaints', style: GoogleFonts.inter(
+              color: Colors.grey[700],
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+
+            ),),
           ),
           SizedBox(height: 10,),
           Container(
