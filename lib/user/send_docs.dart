@@ -1,10 +1,11 @@
 import 'dart:io';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SendDocs extends StatefulWidget {
   const SendDocs({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class SendDocs extends StatefulWidget {
 }
 
 class _SendDocsState extends State<SendDocs> {
-
   bool useTempDirectory = true;
   List<String> attachment = <String>[];
   final TextEditingController _subjectController = TextEditingController();
@@ -36,19 +36,19 @@ class _SendDocsState extends State<SendDocs> {
       final MailerResponse response = await FlutterMailer.send(mailOptions);
       switch (response) {
         case MailerResponse.saved:
-          platformResponse = 'mail was saved to draft';
+          platformResponse = 'Email was saved to draft!';
           break;
         case MailerResponse.sent:
-          platformResponse = 'mail was sent';
+          platformResponse = 'Email was sent!';
           break;
         case MailerResponse.cancelled:
-          platformResponse = 'mail was cancelled';
+          platformResponse = 'Email was cancelled!';
           break;
         case MailerResponse.android:
-          platformResponse = 'intent was success';
+          platformResponse = 'Intent was success!';
           break;
         default:
-          platformResponse = 'unknown';
+          platformResponse = 'Unknown';
           break;
       }
     } on PlatformException catch (error) {
@@ -85,7 +85,7 @@ class _SendDocsState extends State<SendDocs> {
       return;
     }
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(platformResponse),
+      content: Text('Email was sent successfully!'),
     ));
   }
 
@@ -107,7 +107,7 @@ class _SendDocsState extends State<SendDocs> {
       shrinkWrap: true,
       children: List<Widget>.generate(
         attachment.length,
-            (int index) {
+        (int index) {
           final File file = File(attachment[index]);
           return GridTile(
             key: Key(attachment[index]),
@@ -177,45 +177,81 @@ class _SendDocsState extends State<SendDocs> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisSize: MainAxisSize.max,
+                //mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    child: Text(
+                      'Send email to administration',
+                      style: GoogleFonts.inter(
+                        color: Colors.brown,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _subjectController,
-                      decoration: const InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(1.0)),
-                            borderSide: BorderSide(color: Color(0xFFEC7648)
-                                , width: 1.5)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                            borderSide: BorderSide(color: Color(0xFFEC7648), width: 1.5)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                            borderSide: BorderSide(color: Color(0xFFEC7648), width: 1.5)),
-                        labelText: 'Subject',
+                    child: Material(
+                      elevation: 5,
+                      shadowColor: Color(0xFFEC7648),
+                      child: TextFormField(
+                        controller: _subjectController,
+                        decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(1.0)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFEC7648), width: 2)),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFEC7648), width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFEC7648), width: 2)),
+                          labelText: 'Subject',
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _bodyController,
-                      maxLines: 10,
-                      decoration: const InputDecoration(
-                        labelText: 'Body...',
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                            borderSide: BorderSide(color: Color(0xFFEC7648)
-                                , width: 1.5)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                            borderSide: BorderSide(color: Color(0xFFEC7648), width: 1.5)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                            borderSide: BorderSide(color: Color(0xFFEC7648), width: 1.5)),                      ),
+                    child: Material(
+                      elevation: 5,
+                      shadowColor: Color(0xFFEC7648),
+                      child: TextFormField(
+                        controller: _bodyController,
+                        maxLines: 10,
+                        decoration: const InputDecoration(
+                          labelText: 'Body...',
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFEC7648), width: 2)),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFEC7648), width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.0)),
+                              borderSide: BorderSide(
+                                  color: Color(0xFFEC7648), width: 2)),
+                        ),
+                      ),
                     ),
                   ),
                   Container(
@@ -225,15 +261,21 @@ class _SendDocsState extends State<SendDocs> {
                       children: [
                         Spacer(),
                         TextButton(
-                          onPressed:  () => send(context),
-                          child: Text('Send email',
-                          style: GoogleFonts.inter(
-                            color: Colors.brown,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 22,
-                          ),),
+                          onPressed: () => send(context),
+                          child: Text(
+                            'Send email',
+                            style: GoogleFonts.inter(
+                              color: Colors.brown,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 22,
+                            ),
+                          ),
                         ),
-                        Icon(Icons.double_arrow_outlined, size: 30, color: Colors.brown,),
+                        Icon(
+                          Icons.double_arrow_outlined,
+                          size: 30,
+                          color: Colors.brown,
+                        ),
                       ],
                     ),
                   ),
