@@ -323,26 +323,3 @@ class _UserAddressState extends State<UserAddress> {
       );
   }
 }
-
-// child: StreamBuilder<QuerySnapshot>(
-// stream: users,
-// builder: (
-// BuildContext context,
-//     AsyncSnapshot<QuerySnapshot> snapshot,
-// ) {
-// if (snapshot.hasError) {
-// return Text('Something went wrong.');
-// }
-// if (snapshot.connectionState == ConnectionState.waiting){
-// return Text('Loading');
-// }
-//
-// final data = snapshot.requireData;
-// return ListView.builder(
-// itemCount: data.size,
-// itemBuilder: (context, index){
-// return Text('Hello ${data.docs[index][name]}');
-// },
-// );
-// },
-// ),

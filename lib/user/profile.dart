@@ -57,13 +57,13 @@ class _ProfileState extends State<Profile> {
             SizedBox(
               height: 30,
             ),
-            Image.asset('lib/assets/imagesverify_email.png'),
+            Image.asset('lib/assets/images/verify_email.png'),
             Stack(
               children: <Widget>[
                 CircleAvatar(
                   radius: 80.0,
                   backgroundImage: AssetImage(
-                    'lib/assets/imagesplaceholder.png',
+                    'lib/assets/images/placeholder.png',
                   ),
                   backgroundColor: Colors.grey[700],
                 ),
@@ -89,7 +89,7 @@ class _ProfileState extends State<Profile> {
             Text(
               'Email: $email',
             ),
-            Image.asset('lib/assets/imagesverify_email.png'),
+            Image.asset('lib/assets/images/verify_email.png'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

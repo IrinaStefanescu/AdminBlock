@@ -79,7 +79,7 @@ class _DocumentSixState extends State<DocumentSix> {
               child: Container(
                   color: Colors.white,
                   child: Image.asset(
-                    'lib/assets/imagesdownload_jpg.png',
+                    'lib/assets/images/download_jpg.png',
                     width: 280,
                     height: 240,
                   )),

@@ -65,7 +65,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
             SizedBox(
               height: 30,
             ),
-            Image.asset('lib/assets/imagesverify_email.png'),
+            Image.asset('lib/assets/images/verify_email.png'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
