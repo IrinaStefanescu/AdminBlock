@@ -22,18 +22,15 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
+      appBar: AppBar(
         title: Row(
           children: [
             IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserMain()));
-                }
-            ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => UserMain()));
+                }),
             Text(
               "Settings",
               style: GoogleFonts.mukta(
@@ -53,7 +50,9 @@ class _SettingsPageState extends State<SettingsPage> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Card(
               margin: EdgeInsets.only(bottom: 1),
               shape: RoundedRectangleBorder(
@@ -76,8 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -105,8 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -134,8 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -166,8 +162,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -195,8 +190,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -224,8 +218,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -256,8 +249,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -274,23 +266,24 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Row(
                   children: [
                     TextButton.icon(
-                      icon: Icon(
-                        Icons.logout,
-                        color: Colors.orange[600],
-                      ),
-                      label: Text(
-                        'Log out',
-                        style: GoogleFonts.inter(
-                            color: Colors.grey[700],
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      onPressed: () async {
+                        icon: Icon(
+                          Icons.logout,
+                          color: Colors.orange[600],
+                        ),
+                        label: Text(
+                          'Log out',
+                          style: GoogleFonts.inter(
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        onPressed: () async {
                           await FirebaseAuth.instance.signOut();
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => LoginPage()));
-                          }
-                    ),
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
+                        }),
                   ],
                 ),
               ),

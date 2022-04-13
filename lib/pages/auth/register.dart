@@ -1,5 +1,5 @@
+import 'package:admin_block/components/terms_of_use.dart';
 import 'package:admin_block/pages/onboarding.dart';
-import 'package:admin_block/pages/user_main.dart';
 import 'package:admin_block/service/auth_service.dart';
 import 'package:admin_block/user/user_address.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +16,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final _formKey = GlobalKey<FormState>();
 
   var email = "";
@@ -31,64 +30,79 @@ class _RegisterPageState extends State<RegisterPage> {
 
   AuthClass authClass = AuthClass();
 
-  registerUser() async{
-    if (password == confirmPassword){
-      try{
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+  registerUser() async {
+    if (password == confirmPassword) {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password);
         isRegistered = true;
         print(userCredential);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.orangeAccent,
-          content: Text('Registered successfully',
-            style:  GoogleFonts.inter(
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              'Registered successfully',
+              style: GoogleFonts.inter(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
-          ),),
-        ),);
+              ),
+            ),
+          ),
+        );
         isRegistered == true
-            ?
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserAddress()))
-            :
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
-      } on FirebaseAuthException catch(error){
-        if (error.code == 'weak-password'){
+            ? Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => UserAddress()))
+            : Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
+      } on FirebaseAuthException catch (error) {
+        if (error.code == 'weak-password') {
           print('Password is too weak.');
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text('Password is too weak.',
-              style:  GoogleFonts.inter(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),),
-          ),);
-        }
-        else if (error.code == 'email-already-in-use'){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.orangeAccent,
+              content: Text(
+                'Password is too weak.',
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          );
+        } else if (error.code == 'email-already-in-use') {
           print('Account already exists.');
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text('Account already exists.',
-              style:  GoogleFonts.inter(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),),
-          ),);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.orangeAccent,
+              content: Text(
+                'Account already exists.',
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          );
         }
-    }
-    }
-    else{
+      }
+    } else {
       print('Passwords don\'t match.');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.orangeAccent,
-        content: Text('Passwords don\'t match.',
-          style:  GoogleFonts.inter(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),),
-      ),);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.orangeAccent,
+          content: Text(
+            'Passwords don\'t match.',
+            style: GoogleFonts.inter(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 18,
+            ),
+          ),
+        ),
+      );
     }
   }
 
@@ -116,13 +130,12 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: (){
+                onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => OnBoardingUser()));
-                }
-            ),
+                }),
             Text(
               "Onboarding",
               style: GoogleFonts.mukta(
@@ -144,11 +157,20 @@ class _RegisterPageState extends State<RegisterPage> {
           key: _formKey,
           child: ListView(
             children: [
-              SizedBox(height: 20,),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 40.0),
-                child:  Image.asset('lib/images/logo.png', width: 240, height: 200,),
+              SizedBox(
+                height: 20,
               ),
-              SizedBox(height: 5,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.0),
+                child: Image.asset(
+                  'lib/images/logo.png',
+                  width: 240,
+                  height: 200,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text(
@@ -165,7 +187,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextFormField(
                   autofocus: false,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.email_rounded, color: Colors.orange,),
+                    prefixIcon: Icon(
+                      Icons.email_rounded,
+                      color: Colors.orange,
+                    ),
                     fillColor: Color(0x70E0E0E0),
                     filled: true,
                     focusColor: Colors.grey[700],
@@ -182,12 +207,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   controller: emailController,
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide email address';
-                    }
-                    else if (!value.contains('@')){
+                    } else if (!value.contains('@')) {
                       return 'Please enter valid email';
                     }
                     return null;
@@ -211,7 +234,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   autofocus: false,
                   obscureText: true,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.password_rounded, color: Colors.orange,),
+                    prefixIcon: Icon(
+                      Icons.password_rounded,
+                      color: Colors.orange,
+                    ),
                     fillColor: Color(0x70E0E0E0),
                     filled: true,
                     focusColor: Colors.grey[700],
@@ -228,9 +254,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   controller: passwordController,
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide password';
                     }
                     return null;
@@ -254,7 +279,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   autofocus: false,
                   obscureText: true,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.password_rounded, color: Colors.orange,),
+                    prefixIcon: Icon(
+                      Icons.password_rounded,
+                      color: Colors.orange,
+                    ),
                     fillColor: Color(0x70E0E0E0),
                     filled: true,
                     focusColor: Colors.grey[700],
@@ -271,9 +299,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   controller: confirmPasswordController,
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide password';
                     }
                     return null;
@@ -286,13 +313,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                   // color: Colors.grey[700],
+                    // color: Colors.grey[700],
                   ),
                   child: ElevatedButton.icon(
                     onPressed: () async {
                       await authClass.googleSignIn(context);
                     },
-                    icon: Image.asset('lib/images/gmail.png', width: 20, height: 20,),
+                    icon: Image.asset(
+                      'lib/images/gmail.png',
+                      width: 20,
+                      height: 20,
+                    ),
                     label: Text(
                       'Continue with Gmail',
                       style: GoogleFonts.inter(
@@ -303,15 +334,16 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.grey[700],
-                      shape:
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Center(
                 child: Container(
                   width: MediaQuery.of(context).size.width / 2.2,
@@ -330,7 +362,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       onPressed: () async {
-                        if (_formKey.currentState!.validate()){
+                        if (_formKey.currentState!.validate()) {
                           setState(() {
                             email = emailController.text;
                             password = passwordController.text;
@@ -342,17 +374,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       }),
                 ),
               ),
+              TermsOfUse(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.pushReplacement(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (context, animation1, animation2) => LoginPage(),
-                            transitionDuration: Duration(seconds: 0),
-                          ),
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              LoginPage(),
+                          transitionDuration: Duration(seconds: 0),
+                        ),
                       );
                     },
                     child: Text.rich(
