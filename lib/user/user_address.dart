@@ -1,5 +1,4 @@
 import 'package:admin_block/pages/auth/login.dart';
-import 'package:admin_block/pages/user_main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ class UserAddress extends StatefulWidget {
 }
 
 class _UserAddressState extends State<UserAddress> {
-
   var name = "";
   var street = "";
   var numberStreet = "";
@@ -30,7 +28,6 @@ class _UserAddressState extends State<UserAddress> {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
 
-
   @override
   void dispose() {
     nameController.dispose();
@@ -41,10 +38,8 @@ class _UserAddressState extends State<UserAddress> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     final user = FirebaseAuth.instance.currentUser;
 
@@ -76,16 +71,22 @@ class _UserAddressState extends State<UserAddress> {
             height: MediaQuery.of(context).size.height,
             child: ListView(
               children: [
-                SizedBox(height: 50,),
-                Text('In order to have access to your \ndashboard please complete this form.',
-                style: GoogleFonts.inter(
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
+                SizedBox(
+                  height: 50,
                 ),
+                Text(
+                  'In order to have access to your \ndashboard please complete this form.',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
                 ),
-                SizedBox(height: 20,),
-                Text('Enter your name',
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Enter your name',
                   style: GoogleFonts.inter(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.w500,
@@ -111,19 +112,21 @@ class _UserAddressState extends State<UserAddress> {
                     ),
                   ),
                   controller: nameController,
-                  onChanged: (value){
+                  onChanged: (value) {
                     name = value;
                   },
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide your name';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 15,),
-                Text('Enter your street',
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Enter your street',
                   style: GoogleFonts.inter(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.w500,
@@ -149,19 +152,21 @@ class _UserAddressState extends State<UserAddress> {
                     ),
                   ),
                   controller: streetController,
-                  onChanged: (value){
+                  onChanged: (value) {
                     street = value;
                   },
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide your street';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 15,),
-                Text('Enter your street number',
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Enter your street number',
                   style: GoogleFonts.inter(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.w500,
@@ -187,19 +192,21 @@ class _UserAddressState extends State<UserAddress> {
                     ),
                   ),
                   controller: numberStreetController,
-                  onChanged: (value){
+                  onChanged: (value) {
                     numberStreet = value;
                   },
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide your street number';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 15,),
-                Text('Enter your building',
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Enter your building',
                   style: GoogleFonts.inter(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.w500,
@@ -225,19 +232,21 @@ class _UserAddressState extends State<UserAddress> {
                     ),
                   ),
                   controller: buildingController,
-                  onChanged: (value){
+                  onChanged: (value) {
                     building = value;
                   },
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide your building';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 15,),
-                Text('Enter your apartment',
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Enter your apartment',
                   style: GoogleFonts.inter(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.w500,
@@ -263,18 +272,19 @@ class _UserAddressState extends State<UserAddress> {
                     ),
                   ),
                   controller: apartmentController,
-                  onChanged: (value){
+                  onChanged: (value) {
                     apartment = value;
                   },
-                  validator: (value){
-                    if (value == null || value.isEmpty)
-                    {
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
                       return 'Please provide your apartment';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Center(
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2.2,
@@ -285,7 +295,7 @@ class _UserAddressState extends State<UserAddress> {
                     ),
                     child: TextButton(
                       child: Text(
-                          'Submit',
+                        'Submit',
                         style: GoogleFonts.inter(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -293,23 +303,36 @@ class _UserAddressState extends State<UserAddress> {
                         ),
                       ),
                       onPressed: () async {
-                        if (_addressFormKey.currentState!.validate()){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Sending data...',
-                                  style:  GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18,
-                                  ),),
+                        if (_addressFormKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Sending data...',
+                                style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                ),
                               ),
-                            );
-                            await users.doc(user!.uid).set({'name': name, 'street': street,
-                              'streetNumber': numberStreet, 'building': building, 'apartment': apartment
-                            }).then((value) => print ("User added")).catchError((error)
-                            => print('Failed to add user: $error'));
-                            print("Name: $name");
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                            ),
+                          );
+                          await users
+                              .doc(user!.uid)
+                              .set({
+                                'name': name,
+                                'street': street,
+                                'streetNumber': numberStreet,
+                                'building': building,
+                                'apartment': apartment
+                              })
+                              .then((value) => print("User added"))
+                              .catchError((error) =>
+                                  print('Failed to add user: $error'));
+                          print("Name: $name");
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
                         }
                       },
                     ),
@@ -320,6 +343,6 @@ class _UserAddressState extends State<UserAddress> {
           ),
         ),
       ),
-      );
+    );
   }
 }
