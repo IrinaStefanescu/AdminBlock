@@ -76,7 +76,16 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return PolicyDialog(
+                              mdFileName: 'about.md',
+                            );
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -105,13 +114,14 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontSize: 20),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PolicyDialog(
-                                mdFileName: 'privacy_policy.md',
-                              ),
-                            ));
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return PolicyDialog(
+                              mdFileName: 'privacy_policy.md',
+                            );
+                          },
+                        );
                       },
                     ),
                   ],
@@ -140,7 +150,16 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return PolicyDialog(
+                              mdFileName: 'terms_and_conditions.md',
+                            );
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -165,7 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: Colors.orange[600],
                       ),
                       label: Text(
-                        'Support',
+                        'Report a Bug',
                         style: GoogleFonts.inter(
                             color: Colors.grey[700],
                             fontWeight: FontWeight.bold,
