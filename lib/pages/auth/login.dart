@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40.0),
                   child: Image.asset(
-                    'lib/images/logo.png',
+                    'lib/assets/images/logo.png',
                     width: 280,
                     height: 240,
                   ),
@@ -306,7 +306,7 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   children: [
                     Image.asset(
-                      'lib/images/custom_elipses.png',
+                      'lib/assets/images/custom_elipses.png',
                       width: 160,
                       height: 165,
                     ),

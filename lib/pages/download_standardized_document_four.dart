@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:admin_block/pages/user_main.dart';
 import 'package:admin_block/service/storage.dart';
 import 'package:dio/dio.dart';
@@ -7,31 +8,29 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class DocumentFour extends StatefulWidget {
   const DocumentFour({Key? key}) : super(key: key);
-  @override _DocumentFourState createState() => _DocumentFourState();
+  @override
+  _DocumentFourState createState() => _DocumentFourState();
 }
 
 class _DocumentFourState extends State<DocumentFour> {
-
   @override
   Widget build(BuildContext context) {
-
     final Storage storage = Storage();
 
-    final url = "https://www.factura-fiscala.com/wp-content/uploads/2020/07/cerere-introduce-persoane-la-intretinere.jpg";
+    final url =
+        "https://www.factura-fiscala.com/wp-content/uploads/2020/07/cerere-introduce-persoane-la-intretinere.jpg";
 
     _save() async {
       var status = await Permission.storage.request();
-      if (status.isGranted){
+      if (status.isGranted) {
         var response = await Dio()
             .get(url, options: Options(responseType: ResponseType.bytes));
         final result = await ImageGallerySaver.saveImage(
             Uint8List.fromList(response.data),
             quality: 60,
-            name: "document4"
-        );
+            name: "document4");
         print(result);
       }
     }
@@ -48,13 +47,10 @@ class _DocumentFourState extends State<DocumentFour> {
           children: [
             IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserMain()));
-                }
-            ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => UserMain()));
+                }),
             Text(
               "Dashboard",
               style: GoogleFonts.mukta(
@@ -75,12 +71,18 @@ class _DocumentFourState extends State<DocumentFour> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: Container(
                   color: Colors.white,
-                  child: Image.asset('lib/images/download_jpg.png', width: 280, height: 240,)),
+                  child: Image.asset(
+                    'lib/assets/imagesdownload_jpg.png',
+                    width: 280,
+                    height: 240,
+                  )),
             ),
             Container(
               width: MediaQuery.of(context).size.width / 1.2,
@@ -89,11 +91,15 @@ class _DocumentFourState extends State<DocumentFour> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.check_circle_outline, color: Colors.deepOrange,),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.deepOrange,
+                      ),
                       Spacer(),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.4,
-                        child: Text('To access the maintenance request you should click on the button below.',
+                        child: Text(
+                          'To access the maintenance request you should click on the button below.',
                           style: GoogleFonts.mukta(
                             fontSize: 22,
                             color: Colors.black45,
@@ -103,14 +109,20 @@ class _DocumentFourState extends State<DocumentFour> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     children: [
-                      Icon(Icons.check_circle_outline, color: Colors.deepOrange,),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.deepOrange,
+                      ),
                       Spacer(),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.4,
-                        child: Text('The image will be saved in your local device directory.',
+                        child: Text(
+                          'The image will be saved in your local device directory.',
                           style: GoogleFonts.mukta(
                             fontSize: 22,
                             color: Colors.black45,
@@ -150,8 +162,10 @@ class _DocumentFourState extends State<DocumentFour> {
             // ),
             FutureBuilder(
                 future: storage.downloadURL('document4.jpg'),
-                builder: (BuildContext context, AsyncSnapshot<String> snapshot){
-                  if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
                     return Container(
                       width: MediaQuery.of(context).size.width / 1.4,
                       height: MediaQuery.of(context).size.width / 7,
@@ -161,21 +175,25 @@ class _DocumentFourState extends State<DocumentFour> {
                           side: BorderSide(color: Colors.deepOrange),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        onPressed: (){
+                        onPressed: () {
                           _save();
-                        }, child: Text('document4.jpg',
-                        style: GoogleFonts.mukta(
-                          fontSize: 22,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                        },
+                        child: Text(
+                          'document4.jpg',
+                          style: GoogleFonts.mukta(
+                            fontSize: 22,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
                       ),
                     );
                   }
-                  if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData){
+                  if (snapshot.connectionState == ConnectionState.waiting ||
+                      !snapshot.hasData) {
                     return CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
+                      valueColor: new AlwaysStoppedAnimation<Color>(
+                          Colors.orangeAccent),
                     );
                   }
                   return Container();
@@ -183,7 +201,6 @@ class _DocumentFourState extends State<DocumentFour> {
           ],
         ),
       ),
-
     );
   }
 }

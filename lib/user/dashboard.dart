@@ -157,7 +157,7 @@ class _DashboardState extends State<Dashboard> {
                                             radius: 60,
                                             backgroundImage: file == null
                                                 ? AssetImage(
-                                                    'lib/images/placeholder.png')
+                                                    'lib/assets/imagesplaceholder.png')
                                                 : FileImage(File(file!.path))
                                                     as ImageProvider,
                                           ),

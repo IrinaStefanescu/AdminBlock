@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:admin_block/pages/auth/register.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,49 +8,50 @@ import 'package:google_fonts/google_fonts.dart';
 import 'login.dart';
 
 class ForgotPassword extends StatefulWidget {
-
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-
   final _formKey = GlobalKey<FormState>();
 
   var email = "";
   final emailController = TextEditingController();
 
-  resetUserPassword() async{
-    try{
-      await FirebaseAuth.instance.
-      sendPasswordResetEmail(email: email);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.orangeAccent,
-        content: Text(
-          ' Password reset email has been sent! ',
-            style:  GoogleFonts.inter(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-            ),
-        ),
-      ),);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => LoginPage()));
-    } on FirebaseException catch(error){
-      if(error.code == 'user-not-found'){
-        print('No user found for that email address.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  resetUserPassword() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(
-            ' No user found for that email address! ',
-            style:  GoogleFonts.inter(
+            ' Password reset email has been sent! ',
+            style: GoogleFonts.inter(
               color: Colors.white,
               fontWeight: FontWeight.w600,
               fontSize: 18,
             ),
           ),
-        ),);
+        ),
+      );
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    } on FirebaseException catch (error) {
+      if (error.code == 'user-not-found') {
+        print('No user found for that email address.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              ' No user found for that email address! ',
+              style: GoogleFonts.inter(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        );
       }
     }
   }
@@ -70,13 +71,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           children: [
             IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginPage()));
-                }
-            ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                }),
             Center(child: Text("RESET PASSWORD")),
           ],
         ),
@@ -89,12 +87,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            SizedBox(height: 30,),
-            Padding(
-              padding:EdgeInsets.symmetric(horizontal: 30.0),
-              child:Image.asset('lib/images/logo.png', width: 300, height: 260,),
+            SizedBox(
+              height: 30,
             ),
-            SizedBox(height: 30,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
+              child: Image.asset(
+                'lib/assets/imageslogo.png',
+                width: 300,
+                height: 260,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             Container(
               margin: EdgeInsets.only(top: 20.0),
               child: Text(
@@ -110,7 +116,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               child: Form(
                 key: _formKey,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
                   child: ListView(
                     children: [
                       Container(
@@ -123,10 +130,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             focusColor: Colors.grey[700],
                             hoverColor: Colors.grey[700],
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
                             ),
                             errorStyle: TextStyle(
                               color: Colors.black26,
@@ -134,18 +143,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             ),
                           ),
                           controller: emailController,
-                          validator: (value){
-                            if(value == null || value.isEmpty){
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
                               return 'Please enter email address.';
-                            }
-                            else if(!value.contains('@')){
+                            } else if (!value.contains('@')) {
                               return 'Please enter a valid email.';
                             }
                             return null;
                           },
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Container(
                         width: MediaQuery.of(context).size.width / 2.2,
                         decoration: BoxDecoration(
@@ -155,8 +165,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
-                              onPressed: (){
-                                if(_formKey.currentState!.validate()){
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
                                   setState(() {
                                     email = emailController.text;
                                   });
@@ -173,12 +183,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               ),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.grey[700],
-                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 15),
                               ),
                             ),
                             TextButton(
-                              onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
                               },
                               child: Text(
                                 'LOGIN ',
@@ -211,10 +225,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
                                 ),
-                                onPressed: (){
-                                  Navigator.pushAndRemoveUntil(context, PageRouteBuilder(pageBuilder: (context, a, b) => RegisterPage(),
-                                  transitionDuration: Duration(seconds: 0),
-                                  ), (route) => false);
+                                onPressed: () {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, a, b) =>
+                                            RegisterPage(),
+                                        transitionDuration:
+                                            Duration(seconds: 0),
+                                      ),
+                                      (route) => false);
                                 },
                                 child: Text(
                                   'REGISTER ',
@@ -237,7 +257,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             Row(
               children: [
                 Image.asset(
-                  'lib/images/custom_elipses.png',
+                  'lib/assets/images/custom_elipses.png',
                   width: 160,
                   height: 140,
                 ),

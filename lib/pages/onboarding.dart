@@ -52,7 +52,7 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
                 height: 30,
               ),
               Image.asset(
-                'lib/images/logo.png',
+                'lib/assets/images/logo.png',
                 width: 200,
                 height: 200,
               ),
@@ -61,35 +61,35 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
               ),
               OnboardingComponent(
                 title: 'Control and manage your \n housekeeping online.',
-                image: 'lib/images/onboarding-icon-one.png',
+                image: 'lib/assets/images/onboarding-icon-one.png',
               ),
               SizedBox(
                 height: 20,
               ),
               OnboardingComponent(
                 title: 'Download and send archived \n documents with password.',
-                image: 'lib/images/onboarding-icon-two.png',
+                image: 'lib/assets/images/onboarding-icon-two.png',
               ),
               SizedBox(
                 height: 20,
               ),
               OnboardingComponent(
                 title: 'Take pictures of your indexes.',
-                image: 'lib/images/onboarding-icon-three.png',
+                image: 'lib/assets/images/onboarding-icon-three.png',
               ),
               SizedBox(
                 height: 20,
               ),
               OnboardingComponent(
                 title: 'Complaints about neighbours.',
-                image: 'lib/images/onboarding-icon-four.png',
+                image: 'lib/assets/images/onboarding-icon-four.png',
               ),
               SizedBox(
                 height: 20,
               ),
               OnboardingComponent(
                 title: 'All from your mobile device.',
-                image: 'lib/images/onboarding-icon-five.png',
+                image: 'lib/assets/images/onboarding-icon-five.png',
               ),
               SizedBox(
                 height: 20,
@@ -117,7 +117,7 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
                             ),
                           ),
                           Image.asset(
-                            'lib/images/arrow_right.png',
+                            'lib/assets/images/arrow_right.png',
                             width: 27,
                             height: 27,
                             color: Color(0xF5F3A866),
@@ -135,7 +135,7 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
               Row(
                 children: [
                   Image.asset(
-                    'lib/images/custom_elipses.png',
+                    'lib/assets/images/custom_elipses.png',
                     width: 160,
                     height: 165,
                   ),

@@ -1,3 +1,4 @@
+import 'package:admin_block/components/agree_dialog.dart';
 import 'package:admin_block/pages/user_main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -103,7 +104,15 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PolicyDialog(
+                                mdFileName: 'privacy_policy.md',
+                              ),
+                            ));
+                      },
                     ),
                   ],
                 ),
@@ -291,7 +300,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Row(
               children: [
                 Image.asset(
-                  'lib/images/custom_elipses.png',
+                  'lib/assets/images/custom_elipses.png',
                   width: 160,
                   height: 165,
                 ),

@@ -164,7 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40.0),
                   child: Image.asset(
-                    'lib/images/logo.png',
+                    'lib/assets/images/logo.png',
                     width: 240,
                     height: 200,
                   ),
@@ -328,7 +328,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             await authClass.googleSignIn(context);
                           },
                           icon: Image.asset(
-                            'lib/images/gmail.png',
+                            'lib/assets/images/gmail.png',
                             width: 20,
                             height: 20,
                           ),
@@ -425,7 +425,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   children: [
                     Image.asset(
-                      'lib/images/custom_elipses.png',
+                      'lib/assets/images/custom_elipses.png',
                       width: 160,
                       height: 165,
                     ),
