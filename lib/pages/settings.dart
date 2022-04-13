@@ -1,4 +1,5 @@
 import 'package:admin_block/components/agree_dialog.dart';
+import 'package:admin_block/pages/report_a_bug_form.dart';
 import 'package:admin_block/pages/user_main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,6 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => UserMain()));
                 }),
+            Spacer(),
             Text(
               "Settings",
               style: GoogleFonts.mukta(
@@ -40,6 +42,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 fontWeight: FontWeight.w500,
               ),
             ),
+            Spacer(),
+            Spacer(),
           ],
         ),
         backgroundColor: Color(0xF5F3A866),
@@ -190,7 +194,12 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReportBug()));
+                      },
                     ),
                   ],
                 ),
