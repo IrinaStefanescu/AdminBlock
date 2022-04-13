@@ -39,75 +39,98 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
         shadowColor: Colors.orange,
         automaticallyImplyLeading: false,
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          child: ListView(
             children: [
-              Image.asset('lib/images/logo.png', width: 280, height: 260,),
+              SizedBox(
+                height: 30,
+              ),
+              Image.asset(
+                'lib/images/logo.png',
+                width: 200,
+                height: 200,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               OnboardingComponent(
                 title: 'Control and manage your \n housekeeping online.',
                 image: 'lib/images/onboarding-icon-one.png',
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               OnboardingComponent(
                 title: 'Download and send archived \n documents with password.',
                 image: 'lib/images/onboarding-icon-two.png',
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               OnboardingComponent(
                 title: 'Take pictures of your indexes.',
                 image: 'lib/images/onboarding-icon-three.png',
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               OnboardingComponent(
                 title: 'Complaints about neighbours.',
                 image: 'lib/images/onboarding-icon-four.png',
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               OnboardingComponent(
-                title:  'All from your mobile device.',
+                title: 'All from your mobile device.',
                 image: 'lib/images/onboarding-icon-five.png',
               ),
-              SizedBox(height: 30,),
-              Container(
-                width: MediaQuery.of(context).size.width / 2.2,
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.grey[600],
-                ),
-                child: MaterialButton(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
-                          child: Text(
-                            'Get Started',
-                            style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 19,
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 105.0),
+                child: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.grey[600],
+                  ),
+                  child: MaterialButton(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              'Get Started',
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 19,
+                              ),
                             ),
                           ),
-                        ),
-                        Image.asset(
-                          'lib/images/arrow_right.png',
-                          width: 27, height: 27,
-                          color: Color(0xF5F3A866),
-                        ),
-                      ],
-                     ),
-                    onPressed: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterPage()));
-                    }),
+                          Image.asset(
+                            'lib/images/arrow_right.png',
+                            width: 27,
+                            height: 27,
+                            color: Color(0xF5F3A866),
+                          ),
+                        ],
+                      ),
+                      onPressed: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPage()));
+                      }),
+                ),
               ),
               Row(
                 children: [
