@@ -16,18 +16,18 @@ class SendDocs extends StatefulWidget {
 
 class _SendDocsState extends State<SendDocs> {
   bool useTempDirectory = true;
-  List<String> attachment = <String>[];
+  List<String> attachment_list = <String>[];
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
 
-  Future<void> send(BuildContext context) async {
+  Future<void> sendEmail(BuildContext context) async {
     final MailOptions mailOptions = MailOptions(
       body: _bodyController.text,
       subject: _subjectController.text,
-      recipients: <String>['irina.t.gh.stefanescu@gmail.com'],
+      recipients: <String>['administratie_bloc@gmail.com'],
       isHTML: true,
-      ccRecipients: <String>['third@example.com'],
-      attachments: attachment,
+      ccRecipients: <String>['irina.t.gh.stefanescu@gmail.com'],
+      attachments: attachment_list,
     );
 
     String platformResponse;
@@ -80,7 +80,6 @@ class _SendDocsState extends State<SendDocs> {
     } catch (error) {
       platformResponse = error.toString();
     }
-
     if (!mounted) {
       return;
     }
@@ -106,11 +105,11 @@ class _SendDocsState extends State<SendDocs> {
       crossAxisCount: 2,
       shrinkWrap: true,
       children: List<Widget>.generate(
-        attachment.length,
+        attachment_list.length,
         (int index) {
-          final File file = File(attachment[index]);
+          final File file = File(attachment_list[index]);
           return GridTile(
-            key: Key(attachment[index]),
+            key: Key(attachment_list[index]),
             footer: GridTileBar(
               title: Text(
                 file.path.split('/').last,
@@ -130,7 +129,7 @@ class _SendDocsState extends State<SendDocs> {
                         color: Colors.brown[700],
                       ),
                       child: Image.file(
-                        File(attachment[index]),
+                        File(attachment_list[index]),
                         fit: BoxFit.cover,
                         errorBuilder: (_, __, ___) => Icon(
                           Icons.attachment,
@@ -148,7 +147,7 @@ class _SendDocsState extends State<SendDocs> {
                       tooltip: 'remove',
                       onPressed: () {
                         setState(() {
-                          attachment.removeAt(index);
+                          attachment_list.removeAt(index);
                         });
                       },
                       padding: const EdgeInsets.all(0),
@@ -189,8 +188,8 @@ class _SendDocsState extends State<SendDocs> {
                       'Send email to administration',
                       style: GoogleFonts.inter(
                         color: Colors.brown,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 22,
                       ),
                     ),
                   ),
@@ -205,22 +204,24 @@ class _SendDocsState extends State<SendDocs> {
                       child: TextFormField(
                         controller: _subjectController,
                         decoration: const InputDecoration(
+                          disabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(1.0)),
-                              borderSide: BorderSide(
-                                  color: Color(0xFFEC7648), width: 2)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(
-                                  color: Color(0xFFEC7648), width: 2)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(
-                                  color: Color(0xFFEC7648), width: 2)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           labelText: 'Subject',
+                          labelStyle: TextStyle(
+                            color: Colors.brown,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -235,33 +236,35 @@ class _SendDocsState extends State<SendDocs> {
                         maxLines: 10,
                         decoration: const InputDecoration(
                           labelText: 'Body...',
+                          labelStyle: TextStyle(
+                            color: Colors.brown,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(
-                                  color: Color(0xFFEC7648), width: 2)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(
-                                  color: Color(0xFFEC7648), width: 2)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0)),
-                              borderSide: BorderSide(
-                                  color: Color(0xFFEC7648), width: 2)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                         ),
                       ),
                     ),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 50,
+                    height: 40,
                     child: Row(
                       children: [
                         Spacer(),
                         TextButton(
-                          onPressed: () => send(context),
+                          onPressed: () => sendEmail(context),
                           child: Text(
                             'Send email',
                             style: GoogleFonts.inter(
@@ -300,7 +303,7 @@ class _SendDocsState extends State<SendDocs> {
     final pick = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pick != null) {
       setState(() {
-        attachment.add(pick.path);
+        attachment_list.add(pick.path);
       });
     }
   }
@@ -326,7 +329,6 @@ class _SendDocsState extends State<SendDocs> {
     fileName = fileName.isNotEmpty ? fileName : 'fileName';
     final File file = await _localFile(fileName);
 
-    // Write the file
     return file.writeAsString('$text');
   }
 }
