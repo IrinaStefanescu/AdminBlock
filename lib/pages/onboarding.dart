@@ -16,6 +16,17 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

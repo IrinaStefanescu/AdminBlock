@@ -24,29 +24,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initialization,
-      builder: (context, snapshot){
-        if(snapshot.hasError){
-          print("Something went wrong");
-        }
-        if(snapshot.connectionState == ConnectionState.waiting)
-          {
-            return Center(
-              child: CircularProgressIndicator()
-            );
+        future: _initialization,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print("Something went wrong");
           }
-        return Scaffold(
-          body: OnBoardingUser(),
-        );
-      }
-    );
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return OnBoardingUser();
+        });
   }
 }
-
-

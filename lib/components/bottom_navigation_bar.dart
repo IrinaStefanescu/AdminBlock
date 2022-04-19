@@ -6,14 +6,14 @@ import 'package:admin_block/user/send_docs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Wrapper extends StatefulWidget {
-  const Wrapper({Key? key}) : super(key: key);
+class BottomNavigationNavBar extends StatefulWidget {
+  const BottomNavigationNavBar({Key? key}) : super(key: key);
 
   @override
-  _WrapperState createState() => _WrapperState();
+  _BottomNavigationNavBarState createState() => _BottomNavigationNavBarState();
 }
 
-class _WrapperState extends State<Wrapper> {
+class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
   int _currentIndex = 2;
   final List<Widget> _children = [
     SendDocs(),
@@ -23,7 +23,7 @@ class _WrapperState extends State<Wrapper> {
     Meeting(),
   ];
 
-  void onTabTapped(int index) {
+  void changeIndex(int index) {
     setState(() {
       _currentIndex = index;
     });
@@ -32,43 +32,47 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _children[_currentIndex],
-        bottomNavigationBar: Container(
-          height: 70,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-            child: Theme(
-              data: Theme.of(context).copyWith(canvasColor: Color(0xF5F3A866)),
-              child: BottomNavigationBar(onTap: onTabTapped,
-                type: BottomNavigationBarType.fixed,
+      body: _children[_currentIndex],
+      bottomNavigationBar: Container(
+        height: 70,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+          child: Theme(
+            data: Theme.of(context).copyWith(canvasColor: Color(0xF5F3A866)),
+            child: BottomNavigationBar(
+              onTap: changeIndex,
+              type: BottomNavigationBarType.fixed,
               elevation: 0,
-              items:<BottomNavigationBarItem>[
+              items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.document_scanner,),
-                  label: "Send Docs",),
+                  icon: Icon(
+                    Icons.document_scanner,
+                  ),
+                  label: "Send Docs",
+                ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.payment),
-                  label: "Pay bill",),
+                  label: "Pay bill",
+                ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
-                  label: "Dashboard",),
+                  label: "Dashboard",
+                ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.camera_alt_sharp),
-                  label: "Indexes"),
+                    icon: Icon(Icons.camera_alt_sharp), label: "Indexes"),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.video_call),
-                  label: "Meeting"),
+                    icon: Icon(Icons.video_call), label: "Meeting"),
               ],
-    currentIndex: _currentIndex,
-    selectedItemColor: Color(0xFF7B4937),
-    backgroundColor:  Color(0xF5F3A866),
-              ),
+              currentIndex: _currentIndex,
+              selectedItemColor: Color(0xFF7B4937),
+              backgroundColor: Color(0xF5F3A866),
             ),
           ),
         ),
+      ),
     );
   }
 }
