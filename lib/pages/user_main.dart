@@ -63,7 +63,7 @@ class _UserMainState extends State<UserMain> {
         shadowColor: Colors.orange,
         automaticallyImplyLeading: false,
       ),
-      body: Wrapper(),
+      body: BottomNavigationNavBar(),
     );
   }
 }
