@@ -13,6 +13,7 @@ class UserAddress extends StatefulWidget {
 
 class _UserAddressState extends State<UserAddress> {
   var name = "";
+  var username = "";
   var street = "";
   var numberStreet = "";
   var building = "";
@@ -20,6 +21,7 @@ class _UserAddressState extends State<UserAddress> {
 
   final _addressFormKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
+  final usernameController = TextEditingController();
   final streetController = TextEditingController();
   final numberStreetController = TextEditingController();
   final buildingController = TextEditingController();
@@ -27,10 +29,12 @@ class _UserAddressState extends State<UserAddress> {
 
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
+  final displayName = FirebaseAuth.instance.currentUser!.displayName;
 
   @override
   void dispose() {
     nameController.dispose();
+    usernameController.dispose();
     streetController.dispose();
     numberStreetController.dispose();
     buildingController.dispose();
@@ -118,6 +122,46 @@ class _UserAddressState extends State<UserAddress> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please provide your name';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Enter your username',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
+                  ),
+                ),
+                TextFormField(
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    fillColor: Color(0x70E0E0E0),
+                    filled: true,
+                    focusColor: Colors.grey[700],
+                    hoverColor: Colors.grey[700],
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorStyle: TextStyle(
+                      color: Colors.black26,
+                      fontSize: 15.0,
+                    ),
+                  ),
+                  controller: usernameController,
+                  onChanged: (value) {
+                    username = value;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please provide your username';
                     }
                     return null;
                   },
@@ -320,6 +364,7 @@ class _UserAddressState extends State<UserAddress> {
                               .doc(user!.uid)
                               .set({
                                 'name': name,
+                                'username': username,
                                 'street': street,
                                 'streetNumber': numberStreet,
                                 'building': building,
@@ -337,6 +382,9 @@ class _UserAddressState extends State<UserAddress> {
                       },
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
               ],
             ),

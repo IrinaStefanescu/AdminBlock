@@ -134,45 +134,6 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
-            StreamBuilder(
-                stream: FirebaseAuth.instance.authStateChanges(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.active) {
-                    return Center(
-                        child:
-                            CircularProgressIndicator()); // 👈 user is loading
-                  }
-
-                  final user = FirebaseAuth.instance.currentUser;
-                  final uid = user!.uid; // 👈 get the UID
-                  if (user != null) {
-                    print(user);
-
-                    CollectionReference images =
-                        FirebaseFirestore.instance.collection('images');
-
-                    FutureBuilder(
-                        future: images.doc(uid).get(),
-                        builder: (context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            return Container(
-                              width: 200,
-                              height: 100,
-                              child: Image.network(
-                                  snapshot.data!.docs['imageUrl']),
-                            );
-                          }
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        });
-                  } else {
-                    return Text("user is not logged in");
-                  }
-                  return Center(
-                    child: Container(),
-                  );
-                }),
             SizedBox(height: 30),
             Container(
               margin: const EdgeInsets.only(left: 10.0, right: 10.0),
