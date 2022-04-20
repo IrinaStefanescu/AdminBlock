@@ -31,7 +31,6 @@ dependencies:
   avatar_glow: 2.0.2
   path: ^1.8.0
 
-
 #Cupertion, Google fonts, http, modal, provider
   modal_bottom_sheet: ^2.0.0
   font_awesome_flutter: ^9.1.0

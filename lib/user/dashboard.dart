@@ -4,8 +4,6 @@ import 'package:admin_block/pages/download_standardized_document_one.dart';
 import 'package:admin_block/pages/download_standardized_document_six.dart';
 import 'package:admin_block/pages/download_standardized_document_three.dart';
 import 'package:admin_block/pages/download_standardized_document_two.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +12,25 @@ class Dashboard extends StatefulWidget {
   _DashboardState createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<Dashboard>
+    with SingleTickerProviderStateMixin {
+  final double minScale = 1;
+  final double maxScale = 4;
+
+  TransformationController controller = TransformationController();
+  Animation<Matrix4>? animation;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,119 +38,32 @@ class _DashboardState extends State<Dashboard> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Material(
-              elevation: 10,
-              shadowColor: Colors.grey,
-              child: Container(
-                color: Color(0x88A56333),
-                width: MediaQuery.of(context).size.width,
-                height: 135,
-                child: StreamBuilder(
-                  stream: FirebaseAuth.instance.authStateChanges(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState != ConnectionState.active) {
-                      return Center(
-                          child:
-                              CircularProgressIndicator()); // 👈 user is loading
-                    }
-                    final user = FirebaseAuth.instance.currentUser;
-                    final uid = user!.uid; // 👈 get the UID
-                    if (user != null) {
-                      print(user);
-
-                      CollectionReference users =
-                          FirebaseFirestore.instance.collection('users');
-                      CollectionReference images =
-                          FirebaseFirestore.instance.collection('images');
-
-                      return FutureBuilder<DocumentSnapshot>(
-                        future: users.doc(uid).get(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<DocumentSnapshot> snapshot) {
-                          if (snapshot.hasError) {
-                            return Text("Something went wrong");
-                          }
-
-                          if (snapshot.hasData && !snapshot.data!.exists) {
-                            return Text("Document does not exist");
-                          }
-
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            Map<String, dynamic> data =
-                                snapshot.data!.data() as Map<String, dynamic>;
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height / 8,
-                                child: Row(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "${data['name']}",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 2,
-                                          ),
-                                          Text(
-                                            "${data['street']} street, no ${data['streetNumber']}",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 2,
-                                          ),
-                                          Text(
-                                            "Building ${data['building']}",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 2,
-                                          ),
-                                          Text(
-                                            "Apartment ${data['apartment']}",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Spacer(),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }
-                          return Container();
-                        },
-                      );
-                    } else {
-                      return Text("user is not logged in");
-                    }
-                  },
+            SizedBox(height: 10),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.1,
+              height: 140,
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+              child: InteractiveViewer(
+                transformationController: controller,
+                minScale: minScale,
+                maxScale: maxScale,
+                clipBehavior: Clip.none,
+                scaleEnabled: true,
+                panEnabled: true,
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                    child: Image.asset(
+                      'lib/assets/images/intretinere.png',
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      height: 140,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.only(left: 10.0, right: 10.0),
               height: MediaQuery.of(context).size.height / 14,
