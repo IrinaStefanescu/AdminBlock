@@ -80,7 +80,7 @@ class _ProfileState extends State<Profile> {
                 print(user);
 
                 CollectionReference users =
-                    FirebaseFirestore.instance.collection('users');
+                    FirebaseFirestore.instance.collection('users_data');
 
                 return FutureBuilder<DocumentSnapshot>(
                   future: users.doc(uid).get(),

@@ -44,7 +44,8 @@ class _UserAddressState extends State<UserAddress> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    CollectionReference users_data =
+        FirebaseFirestore.instance.collection('users_data');
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
@@ -360,7 +361,7 @@ class _UserAddressState extends State<UserAddress> {
                               ),
                             ),
                           );
-                          await users
+                          await users_data
                               .doc(user!.uid)
                               .set({
                                 'name': name,
@@ -370,7 +371,7 @@ class _UserAddressState extends State<UserAddress> {
                                 'building': building,
                                 'apartment': apartment
                               })
-                              .then((value) => print("User added"))
+                              .then((value) => print("User's data added"))
                               .catchError((error) =>
                                   print('Failed to add user: $error'));
                           print("Name: $name");
