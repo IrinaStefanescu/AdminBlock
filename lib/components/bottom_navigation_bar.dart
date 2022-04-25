@@ -34,6 +34,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: Container(
+        color: Color(0xF5F3A866),
         height: 70,
         child: ClipRRect(
           borderRadius: BorderRadius.only(

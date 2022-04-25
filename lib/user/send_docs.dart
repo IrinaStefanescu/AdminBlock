@@ -102,7 +102,7 @@ class _SendDocsState extends State<SendDocs> {
       scrollDirection: Axis.vertical,
       crossAxisSpacing: 6,
       mainAxisSpacing: 6,
-      crossAxisCount: 2,
+      crossAxisCount: 3,
       shrinkWrap: true,
       children: List<Widget>.generate(
         attachment_list.length,
@@ -170,132 +170,144 @@ class _SendDocsState extends State<SendDocs> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                //mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    child: Text(
-                      'Send email to administration',
-                      style: GoogleFonts.inter(
-                        color: Colors.brown,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 22,
-                      ),
+          resizeToAvoidBottomInset: false,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Color(0xFFFDD6A0),
+                    Color(0xFFFC7970),
+                  ],
+                )),
+                child: Column(
+                  //mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Material(
-                      elevation: 5,
-                      shadowColor: Color(0xFFEC7648),
-                      child: TextFormField(
-                        controller: _subjectController,
-                        decoration: const InputDecoration(
-                          disabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                          labelText: 'Subject',
-                          labelStyle: TextStyle(
-                            color: Colors.brown,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      child: Text(
+                        'Send email to administration',
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Material(
-                      elevation: 5,
-                      shadowColor: Color(0xFFEC7648),
-                      child: TextFormField(
-                        controller: _bodyController,
-                        maxLines: 10,
-                        decoration: const InputDecoration(
-                          labelText: 'Body...',
-                          labelStyle: TextStyle(
-                            color: Colors.brown,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
-                        ),
-                      ),
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    child: Row(
-                      children: [
-                        Spacer(),
-                        TextButton(
-                          onPressed: () => sendEmail(context),
-                          child: Text(
-                            'Send email',
-                            style: GoogleFonts.inter(
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Material(
+                        color: Color(0xCBFFFFFF),
+                        elevation: 5,
+                        shadowColor: Color(0xFFEC7648),
+                        child: TextFormField(
+                          controller: _subjectController,
+                          decoration: const InputDecoration(
+                            disabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                            labelText: 'Subject',
+                            labelStyle: TextStyle(
                               color: Colors.brown,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 22,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                        Icon(
-                          Icons.double_arrow_outlined,
-                          size: 30,
-                          color: Colors.brown,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  imagePath,
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Material(
+                        color: Color(0xCDEFEDED),
+                        elevation: 5,
+                        shadowColor: Color(0xFFEC7648),
+                        child: TextFormField(
+                          controller: _bodyController,
+                          maxLines: 10,
+                          decoration: const InputDecoration(
+                            labelText: 'Body...',
+                            labelStyle: TextStyle(
+                              color: Colors.brown,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                            border: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.brown, width: 2)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 40,
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          TextButton(
+                            onPressed: () => sendEmail(context),
+                            child: Text(
+                              'Send email',
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 22,
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.double_arrow_outlined,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                    imagePath,
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.brown[500],
-          icon: const Icon(Icons.camera),
-          label: const Text('Add attachments'),
-          onPressed: _picker,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      ),
+          floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: Colors.brown[500],
+            icon: const Icon(Icons.camera),
+            label: const Text('Add attachments'),
+            onPressed: _picker,
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniCenterFloat),
     );
   }
 
