@@ -266,7 +266,7 @@ class _DocumentOneState extends State<DocumentOne> {
   }
 }
 
-class FireStorageServiceApi extends ChangeNotifier {
+class FireStorageServiceApi {
   FireStorageServiceApi();
   static Future<dynamic> loadImage(BuildContext context, String image) async {
     return await FirebaseStorage.instance
