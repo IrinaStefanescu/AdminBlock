@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:admin_block/components/button_primary.dart';
 import 'package:admin_block/pages/user_main.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,9 @@ class DocumentSix extends StatefulWidget {
 }
 
 class _DocumentSixState extends State<DocumentSix> {
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
+
   @override
   Widget build(BuildContext context) {
     final url =
@@ -81,63 +86,138 @@ class _DocumentSixState extends State<DocumentSix> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: EdgeInsets.symmetric(horizontal: 60.0),
               child: Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: 180,
                   color: Colors.white,
                   child: Image.asset(
                     'lib/assets/images/download_jpg.png',
-                    width: 280,
-                    height: 240,
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: 180,
+                    fit: BoxFit.fill,
                   )),
             ),
             Container(
               width: MediaQuery.of(context).size.width / 1.2,
               height: MediaQuery.of(context).size.height / 4,
-              child: Column(
+              child: ListView(
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.check_circle_outline,
-                        color: Colors.deepOrange,
-                      ),
-                      Spacer(),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 1.4,
-                        child: Text(
-                          'To access the maintenance request you should click on the button below.',
-                          style: GoogleFonts.mukta(
-                            fontSize: 22,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w500,
+                  CarouselSlider(
+                    carouselController: _controller,
+                    items: [
+                      //1st Image of Slider
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Spacer(),
+                          Icon(
+                            Icons.check_circle_outline,
+                            color: Colors.deepOrange,
                           ),
-                        ),
+                          Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Text(
+                              'This is a request to add \na person for house-keeping.',
+                              style: GoogleFonts.mukta(
+                                fontSize: 20,
+                                color: Colors.black45,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Spacer(),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Spacer(),
+                          Icon(
+                            Icons.check_circle_outline,
+                            color: Colors.deepOrange,
+                          ),
+                          Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Text(
+                              'To access the maintenance \nrequest you should click on \nthe button below.',
+                              style: GoogleFonts.mukta(
+                                fontSize: 20,
+                                color: Colors.black45,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Spacer(),
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Spacer(),
+                          Icon(
+                            Icons.check_circle_outline,
+                            color: Colors.deepOrange,
+                          ),
+                          Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Text(
+                              'The image will be saved in \nyour local device directory.',
+                              style: GoogleFonts.mukta(
+                                fontSize: 20,
+                                color: Colors.black45,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Spacer(),
+                        ],
                       ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 20,
+
+                    //Slider Container properties
+                    options: CarouselOptions(
+                        height: 160.0,
+                        autoPlay: false,
+                        reverse: false,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _current = index;
+                          });
+                        }),
                   ),
                   Row(
-                    children: [
-                      Icon(
-                        Icons.check_circle_outline,
-                        color: Colors.deepOrange,
-                      ),
-                      Spacer(),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 1.4,
-                        child: Text(
-                          'The image will be saved in your local device directory.',
-                          style: GoogleFonts.mukta(
-                            fontSize: 22,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [0, 1, 2].map((entry) {
+                        return GestureDetector(
+                          onTap: () => _controller.animateToPage(entry),
+                          child: Container(
+                              width: 8.0,
+                              height: 8.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 4.0),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _current == entry
+                                      ? Colors.grey[900]
+                                      : Colors.grey[200])),
+                        );
+                      }).toList())
                 ],
               ),
             ),
@@ -168,24 +248,20 @@ class _DocumentSixState extends State<DocumentSix> {
                 return Container();
               },
             ),
-            FlatButton(
-              color: Color(0xFFEEB162),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.deepOrange),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              onPressed: () {
-                _save();
-              },
-              child: Text(
-                'remove-person.jpg',
-                style: GoogleFonts.mukta(
-                  fontSize: 22,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+            SizedBox(
+              height: 60,
             ),
+            ButtonPrimary(
+                title: 'add-person.jpg',
+                action: _save,
+                fontSize: 17,
+                fontColor: Colors.white,
+                fontWeight: FontWeight.w300,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.grey.shade900,
+                margin: EdgeInsets.fromLTRB(32, 0, 32, 20),
+                borderRadius: BorderRadius.circular(12.0),
+                borderSideColor: Colors.grey.shade900),
           ],
         ),
       ),

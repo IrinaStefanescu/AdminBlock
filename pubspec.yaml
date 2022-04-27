@@ -30,6 +30,7 @@ dependencies:
   shared_preferences: ^2.0.13
   avatar_glow: 2.0.2
   path: ^1.8.0
+  carousel_slider: ^4.0.0
 
 #Cupertion, Google fonts, http, modal, provider
   modal_bottom_sheet: ^2.0.0
