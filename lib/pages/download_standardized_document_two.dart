@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:admin_block/pages/user_main.dart';
-import 'package:admin_block/service/storage.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -17,8 +17,6 @@ class DocumentTwo extends StatefulWidget {
 class _DocumentTwoState extends State<DocumentTwo> {
   @override
   Widget build(BuildContext context) {
-    final Storage storage = Storage();
-
     final url =
         "https://imgv2-1-f.scribdassets.com/img/document/36206655/original/3ade4fcc21/1645519679?v=1";
 
@@ -33,6 +31,17 @@ class _DocumentTwoState extends State<DocumentTwo> {
             name: "meter-reading");
         print(result);
       }
+    }
+
+    Future<Widget> getImage(BuildContext context, String imageName) async {
+      late Image image;
+      await FireStorageServiceApi.loadImage(context, imageName).then((value) {
+        image = Image.network(
+          value.toString(),
+          fit: BoxFit.fill,
+        );
+      });
+      return image;
     }
 
     return Scaffold(
@@ -71,9 +80,6 @@ class _DocumentTwoState extends State<DocumentTwo> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            SizedBox(
-              height: 30,
-            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.0),
               child: Container(
@@ -86,7 +92,7 @@ class _DocumentTwoState extends State<DocumentTwo> {
             ),
             Container(
               width: MediaQuery.of(context).size.width / 1.2,
-              height: MediaQuery.of(context).size.height / 3,
+              height: MediaQuery.of(context).size.height / 4,
               child: Column(
                 children: [
                   Row(
@@ -135,72 +141,64 @@ class _DocumentTwoState extends State<DocumentTwo> {
                 ],
               ),
             ),
-            // ElevatedButton(
-            //   onPressed: () async {
-            //     final result = await FilePicker.platform.pickFiles(
-            //       allowMultiple: false,
-            //       type: FileType.custom,
-            //       allowedExtensions: ['png', 'jpg'],
-            //     );
-            //
-            //     if (result == null){
-            //       ScaffoldMessenger.of(context).showSnackBar(
-            //         const SnackBar(content: Text('No file selected'),),
-            //       );
-            //       return null;
-            //     }
-            //
-            //     final path = result.files.single.path;
-            //     final fileName = result.files.single.name;
-            //
-            //     print(path);
-            //     print(fileName);
-            //
-            //     storage.uploadFile(path!, fileName).then((value) => print('Done'),);
-            //   },
-            //   child: Text('Upload file'),
-            // ),
+            SizedBox(
+              height: 20,
+            ),
             FutureBuilder(
-                future: storage.downloadURL('meter-reading.jpg'),
-                builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width / 1.4,
-                      height: MediaQuery.of(context).size.width / 7,
-                      child: RaisedButton(
-                        color: Color(0xFFEEB162),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.deepOrange),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        onPressed: () {
-                          _save();
-                        },
-                        child: Text(
-                          'meter-reading.jpg',
-                          style: GoogleFonts.mukta(
-                            fontSize: 22,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting ||
-                      !snapshot.hasData) {
-                    return CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(
-                          Colors.orangeAccent),
-                    );
-                  }
-                  return Container();
-                }),
+              future: getImage(context, 'meter-reading.jpg'),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.red)),
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    height: MediaQuery.of(context).size.height / 5,
+                    child: snapshot.data,
+                  );
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    height: MediaQuery.of(context).size.width / 15,
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                return Container();
+              },
+            ),
+            FlatButton(
+              color: Color(0xFFEEB162),
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.deepOrange),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              onPressed: () {
+                _save();
+              },
+              child: Text(
+                'meter-reading.jpg',
+                style: GoogleFonts.mukta(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+class FireStorageServiceApi extends ChangeNotifier {
+  FireStorageServiceApi();
+  static Future<dynamic> loadImage(BuildContext context, String image) async {
+    return await FirebaseStorage.instance
+        .ref("documents/")
+        .child(image)
+        .getDownloadURL();
   }
 }
