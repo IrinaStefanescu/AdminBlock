@@ -190,108 +190,124 @@ class _SendDocsState extends State<SendDocs> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                      height: 20,
+                      height: 40,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width / 1.2,
                       child: Text(
                         'Send email to administration',
                         style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 22,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 24,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      child: TextFormField(
+                        controller: _subjectController,
+                        decoration: const InputDecoration(
+                          fillColor: Color(0x70E0E0E0),
+                          filled: true,
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
+                          labelText: 'Subject',
+                          labelStyle: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Material(
-                        color: Color(0xCBFFFFFF),
-                        elevation: 5,
-                        shadowColor: Color(0xFFEC7648),
-                        child: TextFormField(
-                          controller: _subjectController,
-                          decoration: const InputDecoration(
-                            disabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                            labelText: 'Subject',
-                            labelStyle: TextStyle(
-                              color: Colors.brown,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      child: TextFormField(
+                        controller: _bodyController,
+                        maxLines: 8,
+                        decoration: const InputDecoration(
+                          fillColor: Color(0x70E0E0E0),
+                          filled: true,
+                          labelText: 'Body...',
+                          labelStyle: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Material(
-                        color: Color(0xCDEFEDED),
-                        elevation: 5,
-                        shadowColor: Color(0xFFEC7648),
-                        child: TextFormField(
-                          controller: _bodyController,
-                          maxLines: 10,
-                          decoration: const InputDecoration(
-                            labelText: 'Body...',
-                            labelStyle: TextStyle(
-                              color: Colors.brown,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.brown, width: 2)),
-                          ),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              borderSide:
+                                  BorderSide(color: Colors.orange, width: 2)),
                         ),
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width / 1.2,
                       height: 40,
-                      child: Row(
-                        children: [
-                          Spacer(),
-                          TextButton(
-                            onPressed: () => sendEmail(context),
-                            child: Text(
-                              'Send email',
+                      child: GestureDetector(
+                        onTap: () {
+                          sendEmail(context);
+                        },
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            Text(
+                              'SEND',
                               style: GoogleFonts.inter(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 22,
                               ),
                             ),
-                          ),
-                          Icon(
-                            Icons.double_arrow_outlined,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                        ],
+                            Icon(
+                              Icons.email_outlined,
+                              size: 25,
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     imagePath,
@@ -302,8 +318,18 @@ class _SendDocsState extends State<SendDocs> {
           ),
           floatingActionButton: FloatingActionButton.extended(
             backgroundColor: Colors.brown[500],
-            icon: const Icon(Icons.camera),
-            label: const Text('Add attachments'),
+            icon: Icon(
+              Icons.camera,
+              color: Colors.white,
+            ),
+            label: Text(
+              'Add attachments',
+              style: GoogleFonts.inter(
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+              ),
+            ),
             onPressed: _picker,
           ),
           floatingActionButtonLocation:
