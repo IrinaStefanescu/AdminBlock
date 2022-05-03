@@ -1,4 +1,5 @@
-import 'package:admin_block/pages/blink_element.dart';
+import 'dart:async';
+
 import 'package:admin_block/pages/download_standardized_document_five.dart';
 import 'package:admin_block/pages/download_standardized_document_four.dart';
 import 'package:admin_block/pages/download_standardized_document_one.dart';
@@ -8,6 +9,8 @@ import 'package:admin_block/pages/download_standardized_document_two.dart';
 import 'package:admin_block/user/complaints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -16,21 +19,51 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard>
     with SingleTickerProviderStateMixin {
-  final double minScale = 1;
-  final double maxScale = 4;
-
-  TransformationController controller = TransformationController();
-  Animation<Matrix4>? animation;
+  double _lat = 44.439663;
+  double _lng = 26.096306;
+  Completer<GoogleMapController> _controller = Completer();
+  Location location = new Location();
+  late bool _serviceEnabled;
+  late PermissionStatus _permissionGranted;
+  late CameraPosition _currentPosition;
 
   @override
   void initState() {
+    _currentPosition = CameraPosition(
+      target: LatLng(_lat, _lng),
+      zoom: 12,
+    );
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  _locateMe() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    await location.getLocation().then((res) async {
+      final GoogleMapController controller = await _controller.future;
+      final _position = CameraPosition(
+        target: LatLng(res.latitude!, res.longitude!),
+        zoom: 12,
+      );
+      controller.animateCamera(CameraUpdate.newCameraPosition(_position));
+      setState(() {
+        _lat = res.latitude!;
+        _lng = res.longitude!;
+      });
+    });
   }
 
   @override
@@ -51,105 +84,24 @@ class _DashboardState extends State<Dashboard>
         )),
         child: Column(
           children: [
-            SizedBox(height: 20),
             Container(
-              width: MediaQuery.of(context).size.width / 1.1,
-              height: 140,
-              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-              child: InteractiveViewer(
-                transformationController: controller,
-                minScale: minScale,
-                maxScale: maxScale,
-                clipBehavior: Clip.none,
-                scaleEnabled: true,
-                panEnabled: true,
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Container(
-                    child: Image.asset(
-                      'lib/assets/images/intretinere.png',
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      height: 140,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                    title: Center(
-                      child: Text(
-                        "Information",
-                        style: GoogleFonts.mukta(
-                          fontSize: 26,
-                          color: Colors.grey.shade900,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    content: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 240,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "The zoom feature is enabled. You \ncan zoom in and out as in the gif below.",
-                            style: GoogleFonts.mukta(
-                              fontSize: 18,
-                              color: Colors.grey.shade900,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Image.asset(
-                            "lib/assets/images/zoom-fingers.gif",
-                            width: MediaQuery.of(context).size.width / 1.4,
-                            height: 150,
-                          ),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text(
-                          "Ok",
-                          style: GoogleFonts.mukta(
-                            fontSize: 22,
-                            color: Colors.grey.shade900,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 14.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: BlinkWidget(
-                    children: [
-                      Icon(
-                        Icons.info_outlined,
-                        color: Colors.grey.shade900,
-                        size: 30,
-                      ),
-                      Icon(
-                        Icons.info_outlined,
-                        color: Colors.transparent,
-                        size: 30,
-                      ),
-                    ],
-                  ),
-                ),
+              height: 190,
+              width: MediaQuery.of(context).size.width,
+              child: GoogleMap(
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                initialCameraPosition: _currentPosition,
+                zoomControlsEnabled: false,
+                zoomGesturesEnabled: true,
+                markers: {
+                  Marker(
+                    markerId: MarkerId('current'),
+                    position: LatLng(_lat, _lng),
+                  )
+                },
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
               ),
             ),
             SizedBox(height: 10),
@@ -412,6 +364,29 @@ class _DashboardState extends State<Dashboard>
           ],
         ),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(top: 140.0),
+        child: Container(
+          width: 160,
+          height: 40,
+          child: FloatingActionButton.extended(
+            backgroundColor: Colors.deepOrange,
+            onPressed: () {
+              _locateMe();
+            },
+            label: Text(
+              'My Location',
+              style: GoogleFonts.inter(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+            icon: Icon(Icons.location_on),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
     );
   }
 }

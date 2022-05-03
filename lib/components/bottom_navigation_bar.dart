@@ -17,7 +17,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
   int _currentIndex = 2;
   final List<Widget> _children = [
     SendDocs(),
-    PayBill(),
+    HomePage(),
     Dashboard(),
     Indexes(),
     Meeting(),

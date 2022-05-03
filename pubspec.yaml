@@ -38,8 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.3
   google_fonts: ^2.1.0
   http: ^0.13.3
-
-#Credit card
+  google_maps_flutter: ^2.1.0
+  location: ^4.2.0
   #flutter_credit_card: ^0.1.4
 
 
