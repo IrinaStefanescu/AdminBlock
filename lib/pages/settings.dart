@@ -1,4 +1,5 @@
 import 'package:admin_block/components/agree_dialog.dart';
+import 'package:admin_block/components/shape_marker.dart';
 import 'package:admin_block/pages/report_a_bug_form.dart';
 import 'package:admin_block/pages/user_main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Row(
           children: [
@@ -56,7 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: [
             SizedBox(
-              height: 20,
+              height: 40,
             ),
             Card(
               margin: EdgeInsets.only(bottom: 1),
@@ -325,14 +327,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                Image.asset(
-                  'lib/assets/images/custom_elipses.png',
-                  width: 160,
-                  height: 165,
-                ),
-              ],
+            CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 147.2),
+              painter: CurvedPainter(),
             ),
           ],
         ),
