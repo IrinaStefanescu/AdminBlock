@@ -1,5 +1,6 @@
 import 'package:admin_block/components/agree_dialog.dart';
 import 'package:admin_block/components/shape_marker.dart';
+import 'package:admin_block/pages/provide_feedback_form.dart';
 import 'package:admin_block/pages/report_a_bug_form.dart';
 import 'package:admin_block/pages/user_main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -229,35 +230,12 @@ class _SettingsPageState extends State<SettingsPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              margin: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                height: MediaQuery.of(context).size.height / 14,
-                child: Row(
-                  children: [
-                    TextButton.icon(
-                      icon: Icon(
-                        Icons.report_problem_rounded,
-                        color: Colors.orange[600],
-                      ),
-                      label: Text(
-                        'Report abuse',
-                        style: GoogleFonts.inter(
-                            color: Colors.grey[700],
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProvideFeedback()));
+                      },
                     ),
                   ],
                 ),
@@ -328,7 +306,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             CustomPaint(
-              size: Size(MediaQuery.of(context).size.width, 147.2),
+              size: Size(MediaQuery.of(context).size.width, 207),
               painter: CurvedPainter(),
             ),
           ],
