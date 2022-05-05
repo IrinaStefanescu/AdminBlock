@@ -3,6 +3,7 @@ import 'package:admin_block/components/shape_marker.dart';
 import 'package:admin_block/pages/provide_feedback_form.dart';
 import 'package:admin_block/pages/report_a_bug_form.dart';
 import 'package:admin_block/pages/user_main.dart';
+import 'package:admin_block/user/delete_user_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -260,13 +261,18 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: Colors.orange[600],
                       ),
                       label: Text(
-                        'Delete your account',
+                        'Delete Data & Account',
                         style: GoogleFonts.inter(
                             color: Colors.grey[700],
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DeleteUser()));
+                      },
                     ),
                   ],
                 ),

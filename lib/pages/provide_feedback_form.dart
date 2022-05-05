@@ -29,7 +29,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
   var email = "";
   var feedback = "";
 
-  final _bugsFormKey = GlobalKey<FormState>();
+  final _provideFeedbackFormKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
@@ -88,7 +88,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
         automaticallyImplyLeading: false,
       ),
       body: Form(
-        key: _bugsFormKey,
+        key: _provideFeedbackFormKey,
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -630,7 +630,8 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                     child: ButtonPrimary(
                         title: 'SUBMIT',
                         action: () async {
-                          if (_bugsFormKey.currentState!.validate()) {
+                          if (_provideFeedbackFormKey.currentState!
+                              .validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
