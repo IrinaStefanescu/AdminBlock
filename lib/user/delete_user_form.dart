@@ -35,7 +35,7 @@ class _DeleteUserState extends State<DeleteUser> {
 
   @override
   Widget build(BuildContext context) {
-    bool isChecked = false;
+    bool _isChecked = false;
 
     CollectionReference delete_data_account =
         FirebaseFirestore.instance.collection('delete_data_and_account');
@@ -194,33 +194,38 @@ class _DeleteUserState extends State<DeleteUser> {
                     },
                   ),
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.only(left: 25, top: 10, bottom: 40, right: 40),
-                  child: Row(
-                    children: [
-                      Checkbox(
-                        checkColor: Colors.white,
-                        fillColor:
-                            MaterialStateProperty.all<Color>(Colors.orange),
-                        value: isChecked,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            isChecked = value!;
-                          });
-                        },
-                      ),
-                      Text(
-                        'I would like to request to remove my \ndata and account from AdminBlock.',
-                        style: GoogleFonts.inter(
-                          color: Colors.grey[700],
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                  return Container(
+                    padding: EdgeInsets.only(
+                        left: 25, top: 10, bottom: 40, right: 40),
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: _isChecked,
+                          checkColor: Colors.white,
+                          fillColor:
+                              MaterialStateProperty.all<Color>(Colors.orange),
+                          onChanged: (value) {
+                            if (value!) {
+                              setState(() {
+                                _isChecked = true;
+                              });
+                            }
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                        Text(
+                          'I would like to request to remove my \ndata and account from AdminBlock.',
+                          style: GoogleFonts.inter(
+                            color: Colors.grey[700],
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
                 SizedBox(
                   height: 60,
                 ),
