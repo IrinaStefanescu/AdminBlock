@@ -32,6 +32,12 @@ class _UserAddressState extends State<UserAddress> {
   final displayName = FirebaseAuth.instance.currentUser!.displayName;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   void dispose() {
     nameController.dispose();
     usernameController.dispose();

@@ -19,8 +19,8 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard>
     with SingleTickerProviderStateMixin {
-  double _lat = 44.439663;
-  double _lng = 26.096306;
+  double _lat = 44.4268;
+  double _lng = 26.1025;
   Completer<GoogleMapController> _controller = Completer();
   Location location = new Location();
   late bool _serviceEnabled;
