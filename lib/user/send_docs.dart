@@ -316,21 +316,24 @@ class _SendDocsState extends State<SendDocs> {
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton.extended(
-            backgroundColor: Colors.brown[500],
-            icon: Icon(
-              Icons.camera,
-              color: Colors.white,
-            ),
-            label: Text(
-              'Add attachments',
-              style: GoogleFonts.inter(
+          floatingActionButton: Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+            child: FloatingActionButton.extended(
+              backgroundColor: Colors.brown[500],
+              icon: Icon(
+                Icons.camera,
                 color: Colors.white,
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
               ),
+              label: Text(
+                'Add attachments',
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: _picker,
             ),
-            onPressed: _picker,
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniCenterFloat),
