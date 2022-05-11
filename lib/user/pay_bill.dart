@@ -1,24 +1,21 @@
 import 'package:admin_block/pages/blink_element.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatefulWidget {
+class PayBill extends StatefulWidget {
+  const PayBill({Key? key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _PayBillState createState() => _PayBillState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
   final double minScale = 1;
   final double maxScale = 4;
 
   TransformationController controller = TransformationController();
   Animation<Matrix4>? animation;
-
-  @override
-  initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {

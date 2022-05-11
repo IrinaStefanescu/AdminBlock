@@ -17,7 +17,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
   int _currentIndex = 2;
   final List<Widget> _children = [
     SendDocs(),
-    HomePage(),
+    PayBill(),
     Dashboard(),
     Indexes(),
     Meeting(),
@@ -61,7 +61,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
             case 1:
               return CupertinoTabView(builder: (context) {
                 return CupertinoPageScaffold(
-                  child: HomePage(),
+                  child: PayBill(),
                 );
               });
             case 2:

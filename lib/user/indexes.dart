@@ -11,7 +11,7 @@ class Indexes extends StatefulWidget {
   State<Indexes> createState() => _IndexesState();
 }
 
-class _IndexesState extends State<Indexes> with TickerProviderStateMixin {
+class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
   var coldWaterBathroom = "";
   var warmWaterBathroom = "";
   var coldWaterKitchen = "";

@@ -6,6 +6,7 @@ import 'package:admin_block/pages/download_standardized_document_one.dart';
 import 'package:admin_block/pages/download_standardized_document_six.dart';
 import 'package:admin_block/pages/download_standardized_document_three.dart';
 import 'package:admin_block/pages/download_standardized_document_two.dart';
+import 'package:admin_block/user/calculate_maintenance.dart';
 import 'package:admin_block/user/complaints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -113,7 +114,12 @@ class _DashboardState extends State<Dashboard>
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CalculateMaintenance()));
+                  },
                   child: Text(
                     'Calculate your maintenance',
                     style: GoogleFonts.inter(
