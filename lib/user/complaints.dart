@@ -1,4 +1,4 @@
-import 'package:admin_block/pages/user_main.dart';
+import 'package:admin_block/user/dashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,37 +61,8 @@ class _ComplaintsState extends State<Complaints> {
         FirebaseFirestore.instance.collection('users_compliants');
     final user = FirebaseAuth.instance.currentUser;
 
-    return Scaffold(
-      appBar: AppBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0),
-          ),
-        ),
-        title: Row(
-          children: [
-            IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserMain()));
-                }),
-            Text(
-              "Dashboard",
-              style: GoogleFonts.mukta(
-                fontSize: 26,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: Color(0xF5F3A866),
-        shadowColor: Colors.orange,
-        automaticallyImplyLeading: false,
-      ),
-      body: Form(
+    return Material(
+      child: Form(
         key: _compliantsFormKey,
         child: SingleChildScrollView(
           child: Container(
@@ -101,7 +72,35 @@ class _ComplaintsState extends State<Complaints> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.keyboard_arrow_left,
+                          size: 30,
+                        ),
+                        Text(
+                          'Dashboard',
+                          style: GoogleFonts.inter(
+                            color: Colors.grey.shade900,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Dashboard()));
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,
@@ -116,7 +115,7 @@ class _ComplaintsState extends State<Complaints> {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 35.0),
@@ -227,10 +226,6 @@ class _ComplaintsState extends State<Complaints> {
                       ),
                     ),
                     controller: issueController,
-                    onChanged: (value) {
-                      issue = value;
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please provide your name';
@@ -240,7 +235,7 @@ class _ComplaintsState extends State<Complaints> {
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Text(
                   'Open the calendar and choose the date \nthe incident happened',
@@ -340,7 +335,7 @@ class _ComplaintsState extends State<Complaints> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Complaints()));
+                                  builder: (context) => Dashboard()));
                         }
                       },
                     ),

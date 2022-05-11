@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:admin_block/components/button_primary.dart';
-import 'package:admin_block/pages/user_main.dart';
+import 'package:admin_block/user/dashboard.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
@@ -50,52 +50,51 @@ class _DocumentThreeState extends State<DocumentThree> {
       return image;
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0),
-          ),
-        ),
-        title: Row(
-          children: [
-            IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserMain()));
-                }),
-            Text(
-              "Dashboard",
-              style: GoogleFonts.mukta(
-                fontSize: 26,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: Color(0xF5F3A866),
-        shadowColor: Colors.orange,
-        automaticallyImplyLeading: false,
-      ),
-      body: Container(
+    return Material(
+      child: Container(
         color: Colors.white,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
+            SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: GestureDetector(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.keyboard_arrow_left,
+                      size: 30,
+                    ),
+                    Text(
+                      'Dashboard',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey.shade900,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Dashboard()));
+                },
+              ),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 60.0),
               child: Container(
                   width: MediaQuery.of(context).size.width / 2,
-                  height: 180,
+                  height: 170,
                   color: Colors.white,
                   child: Image.asset(
                     'lib/assets/images/download_jpg.png',
                     width: MediaQuery.of(context).size.width / 2,
-                    height: 180,
+                    height: 170,
                     fit: BoxFit.fill,
                   )),
             ),
@@ -222,9 +221,6 @@ class _DocumentThreeState extends State<DocumentThree> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
             FutureBuilder(
               future: getImage(context, 'working-capital.png'),
               builder: (context, AsyncSnapshot snapshot) {
@@ -250,7 +246,7 @@ class _DocumentThreeState extends State<DocumentThree> {
               },
             ),
             SizedBox(
-              height: 70,
+              height: 20,
             ),
             ButtonPrimary(
                 title: 'working-capital.png',

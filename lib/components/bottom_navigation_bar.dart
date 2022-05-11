@@ -66,9 +66,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
               });
             case 2:
               return CupertinoTabView(builder: (context) {
-                return CupertinoPageScaffold(
-                  child: Dashboard(),
-                );
+                return Dashboard();
               });
             case 3:
               return CupertinoTabView(builder: (context) {
