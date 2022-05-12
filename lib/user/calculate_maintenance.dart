@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,6 +20,8 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Material(
       child: Form(
         key: _calculateMaintenanceFormKey,
@@ -70,6 +74,139 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                     ),
                     textAlign: TextAlign.center,
                   ),
+                ),
+                StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.active) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    final user = FirebaseAuth.instance.currentUser;
+                    if (user != null) {
+                      print(user);
+
+                      CollectionReference costs_per_apartment =
+                          FirebaseFirestore.instance
+                              .collection('users_general_costs');
+
+                      return FutureBuilder<DocumentSnapshot>(
+                        future: costs_per_apartment
+                            .doc('costs_per_apartment')
+                            .get(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text("Something went wrong");
+                          }
+
+                          if (snapshot.hasData && !snapshot.data!.exists) {
+                            return Text("Document does not exist");
+                          }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            Map<String, dynamic> data =
+                                snapshot.data!.data() as Map<String, dynamic>;
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.2,
+                                        child: Text(
+                                          "Intercom services: ${data['intercom_services']}"
+                                          "Repair fund: ${data['repair_fund']}, "
+                                          "Salaries: ${data['salaries']}, "
+                                          "Stair cleaning: ${data['stair_cleaning']}"
+                                          "Tax: ${data['tax']}",
+                                          style: GoogleFonts.inter(
+                                            color: Colors.grey[800],
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 17,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          return Container();
+                        },
+                      );
+                    } else {
+                      return Text("user is not logged in");
+                    }
+                  },
+                ),
+                StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.active) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    final user = FirebaseAuth.instance.currentUser;
+                    if (user != null) {
+                      print(user);
+
+                      CollectionReference costs_per_person = FirebaseFirestore
+                          .instance
+                          .collection('users_general_costs');
+
+                      return FutureBuilder<DocumentSnapshot>(
+                        future: costs_per_person.doc('costs_per_person').get(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text("Something went wrong");
+                          }
+
+                          if (snapshot.hasData && !snapshot.data!.exists) {
+                            return Text("Document does not exist");
+                          }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            Map<String, dynamic> data =
+                                snapshot.data!.data() as Map<String, dynamic>;
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 50.0),
+                                          child: Text(
+                                            "Light: ${data['light']}",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          return Container();
+                        },
+                      );
+                    } else {
+                      return Text("user is not logged in");
+                    }
+                  },
                 ),
               ],
             ),
