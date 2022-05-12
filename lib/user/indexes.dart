@@ -1,4 +1,5 @@
 import 'package:admin_block/components/button_primary.dart';
+import 'package:admin_block/pages/blink_element.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -417,7 +418,72 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
                         ],
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: Center(
+                                child: Text(
+                                  "Information",
+                                  style: GoogleFonts.mukta(
+                                    fontSize: 26,
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              content: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 110,
+                                child: Text(
+                                  "Price / cubic meter of cold water - 7,046 RON \nPrice / cubic meter of hot water - 11,038 RON",
+                                  style: GoogleFonts.mukta(
+                                    fontSize: 18,
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              actions: <Widget>[
+                                FlatButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: Text(
+                                    "Ok",
+                                    style: GoogleFonts.mukta(
+                                      fontSize: 22,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        child: BlinkWidget(
+                          children: [
+                            Image.asset(
+                              'lib/assets/images/info-indexes.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                            Image.asset(
+                              'lib/assets/images/info-indexes.png',
+                              width: 60,
+                              height: 60,
+                              color: Colors.transparent,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width / 1.2,

@@ -44,8 +44,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.payment), label: 'Pay bill'),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Dashboard'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.camera_alt_sharp), label: 'Indexes'),
+            BottomNavigationBarItem(icon: Icon(Icons.wash), label: 'Indexes'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.video_call), label: 'Meeting'),
           ],
