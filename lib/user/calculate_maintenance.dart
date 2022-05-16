@@ -107,220 +107,217 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                               ConnectionState.done) {
                             Map<String, dynamic> data =
                                 snapshot.data!.data() as Map<String, dynamic>;
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.all(20),
-                                    child: Table(
-                                      columnWidths: {
-                                        0: FractionColumnWidth(0.1),
-                                        1: FractionColumnWidth(0.6),
-                                        2: FractionColumnWidth(0.3),
-                                      },
-                                      border: TableBorder.all(
-                                          color: Colors.deepOrange,
-                                          style: BorderStyle.solid,
-                                          width: 2),
-                                      children: [
-                                        TableRow(children: [
-                                          Column(children: [
-                                            Text(
-                                              'No',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.grey.shade600,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
-                                              ),
+                            return Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.all(20),
+                                  child: Table(
+                                    columnWidths: {
+                                      0: FractionColumnWidth(0.1),
+                                      1: FractionColumnWidth(0.6),
+                                      2: FractionColumnWidth(0.3),
+                                    },
+                                    border: TableBorder.all(
+                                        color: Colors.deepOrange,
+                                        style: BorderStyle.solid,
+                                        width: 2),
+                                    children: [
+                                      TableRow(children: [
+                                        Column(children: [
+                                          Text(
+                                            'No',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey.shade600,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
                                             ),
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              'Type',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.grey.shade600,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
-                                              ),
+                                          ),
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            'Type',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey.shade600,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
                                             ),
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              'Value',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.grey.shade600,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
-                                              ),
+                                          ),
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            'Value',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey.shade600,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
                                             ),
-                                          ]),
+                                          ),
                                         ]),
-                                        TableRow(children: [
-                                          Column(children: [
-                                            Text(
-                                              '1',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
+                                      ]),
+                                      TableRow(children: [
+                                        Column(children: [
+                                          Text(
+                                            '1',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
                                             ),
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              'Intercom services',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              '5*',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
+                                          ),
                                         ]),
-                                        TableRow(children: [
-                                          Column(children: [
-                                            Text(
-                                              '2',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              'Repair fund',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              '5*',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
+                                        Column(children: [
+                                          Text(
+                                            'Intercom services',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
                                         ]),
-                                        TableRow(children: [
-                                          Column(children: [
-                                            Text(
-                                              '3',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              'Salaries',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              '5*',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
+                                        Column(children: [
+                                          Text(
+                                            "${data['intercom_services']}",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
                                         ]),
-                                        TableRow(children: [
-                                          Column(children: [
-                                            Text(
-                                              '4',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              'Stair cleaning',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              '5*',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
+                                      ]),
+                                      TableRow(children: [
+                                        Column(children: [
+                                          Text(
+                                            '2',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
                                         ]),
-                                        TableRow(children: [
-                                          Column(children: [
-                                            Text(
-                                              '5',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              'Tax',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
-                                          Column(children: [
-                                            Text(
-                                              '5*',
-                                              style: GoogleFonts.inter(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 17,
-                                              ),
-                                            )
-                                          ]),
+                                        Column(children: [
+                                          Text(
+                                            'Repair fund',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
                                         ]),
-                                      ],
-                                    ),
+                                        Column(children: [
+                                          Text(
+                                            "${data['repair_fund']}",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                      ]),
+                                      TableRow(children: [
+                                        Column(children: [
+                                          Text(
+                                            '3',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            'Salaries',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            "${data['salaries']}",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                      ]),
+                                      TableRow(children: [
+                                        Column(children: [
+                                          Text(
+                                            '4',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            'Stair cleaning',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            "${data['stair_cleaning']}",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                      ]),
+                                      TableRow(children: [
+                                        Column(children: [
+                                          Text(
+                                            '5',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            'Tax',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                        Column(children: [
+                                          Text(
+                                            "${data['tax']}",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          )
+                                        ]),
+                                      ]),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             );
                           }
                           return Container();
