@@ -152,297 +152,300 @@ class _RegisterPageState extends State<RegisterPage> {
         shadowColor: Colors.orange,
         automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 20,
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.0),
+                child: Image.asset(
+                  'lib/assets/images/logo.png',
+                  width: 240,
+                  height: 200,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40.0),
-                  child: Image.asset(
-                    'lib/assets/images/logo.png',
-                    width: 240,
-                    height: 200,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                child: Text(
+                  'Provide your email address',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text(
-                    'Provide your email address',
-                    style: GoogleFonts.inter(
-                      color: Colors.grey[500],
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
+                child: TextFormField(
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.email_rounded,
+                      color: Colors.orange,
+                    ),
+                    fillColor: Color(0x70E0E0E0),
+                    filled: true,
+                    focusColor: Colors.grey[700],
+                    hoverColor: Colors.grey[700],
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorStyle: TextStyle(
+                      color: Colors.black26,
+                      fontSize: 15.0,
                     ),
                   ),
+                  controller: emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please provide email address';
+                    } else if (!value.contains('@')) {
+                      return 'Please enter valid email';
+                    }
+                    return null;
+                  },
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
-                  child: TextFormField(
-                    autofocus: false,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.email_rounded,
-                        color: Colors.orange,
-                      ),
-                      fillColor: Color(0x70E0E0E0),
-                      filled: true,
-                      focusColor: Colors.grey[700],
-                      hoverColor: Colors.grey[700],
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      ),
-                      errorStyle: TextStyle(
-                        color: Colors.black26,
-                        fontSize: 15.0,
-                      ),
-                    ),
-                    controller: emailController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide email address';
-                      } else if (!value.contains('@')) {
-                        return 'Please enter valid email';
-                      }
-                      return null;
-                    },
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                child: Text(
+                  'Provide your password',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text(
-                    'Provide your password',
-                    style: GoogleFonts.inter(
-                      color: Colors.grey[500],
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
+                child: TextFormField(
+                  autofocus: false,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.password_rounded,
+                      color: Colors.orange,
+                    ),
+                    fillColor: Color(0x70E0E0E0),
+                    filled: true,
+                    focusColor: Colors.grey[700],
+                    hoverColor: Colors.grey[700],
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorStyle: TextStyle(
+                      color: Colors.black26,
+                      fontSize: 15.0,
                     ),
                   ),
+                  controller: passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please provide password';
+                    }
+                    return null;
+                  },
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
-                  child: TextFormField(
-                    autofocus: false,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.password_rounded,
-                        color: Colors.orange,
-                      ),
-                      fillColor: Color(0x70E0E0E0),
-                      filled: true,
-                      focusColor: Colors.grey[700],
-                      hoverColor: Colors.grey[700],
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      ),
-                      errorStyle: TextStyle(
-                        color: Colors.black26,
-                        fontSize: 15.0,
-                      ),
-                    ),
-                    controller: passwordController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide password';
-                      }
-                      return null;
-                    },
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30.0),
+                child: Text(
+                  'Confirm your password',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text(
-                    'Confirm your password',
-                    style: GoogleFonts.inter(
-                      color: Colors.grey[500],
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
+                child: TextFormField(
+                  autofocus: false,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.password_rounded,
+                      color: Colors.orange,
+                    ),
+                    fillColor: Color(0x70E0E0E0),
+                    filled: true,
+                    focusColor: Colors.grey[700],
+                    hoverColor: Colors.grey[700],
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorStyle: TextStyle(
+                      color: Colors.black26,
+                      fontSize: 15.0,
                     ),
                   ),
+                  controller: confirmPasswordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please provide password';
+                    }
+                    return null;
+                  },
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 30.0),
-                  child: TextFormField(
-                    autofocus: false,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.password_rounded,
-                        color: Colors.orange,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  Spacer(),
+                  Spacer(),
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2.6,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        // color: Colors.grey[700],
                       ),
-                      fillColor: Color(0x70E0E0E0),
-                      filled: true,
-                      focusColor: Colors.grey[700],
-                      hoverColor: Colors.grey[700],
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      ),
-                      errorStyle: TextStyle(
-                        color: Colors.black26,
-                        fontSize: 15.0,
-                      ),
-                    ),
-                    controller: confirmPasswordController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide password';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: [
-                    Spacer(),
-                    Spacer(),
-                    Center(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2.6,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          // color: Colors.grey[700],
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          await authClass.googleSignIn(context);
+                        },
+                        icon: Image.asset(
+                          'lib/assets/images/gmail.png',
+                          width: 20,
+                          height: 20,
                         ),
-                        child: ElevatedButton.icon(
-                          onPressed: () async {
-                            await authClass.googleSignIn(context);
-                          },
-                          icon: Image.asset(
-                            'lib/assets/images/gmail.png',
-                            width: 20,
-                            height: 20,
+                        label: Text(
+                          'Continue with Gmail',
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
                           ),
-                          label: Text(
-                            'Continue with Gmail',
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey[700],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2.6,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.grey[700],
+                      ),
+                      child: MaterialButton(
+                          child: Text(
+                            'REGISTER',
                             style: GoogleFonts.inter(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 15,
+                              fontSize: 19,
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey[700],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                email = emailController.text;
+                                password = passwordController.text;
+                                confirmPassword =
+                                    confirmPasswordController.text;
+                              });
+                              registerUser();
+                              await users
+                                  .doc(user!.uid)
+                                  .set({
+                                    'email': email,
+                                  })
+                                  .then((value) => print("User added"))
+                                  .catchError((error) =>
+                                      print('Failed to add user: $error'));
+                              isRegistered = false;
+                            }
+                          }),
+                    ),
+                  ),
+                  Spacer(),
+                  Spacer(),
+                ],
+              ),
+              TermsOfUse(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation1, animation2) =>
+                              LoginPage(),
+                          transitionDuration: Duration(seconds: 0),
                         ),
+                      );
+                    },
+                    child: Text.rich(
+                      TextSpan(
+                        text: 'Already a member? ',
+                        style: GoogleFonts.inter(
+                          color: Colors.black45,
+                          fontSize: 16,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Login.',
+                            style: GoogleFonts.inter(
+                              color: Colors.black45,
+                              fontSize: 16,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Spacer(),
-                    Center(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2.6,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.grey[700],
-                        ),
-                        child: MaterialButton(
-                            child: Text(
-                              'REGISTER',
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 19,
-                              ),
-                            ),
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  email = emailController.text;
-                                  password = passwordController.text;
-                                  confirmPassword =
-                                      confirmPasswordController.text;
-                                });
-                                registerUser();
-                                await users
-                                    .doc(user!.uid)
-                                    .set({
-                                      'email': email,
-                                    })
-                                    .then((value) => print("User added"))
-                                    .catchError((error) =>
-                                        print('Failed to add user: $error'));
-                                isRegistered = false;
-                              }
-                            }),
-                      ),
-                    ),
-                    Spacer(),
-                    Spacer(),
-                  ],
-                ),
-                TermsOfUse(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation1, animation2) =>
-                                LoginPage(),
-                            transitionDuration: Duration(seconds: 0),
-                          ),
-                        );
-                      },
-                      child: Text.rich(
-                        TextSpan(
-                          text: 'Already a member? ',
-                          style: GoogleFonts.inter(
-                            color: Colors.black45,
-                            fontSize: 16,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Login.',
-                              style: GoogleFonts.inter(
-                                color: Colors.black45,
-                                fontSize: 16,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Image.asset(
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 150,
+                    height: 150,
+                    child: Image.asset(
                       'lib/assets/images/custom_elipses.png',
                       width: 160,
                       height: 165,
+                      fit: BoxFit.fill,
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
