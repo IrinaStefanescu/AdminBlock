@@ -20,8 +20,6 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-
     return Material(
       child: Form(
         key: _calculateMaintenanceFormKey,
@@ -75,6 +73,21 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                     textAlign: TextAlign.center,
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  child: Text(
+                    'Users costs per apartment',
+                    style: GoogleFonts.inter(
+                      color: Colors.grey.shade700,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 StreamBuilder(
                   stream: FirebaseAuth.instance.authStateChanges(),
                   builder: (context, snapshot) {
@@ -110,7 +123,7 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                             return Column(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.all(20),
+                                  margin: EdgeInsets.symmetric(horizontal: 20),
                                   child: Table(
                                     columnWidths: {
                                       0: FractionColumnWidth(0.1),
@@ -177,10 +190,10 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                         ]),
                                         Column(children: [
                                           Text(
-                                            "${data['intercom_services']}",
+                                            "${data['intercom_services']} RON",
                                             style: GoogleFonts.inter(
                                               color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               fontSize: 17,
                                             ),
                                           )
@@ -209,10 +222,10 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                         ]),
                                         Column(children: [
                                           Text(
-                                            "${data['repair_fund']}",
+                                            "${data['repair_fund']} RON",
                                             style: GoogleFonts.inter(
                                               color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               fontSize: 17,
                                             ),
                                           )
@@ -241,10 +254,10 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                         ]),
                                         Column(children: [
                                           Text(
-                                            "${data['salaries']}",
+                                            "${data['salaries']} RON",
                                             style: GoogleFonts.inter(
                                               color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               fontSize: 17,
                                             ),
                                           )
@@ -273,10 +286,10 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                         ]),
                                         Column(children: [
                                           Text(
-                                            "${data['stair_cleaning']}",
+                                            "${data['stair_cleaning']} RON",
                                             style: GoogleFonts.inter(
                                               color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               fontSize: 17,
                                             ),
                                           )
@@ -305,10 +318,10 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                         ]),
                                         Column(children: [
                                           Text(
-                                            "${data['tax']}",
+                                            "${data['tax']} RON",
                                             style: GoogleFonts.inter(
                                               color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               fontSize: 17,
                                             ),
                                           )
@@ -327,6 +340,9 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                       return Text("user is not logged in");
                     }
                   },
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 StreamBuilder(
                   stream: FirebaseAuth.instance.authStateChanges(),
@@ -363,21 +379,126 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                               child: Center(
                                 child: Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 50.0),
-                                          child: Text(
-                                            "Light: ${data['light']}",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.grey[800],
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    Text(
+                                      'Users costs per person',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "Light: ${data['light']} RON",
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          return Container();
+                        },
+                      );
+                    } else {
+                      return Text("user is not logged in");
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.active) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    final user = FirebaseAuth.instance.currentUser;
+                    final uid = user!.uid;
+                    if (user != null) {
+                      print(user);
+
+                      CollectionReference indexes_values =
+                          FirebaseFirestore.instance.collection('indexes');
+
+                      return FutureBuilder<DocumentSnapshot>(
+                        future: indexes_values.doc(uid).get(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text("Something went wrong");
+                          }
+
+                          if (snapshot.hasData && !snapshot.data!.exists) {
+                            return Text("Document does not exist");
+                          }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            Map<String, dynamic> data =
+                                snapshot.data!.data() as Map<String, dynamic>;
+
+                            var doubleColdBathroomWaterIndex =
+                                double.parse(data['cold_water_bathroom']);
+                            var coldWaterBathroomCosts =
+                                7.046 * doubleColdBathroomWaterIndex;
+                            var doubleColdKitchenWaterIndex =
+                                double.parse(data['cold_water_kitchen']);
+                            var coldWaterKitchenCosts =
+                                7.046 * doubleColdKitchenWaterIndex;
+
+                            var doubleWarmBathroomWaterIndex =
+                                double.parse(data['warm_water_bathroom']);
+                            var warmWaterBathroomCosts =
+                                11.038 * doubleWarmBathroomWaterIndex;
+                            var doubleWarmKitchenWaterIndex =
+                                double.parse(data['warm_water_kitchen']);
+                            var warmWaterKitchenCosts =
+                                11.038 * doubleWarmKitchenWaterIndex;
+
+                            var totalWaterCosts = coldWaterBathroomCosts +
+                                coldWaterKitchenCosts +
+                                warmWaterBathroomCosts +
+                                warmWaterKitchenCosts;
+
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 10, 5),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Kitchen and bathroom water costs based on indexes introduced by you.',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "${totalWaterCosts.toStringAsFixed(2)} RON",
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      'In order to see your costs for gas and heat you need to enter the number of persons in your apartment.',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
