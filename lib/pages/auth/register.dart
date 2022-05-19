@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  AuthClass authClass = AuthClass();
+  //AuthClass authClass = AuthClass();
 
   registerUser() async {
     if (password == confirmPassword) {
@@ -326,7 +326,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       child: ElevatedButton.icon(
                         onPressed: () async {
-                          await authClass.googleSignIn(context);
+                          await AuthClass(FirebaseAuth.instance)
+                              .signInWithGoogle(context);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserAddress()));
                         },
                         icon: Image.asset(
                           'lib/assets/images/gmail.png',

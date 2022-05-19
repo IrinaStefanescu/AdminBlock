@@ -3,6 +3,7 @@ import 'package:admin_block/components/shape_marker.dart';
 import 'package:admin_block/pages/provide_feedback_form.dart';
 import 'package:admin_block/pages/report_a_bug_form.dart';
 import 'package:admin_block/pages/user_main.dart';
+import 'package:admin_block/service/auth_service.dart';
 import 'package:admin_block/user/delete_user_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -301,7 +302,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               fontSize: 20),
                         ),
                         onPressed: () async {
-                          await FirebaseAuth.instance.signOut();
+                          AuthClass _auth =
+                              new AuthClass(FirebaseAuth.instance);
+                          await _auth.signOutFromGoogle();
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

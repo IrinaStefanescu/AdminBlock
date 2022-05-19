@@ -1,72 +1,54 @@
-import 'package:admin_block/pages/user_main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthClass{
-  GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ]
-  );
-
+class AuthClass {
   FirebaseAuth auth = FirebaseAuth.instance;
+  AuthClass(this.auth);
 
-  Future<void> googleSignIn(BuildContext context) async {
-    try{
-      GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      // ignore: unnecessary_null_comparison
-      if (_googleSignIn != null)
-        {
-          GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
-          AuthCredential credential = GoogleAuthProvider.credential(
-            idToken: googleSignInAuthentication.idToken,
-            accessToken: googleSignInAuthentication.accessToken,
-          );
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
-          try{
-            UserCredential userCredential = await auth.signInWithCredential(credential);
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserMain()));
-          }
-          catch(e){
-            print(e.toString());
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(e.toString(),
-                style:  GoogleFonts.inter(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),),
-            ),);
-          }
-        }
-      else {
-        print('Not able to sign in.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  Future<void> signInWithGoogle(BuildContext context) async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleSignInAccount?.authentication;
+
+      //param care indica tipul de acces cerut.Google se ocupa de autentif
+      // user-ului si a contentului sau. Rezultatul e un cod de autorizatie
+      // pe care aplicatia il da in schimbul unui token de acces si a unui token de refesh.
+      if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
+        // cream un nou credential
+        final credential = GoogleAuthProvider.credential(
+          idToken: googleAuth?.idToken,
+          accessToken: googleAuth?.accessToken,
+        );
+
+        await auth.signInWithCredential(credential);
+      }
+    } catch (e) {
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           backgroundColor: Colors.orangeAccent,
-          content: Text('Not able to sign in.',
-            style:  GoogleFonts.inter(
+          content: Text(
+            e.toString(),
+            style: GoogleFonts.inter(
               color: Colors.white,
               fontWeight: FontWeight.w600,
               fontSize: 18,
-            ),),
-        ),);
-      }
+            ),
+          ),
+        ),
+      );
     }
-    catch(e){
-      print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.orangeAccent,
-        content: Text(e.toString(),
-          style:  GoogleFonts.inter(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),),
-      ),);
-    }
+  }
+
+  Future<void> signOutFromGoogle() async {
+    await googleSignIn.signOut();
+    await auth.signOut();
   }
 }

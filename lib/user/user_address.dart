@@ -1,4 +1,5 @@
 import 'package:admin_block/pages/auth/login.dart';
+import 'package:admin_block/pages/user_main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -355,18 +356,6 @@ class _UserAddressState extends State<UserAddress> {
                       ),
                       onPressed: () async {
                         if (_addressFormKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Sending data...',
-                                style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          );
                           await users_data
                               .doc(user!.uid)
                               .set({
@@ -381,10 +370,39 @@ class _UserAddressState extends State<UserAddress> {
                               .catchError((error) =>
                                   print('Failed to add user: $error'));
                           print("Name: $name");
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
+
+                          try {
+                            await FirebaseAuth.instance.currentUser!
+                                .sendEmailVerification();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.orangeAccent,
+                                content: Text(
+                                  'Email verification sent!',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } catch (e) {
+                            print('Error: ' + e.toString());
+                          }
+                          if (FirebaseAuth.instance.currentUser!.providerData[0]
+                                  .providerId ==
+                              'google.com') {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UserMain()));
+                          } else {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()));
+                          }
                         }
                       },
                     ),

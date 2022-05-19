@@ -85,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Column(
+        child: ListView(
           children: [
             SizedBox(
               height: 30,
@@ -93,7 +93,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 30.0),
               child: Image.asset(
-                'lib/assets/imageslogo.png',
+                'lib/assets/images/logo.png',
                 width: 300,
                 height: 260,
               ),
@@ -102,7 +102,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               height: 30,
             ),
             Container(
-              margin: EdgeInsets.only(top: 20.0),
+              margin: EdgeInsets.only(top: 20.0, left: 20),
               child: Text(
                 'Reset link will be send to you email address.',
                 style: GoogleFonts.inter(
@@ -112,145 +112,141 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 ),
               ),
             ),
-            Expanded(
-              child: Form(
-                key: _formKey,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-                  child: ListView(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 10.0),
-                        child: TextFormField(
-                          autofocus: false,
-                          decoration: InputDecoration(
-                            fillColor: Color(0x70E0E0E0),
-                            filled: true,
-                            focusColor: Colors.grey[700],
-                            hoverColor: Colors.grey[700],
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      child: TextFormField(
+                        autofocus: false,
+                        decoration: InputDecoration(
+                          fillColor: Color(0x70E0E0E0),
+                          filled: true,
+                          focusColor: Colors.grey[700],
+                          hoverColor: Colors.grey[700],
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                          ),
+                          errorStyle: TextStyle(
+                            color: Colors.black26,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        controller: emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter email address.';
+                          } else if (!value.contains('@')) {
+                            return 'Please enter a valid email.';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 1.6,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  email = emailController.text;
+                                });
+                                resetUserPassword();
+                              }
+                            },
+                            child: Text(
+                              ' Send email ',
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                              ),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                            ),
-                            errorStyle: TextStyle(
-                              color: Colors.black26,
-                              fontSize: 15.0,
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.grey[700],
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
                             ),
                           ),
-                          controller: emailController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter email address.';
-                            } else if (!value.contains('@')) {
-                              return 'Please enter a valid email.';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 2.2,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  setState(() {
-                                    email = emailController.text;
-                                  });
-                                  resetUserPassword();
-                                }
-                              },
-                              child: Text(
-                                ' Send email ',
-                                style: GoogleFonts.inter(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.grey[700],
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()));
+                            },
+                            child: Text(
+                              'LOGIN ',
+                              style: GoogleFonts.inter(
+                                color: Colors.orangeAccent,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20,
                               ),
                             ),
-                            TextButton(
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            ' Don\'t have an account? ',
+                            style: GoogleFonts.inter(
+                              color: Colors.orangeAccent,
+                              fontSize: 17,
+                            ),
+                          ),
+                          Expanded(
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                              ),
                               onPressed: () {
-                                Navigator.push(
+                                Navigator.pushAndRemoveUntil(
                                     context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage()));
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, a, b) =>
+                                          RegisterPage(),
+                                      transitionDuration: Duration(seconds: 0),
+                                    ),
+                                    (route) => false);
                               },
                               child: Text(
-                                'LOGIN ',
+                                'REGISTER ',
                                 style: GoogleFonts.inter(
                                   color: Colors.orangeAccent,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              ' Don\'t have an account? ',
-                              style: GoogleFonts.inter(
-                                color: Colors.orangeAccent,
-                                fontSize: 17,
-                              ),
-                            ),
-                            Expanded(
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                ),
-                                onPressed: () {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder: (context, a, b) =>
-                                            RegisterPage(),
-                                        transitionDuration:
-                                            Duration(seconds: 0),
-                                      ),
-                                      (route) => false);
-                                },
-                                child: Text(
-                                  'REGISTER ',
-                                  style: GoogleFonts.inter(
-                                    color: Colors.orangeAccent,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
