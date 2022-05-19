@@ -1,5 +1,5 @@
-import 'package:admin_block/pages/auth/login.dart';
-import 'package:admin_block/pages/user_main.dart';
+import 'package:admin_block/pages/service/login.dart';
+import 'package:admin_block/pages/user_main_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,7 @@ class _UserAddressState extends State<UserAddress> {
   var numberStreet = "";
   var building = "";
   var apartment = "";
+  var numberOfPersons = "";
 
   final _addressFormKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -27,16 +28,11 @@ class _UserAddressState extends State<UserAddress> {
   final numberStreetController = TextEditingController();
   final buildingController = TextEditingController();
   final apartmentController = TextEditingController();
+  final numberOfPersonsController = TextEditingController();
 
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
   final displayName = FirebaseAuth.instance.currentUser!.displayName;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -46,6 +42,7 @@ class _UserAddressState extends State<UserAddress> {
     numberStreetController.dispose();
     buildingController.dispose();
     apartmentController.dispose();
+    numberOfPersonsController.dispose();
     super.dispose();
   }
 
@@ -97,13 +94,21 @@ class _UserAddressState extends State<UserAddress> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  'Enter your name',
-                  style: GoogleFonts.inter(
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.person_sharp,
+                      color: Colors.deepOrange,
+                    ),
+                    Text(
+                      'Enter your name',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   autofocus: false,
@@ -137,13 +142,21 @@ class _UserAddressState extends State<UserAddress> {
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  'Enter your username',
-                  style: GoogleFonts.inter(
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.drive_file_rename_outline,
+                      color: Colors.deepOrange,
+                    ),
+                    Text(
+                      'Enter your username',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   autofocus: false,
@@ -177,13 +190,21 @@ class _UserAddressState extends State<UserAddress> {
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  'Enter your street',
-                  style: GoogleFonts.inter(
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.streetview,
+                      color: Colors.deepOrange,
+                    ),
+                    Text(
+                      'Enter your street',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   autofocus: false,
@@ -217,13 +238,21 @@ class _UserAddressState extends State<UserAddress> {
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  'Enter your street number',
-                  style: GoogleFonts.inter(
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.format_list_numbered,
+                      color: Colors.deepOrange,
+                    ),
+                    Text(
+                      'Enter your street number',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   autofocus: false,
@@ -257,13 +286,21 @@ class _UserAddressState extends State<UserAddress> {
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  'Enter your building',
-                  style: GoogleFonts.inter(
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.apartment,
+                      color: Colors.deepOrange,
+                    ),
+                    Text(
+                      'Enter your building',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   autofocus: false,
@@ -297,13 +334,21 @@ class _UserAddressState extends State<UserAddress> {
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                  'Enter your apartment',
-                  style: GoogleFonts.inter(
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.format_list_numbered,
+                      color: Colors.deepOrange,
+                    ),
+                    Text(
+                      'Enter your apartment',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
                 ),
                 TextFormField(
                   autofocus: false,
@@ -330,6 +375,54 @@ class _UserAddressState extends State<UserAddress> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please provide your apartment';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.wc_sharp,
+                      color: Colors.deepOrange,
+                    ),
+                    Text(
+                      'Enter no. of persons in apartment',
+                      style: GoogleFonts.inter(
+                        color: Colors.grey[500],
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
+                ),
+                TextFormField(
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    fillColor: Color(0x70E0E0E0),
+                    filled: true,
+                    focusColor: Colors.grey[700],
+                    hoverColor: Colors.grey[700],
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorStyle: TextStyle(
+                      color: Colors.black26,
+                      fontSize: 15.0,
+                    ),
+                  ),
+                  controller: numberOfPersonsController,
+                  onChanged: (value) {
+                    numberOfPersons = value;
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please provide number of persons';
                     }
                     return null;
                   },
@@ -364,7 +457,8 @@ class _UserAddressState extends State<UserAddress> {
                                 'street': street,
                                 'streetNumber': numberStreet,
                                 'building': building,
-                                'apartment': apartment
+                                'apartment': apartment,
+                                'number_of_persons': numberOfPersons,
                               })
                               .then((value) => print("User's data added"))
                               .catchError((error) =>

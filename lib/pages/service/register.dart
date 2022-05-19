@@ -1,6 +1,6 @@
 import 'package:admin_block/components/terms_of_use.dart';
 import 'package:admin_block/pages/onboarding.dart';
-import 'package:admin_block/service/auth_service.dart';
+import 'package:admin_block/pages/service/google_auth.dart';
 import 'package:admin_block/user/user_address.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

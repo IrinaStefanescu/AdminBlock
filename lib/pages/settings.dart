@@ -2,15 +2,15 @@ import 'package:admin_block/components/agree_dialog.dart';
 import 'package:admin_block/components/shape_marker.dart';
 import 'package:admin_block/pages/provide_feedback_form.dart';
 import 'package:admin_block/pages/report_a_bug_form.dart';
-import 'package:admin_block/pages/user_main.dart';
-import 'package:admin_block/service/auth_service.dart';
+import 'package:admin_block/pages/service/google_auth.dart';
+import 'package:admin_block/pages/user_main_layout.dart';
 import 'package:admin_block/user/delete_user_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'auth/login.dart';
+import 'service/login.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

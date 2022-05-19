@@ -1,3 +1,4 @@
+import 'package:admin_block/components/button_primary.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,12 @@ class CalculateMaintenance extends StatefulWidget {
 
 class _CalculateMaintenanceState extends State<CalculateMaintenance> {
   final _calculateMaintenanceFormKey = GlobalKey<FormState>();
+
+  final userGeneralCosts = 48.52;
+  late double userGeneralWaterCosts;
+  late double userGeneralHeatCosts;
+  late double userGeneralGasesCosts;
+  late double userMaintenanceBill;
 
   @override
   initState() {
@@ -98,14 +105,13 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                     if (user != null) {
                       print(user);
 
-                      CollectionReference costs_per_apartment =
-                          FirebaseFirestore.instance
-                              .collection('users_general_costs');
+                      CollectionReference costsPerApartment = FirebaseFirestore
+                          .instance
+                          .collection('users_general_costs');
 
                       return FutureBuilder<DocumentSnapshot>(
-                        future: costs_per_apartment
-                            .doc('costs_per_apartment')
-                            .get(),
+                        future:
+                            costsPerApartment.doc('costs_per_apartment').get(),
                         builder: (BuildContext context,
                             AsyncSnapshot<DocumentSnapshot> snapshot) {
                           if (snapshot.hasError) {
@@ -354,12 +360,12 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                     if (user != null) {
                       print(user);
 
-                      CollectionReference costs_per_person = FirebaseFirestore
+                      CollectionReference costsPerPerson = FirebaseFirestore
                           .instance
                           .collection('users_general_costs');
 
                       return FutureBuilder<DocumentSnapshot>(
-                        future: costs_per_person.doc('costs_per_person').get(),
+                        future: costsPerPerson.doc('costs_per_person').get(),
                         builder: (BuildContext context,
                             AsyncSnapshot<DocumentSnapshot> snapshot) {
                           if (snapshot.hasError) {
@@ -374,6 +380,7 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                               ConnectionState.done) {
                             Map<String, dynamic> data =
                                 snapshot.data!.data() as Map<String, dynamic>;
+
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                               child: Center(
@@ -423,11 +430,11 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                     if (user != null) {
                       print(user);
 
-                      CollectionReference indexes_values =
+                      CollectionReference indexesValues =
                           FirebaseFirestore.instance.collection('indexes');
 
                       return FutureBuilder<DocumentSnapshot>(
-                        future: indexes_values.doc(uid).get(),
+                        future: indexesValues.doc(uid).get(),
                         builder: (BuildContext context,
                             AsyncSnapshot<DocumentSnapshot> snapshot) {
                           if (snapshot.hasError) {
@@ -466,6 +473,8 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                 warmWaterBathroomCosts +
                                 warmWaterKitchenCosts;
 
+                            userGeneralWaterCosts = totalWaterCosts;
+
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 10, 5),
                               child: Center(
@@ -488,17 +497,121 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                         fontSize: 17,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          return Container();
+                        },
+                      );
+                    } else {
+                      return Text("user is not logged in");
+                    }
+                  },
+                ),
+                StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.active) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    final user = FirebaseAuth.instance.currentUser;
+                    final uid = user!.uid;
+                    if (user != null) {
+                      print(user);
+
+                      CollectionReference costsPerPerson =
+                          FirebaseFirestore.instance.collection('users_data');
+
+                      return FutureBuilder<DocumentSnapshot>(
+                        future: costsPerPerson.doc(uid).get(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text("Something went wrong");
+                          }
+
+                          if (snapshot.hasData && !snapshot.data!.exists) {
+                            return Text("Document does not exist");
+                          }
+
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            Map<String, dynamic> data =
+                                snapshot.data!.data() as Map<String, dynamic>;
+
+                            var numberOfPersonsInApartment =
+                                double.parse(data['number_of_persons']);
+                            var totalNumberOfPersons = 45;
+                            var totalGasesBill = 310;
+                            var totalHeatBill = 1440;
+
+                            var individualHeatCost =
+                                (totalHeatBill / totalNumberOfPersons) *
+                                    numberOfPersonsInApartment;
+                            var individualGasesCost =
+                                (totalGasesBill / totalNumberOfPersons) *
+                                    numberOfPersonsInApartment;
+
+                            userGeneralHeatCosts = individualHeatCost;
+                            userGeneralGasesCosts = individualGasesCost;
+
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: Center(
+                                child: Column(
+                                  children: [
                                     Text(
-                                      'In order to see your costs for gas and heat you need to enter the number of persons in your apartment.',
+                                      'Number of persons declared',
                                       style: GoogleFonts.inter(
                                         color: Colors.grey.shade700,
                                         fontWeight: FontWeight.w500,
                                         fontSize: 18,
                                       ),
                                       textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "${numberOfPersonsInApartment.toStringAsFixed(0)}",
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Individual heat cost',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "$individualHeatCost RON",
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 17,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Individual gases cost',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "${individualGasesCost.toStringAsFixed(2)} RON",
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 17,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -513,6 +626,27 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                     }
                   },
                 ),
+                SizedBox(
+                  height: 40,
+                ),
+                ButtonPrimary(
+                    title: 'CALCULATE',
+                    action: () {
+                      userMaintenanceBill = userGeneralCosts +
+                          userGeneralGasesCosts +
+                          userGeneralHeatCosts +
+                          userGeneralWaterCosts;
+                      print("User bill: " +
+                          userMaintenanceBill.toStringAsFixed(2));
+                    },
+                    fontSize: 17,
+                    fontColor: Colors.white,
+                    fontWeight: FontWeight.w300,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.grey.shade900,
+                    margin: EdgeInsets.fromLTRB(32, 0, 32, 20),
+                    borderRadius: BorderRadius.circular(12.0),
+                    borderSideColor: Colors.grey.shade900),
               ],
             ),
           ),
