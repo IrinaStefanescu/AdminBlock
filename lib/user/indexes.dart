@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Indexes extends StatefulWidget {
-  const Indexes({Key? key}) : super(key: key);
-
   @override
   State<Indexes> createState() => _IndexesState();
 }
@@ -519,6 +517,7 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
                                     .then((value) => print("User's data added"))
                                     .catchError((error) =>
                                         print('Failed to add user: $error'));
+
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

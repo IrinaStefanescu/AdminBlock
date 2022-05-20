@@ -1,6 +1,6 @@
+import 'package:admin_block/user/calculate_maintenance.dart';
 import 'package:admin_block/user/dashboard.dart';
 import 'package:admin_block/user/indexes.dart';
-import 'package:admin_block/user/meeting.dart';
 import 'package:admin_block/user/pay_bill.dart';
 import 'package:admin_block/user/send_docs.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,7 +39,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Dashboard'),
             BottomNavigationBarItem(icon: Icon(Icons.wash), label: 'Indexes'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.video_call), label: 'Meeting'),
+                icon: Icon(Icons.calculate), label: 'Maintenance'),
           ],
         ),
         tabBuilder: (context, index) {
@@ -69,7 +69,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
             case 4:
               return CupertinoTabView(builder: (context) {
                 return CupertinoPageScaffold(
-                  child: Meeting(),
+                  child: CalculateMaintenance(),
                 );
               });
             default:

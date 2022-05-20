@@ -1,10 +1,9 @@
 import 'package:admin_block/components/button_primary.dart';
+import 'package:admin_block/user/dashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'dashboard.dart';
 
 class CalculateMaintenance extends StatefulWidget {
   @override
@@ -37,34 +36,6 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: GestureDetector(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.keyboard_arrow_left,
-                          size: 30,
-                        ),
-                        Text(
-                          'Dashboard',
-                          style: GoogleFonts.inter(
-                            color: Colors.grey.shade900,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Dashboard()));
-                    },
-                  ),
-                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -442,7 +413,66 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                           }
 
                           if (snapshot.hasData && !snapshot.data!.exists) {
-                            return Text("Document does not exist");
+                            return Container(
+                              width: MediaQuery.of(context).size.width / 0.5,
+                              child: AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                title: Text(
+                                  'Attention!',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.deepOrange,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 20,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                content: Column(
+                                  children: [
+                                    Text(
+                                      'In order to have access to all of your maintenance costs you should first enter your'
+                                      ' water indexes.',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.grey.shade700,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 10.0, bottom: 0),
+                                      child: Text(
+                                        'Please complete Indexes Page first.',
+                                        style: GoogleFonts.inter(
+                                          color: Colors.grey.shade700,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text(
+                                      'OK',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.deepOrange,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Dashboard()));
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
                           }
 
                           if (snapshot.connectionState ==

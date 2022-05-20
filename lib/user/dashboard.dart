@@ -6,12 +6,13 @@ import 'package:admin_block/pages/download_standardized_document_one.dart';
 import 'package:admin_block/pages/download_standardized_document_six.dart';
 import 'package:admin_block/pages/download_standardized_document_three.dart';
 import 'package:admin_block/pages/download_standardized_document_two.dart';
-import 'package:admin_block/user/calculate_maintenance.dart';
 import 'package:admin_block/user/complaints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+
+import 'calculate_maintenance.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -121,7 +122,7 @@ class _DashboardState extends State<Dashboard>
                             builder: (context) => CalculateMaintenance()));
                   },
                   child: Text(
-                    'Calculate your maintenance',
+                    'G-meet link',
                     style: GoogleFonts.inter(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
