@@ -37,14 +37,14 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,
                   child: Text(
                     'Calculate maintenance',
                     style: GoogleFonts.inter(
-                      color: Colors.grey.shade900,
+                      color: Colors.deepOrange,
                       fontWeight: FontWeight.w600,
                       fontSize: 22,
                     ),
@@ -52,19 +52,7 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  child: Text(
-                    'Users costs per apartment',
-                    style: GoogleFonts.inter(
-                      color: Colors.grey.shade700,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  height: 30,
                 ),
                 StreamBuilder(
                   stream: FirebaseAuth.instance.authStateChanges(),
@@ -97,217 +85,270 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                               ConnectionState.done) {
                             Map<String, dynamic> data =
                                 snapshot.data!.data() as Map<String, dynamic>;
-                            return Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 20),
-                                  child: Table(
-                                    columnWidths: {
-                                      0: FractionColumnWidth(0.1),
-                                      1: FractionColumnWidth(0.6),
-                                      2: FractionColumnWidth(0.3),
-                                    },
-                                    border: TableBorder.all(
-                                        color: Colors.deepOrange,
-                                        style: BorderStyle.solid,
-                                        width: 2),
-                                    children: [
-                                      TableRow(children: [
-                                        Column(children: [
-                                          Text(
-                                            'No',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.grey.shade600,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18,
-                                            ),
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: ExpansionTile(
+                                      iconColor: Colors.white,
+                                      collapsedIconColor: Colors.white,
+                                      backgroundColor: Color(0xFFFCC075),
+                                      collapsedBackgroundColor:
+                                          Colors.orangeAccent,
+                                      collapsedTextColor: Colors.white,
+                                      textColor: Colors.white,
+                                      title: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                1.2,
+                                        child: Text(
+                                          'Users costs per apartment',
+                                          style: GoogleFonts.inter(
+                                            //color: Colors.grey.shade700,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
                                           ),
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            'Type',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.grey.shade600,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18,
-                                            ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
+                                          child: Table(
+                                            columnWidths: {
+                                              0: FractionColumnWidth(0.1),
+                                              1: FractionColumnWidth(0.6),
+                                              2: FractionColumnWidth(0.3),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.grey,
+                                                style: BorderStyle.solid,
+                                                width: 2),
+                                            children: [
+                                              TableRow(children: [
+                                                Column(children: [
+                                                  Text(
+                                                    'No',
+                                                    style: GoogleFonts.inter(
+                                                      color:
+                                                          Colors.grey.shade800,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    'Type',
+                                                    style: GoogleFonts.inter(
+                                                      color:
+                                                          Colors.grey.shade800,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    'Value',
+                                                    style: GoogleFonts.inter(
+                                                      color:
+                                                          Colors.grey.shade800,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                ]),
+                                              ]),
+                                              TableRow(children: [
+                                                Column(children: [
+                                                  Text(
+                                                    '1',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    'Intercom services',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    "${data['intercom_services']} RON",
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                              ]),
+                                              TableRow(children: [
+                                                Column(children: [
+                                                  Text(
+                                                    '2',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    'Repair fund',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    "${data['repair_fund']} RON",
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                              ]),
+                                              TableRow(children: [
+                                                Column(children: [
+                                                  Text(
+                                                    '3',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    'Salaries',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    "${data['salaries']} RON",
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                              ]),
+                                              TableRow(children: [
+                                                Column(children: [
+                                                  Text(
+                                                    '4',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    'Stair cleaning',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    "${data['stair_cleaning']} RON",
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                              ]),
+                                              TableRow(children: [
+                                                Column(children: [
+                                                  Text(
+                                                    '5',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    'Tax',
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                                Column(children: [
+                                                  Text(
+                                                    "${data['tax']} RON",
+                                                    style: GoogleFonts.inter(
+                                                      color: Colors.black87,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 17,
+                                                    ),
+                                                  )
+                                                ]),
+                                              ]),
+                                            ],
                                           ),
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            'Value',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.grey.shade600,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ]),
-                                      ]),
-                                      TableRow(children: [
-                                        Column(children: [
-                                          Text(
-                                            '1',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          ),
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            'Intercom services',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            "${data['intercom_services']} RON",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                      ]),
-                                      TableRow(children: [
-                                        Column(children: [
-                                          Text(
-                                            '2',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            'Repair fund',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            "${data['repair_fund']} RON",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                      ]),
-                                      TableRow(children: [
-                                        Column(children: [
-                                          Text(
-                                            '3',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            'Salaries',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            "${data['salaries']} RON",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                      ]),
-                                      TableRow(children: [
-                                        Column(children: [
-                                          Text(
-                                            '4',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            'Stair cleaning',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            "${data['stair_cleaning']} RON",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                      ]),
-                                      TableRow(children: [
-                                        Column(children: [
-                                          Text(
-                                            '5',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            'Tax',
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                        Column(children: [
-                                          Text(
-                                            "${data['tax']} RON",
-                                            style: GoogleFonts.inter(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 17,
-                                            ),
-                                          )
-                                        ]),
-                                      ]),
-                                    ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             );
                           }
                           return Container();
@@ -319,7 +360,7 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 3,
                 ),
                 StreamBuilder(
                   stream: FirebaseAuth.instance.authStateChanges(),
@@ -353,25 +394,41 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                 snapshot.data!.data() as Map<String, dynamic>;
 
                             return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
                               child: Center(
                                 child: Column(
                                   children: [
-                                    Text(
-                                      'Users costs per person',
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey.shade700,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      "Light: ${data['light']} RON",
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey[800],
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 17,
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: ExpansionTile(
+                                        iconColor: Colors.white,
+                                        collapsedIconColor: Colors.white,
+                                        backgroundColor: Color(0xFFFCC075),
+                                        collapsedBackgroundColor:
+                                            Colors.orangeAccent,
+                                        collapsedTextColor: Colors.white,
+                                        textColor: Colors.white,
+                                        title: Text(
+                                          'User\'s costs per person',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        children: [
+                                          Text(
+                                            "Light: ${data['light']} RON",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 3,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -388,7 +445,7 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 3,
                 ),
                 StreamBuilder(
                   stream: FirebaseAuth.instance.authStateChanges(),
@@ -506,25 +563,47 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                             userGeneralWaterCosts = totalWaterCosts;
 
                             return Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 10, 5),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
                               child: Center(
                                 child: Column(
                                   children: [
-                                    Text(
-                                      'Kitchen and bathroom water costs based on indexes introduced by you.',
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey.shade700,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      "${totalWaterCosts.toStringAsFixed(2)} RON",
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey[800],
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 17,
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: ExpansionTile(
+                                        iconColor: Colors.white,
+                                        collapsedIconColor: Colors.white,
+                                        backgroundColor: Color(0xFFFCC075),
+                                        collapsedBackgroundColor:
+                                            Colors.orangeAccent,
+                                        collapsedTextColor: Colors.white,
+                                        textColor: Colors.white,
+                                        title: Text(
+                                          'User\'s individual water coasts',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        children: [
+                                          Text(
+                                            '(based on indexes introduced by you)',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey.shade700,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            "${totalWaterCosts.toStringAsFixed(2)} RON",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -539,6 +618,9 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                       return Text("user is not logged in");
                     }
                   },
+                ),
+                SizedBox(
+                  height: 3,
                 ),
                 StreamBuilder(
                   stream: FirebaseAuth.instance.authStateChanges(),
@@ -588,59 +670,104 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                             userGeneralGasesCosts = individualGasesCost;
 
                             return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
                               child: Center(
                                 child: Column(
                                   children: [
-                                    Text(
-                                      'Number of persons declared',
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey.shade700,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      "${numberOfPersonsInApartment.toStringAsFixed(0)}",
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey[800],
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 17,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Individual heat cost',
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey.shade700,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    Text(
-                                      "$individualHeatCost RON",
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey[800],
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 17,
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: ExpansionTile(
+                                        iconColor: Colors.white,
+                                        collapsedIconColor: Colors.white,
+                                        backgroundColor: Color(0xFFFCC075),
+                                        collapsedBackgroundColor:
+                                            Colors.orangeAccent,
+                                        collapsedTextColor: Colors.white,
+                                        textColor: Colors.white,
+                                        title: Text(
+                                          'Number of persons declared',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        children: [
+                                          Text(
+                                            "${numberOfPersonsInApartment.toStringAsFixed(0)}",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Text(
-                                      'Individual gases cost',
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey.shade700,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                      ),
-                                      textAlign: TextAlign.center,
+                                    SizedBox(
+                                      height: 3,
                                     ),
-                                    Text(
-                                      "${individualGasesCost.toStringAsFixed(2)} RON",
-                                      style: GoogleFonts.inter(
-                                        color: Colors.grey[800],
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 17,
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: ExpansionTile(
+                                        iconColor: Colors.white,
+                                        collapsedIconColor: Colors.white,
+                                        backgroundColor: Color(0xFFFCC075),
+                                        collapsedBackgroundColor:
+                                            Colors.orangeAccent,
+                                        collapsedTextColor: Colors.white,
+                                        textColor: Colors.white,
+                                        title: Text(
+                                          'Individual heat cost',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        children: [
+                                          Text(
+                                            "$individualHeatCost RON",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: ExpansionTile(
+                                        iconColor: Colors.white,
+                                        collapsedIconColor: Colors.white,
+                                        backgroundColor: Color(0xFFFCC075),
+                                        collapsedBackgroundColor:
+                                            Colors.orangeAccent,
+                                        collapsedTextColor: Colors.white,
+                                        textColor: Colors.white,
+                                        title: Text(
+                                          'Individual gases cost',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 18,
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        children: [
+                                          Text(
+                                            "${individualGasesCost.toStringAsFixed(2)} RON",
+                                            style: GoogleFonts.inter(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -657,7 +784,7 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                   },
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 ButtonPrimary(
                     title: 'CALCULATE',
@@ -669,14 +796,14 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                       print("User bill: " +
                           userMaintenanceBill.toStringAsFixed(2));
                     },
-                    fontSize: 17,
+                    fontSize: 20,
                     fontColor: Colors.white,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w500,
                     foregroundColor: Colors.white,
-                    backgroundColor: Colors.grey.shade900,
+                    backgroundColor: Colors.deepOrangeAccent,
                     margin: EdgeInsets.fromLTRB(32, 0, 32, 20),
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSideColor: Colors.grey.shade900),
+                    borderSideColor: Colors.deepOrange),
               ],
             ),
           ),

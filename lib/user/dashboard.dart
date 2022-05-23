@@ -12,8 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-import 'calculate_maintenance.dart';
-
 class Dashboard extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
@@ -108,26 +106,23 @@ class _DashboardState extends State<Dashboard>
             ),
             SizedBox(height: 10),
             Container(
+              width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(left: 10.0, right: 10.0),
               height: MediaQuery.of(context).size.height / 14,
               decoration: BoxDecoration(
                   color: Colors.orangeAccent,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Center(
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CalculateMaintenance()));
-                  },
-                  child: Text(
-                    'G-meet link',
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
-                    ),
+              child: TextButton(
+                onPressed: () {
+                  // Navigator.pushReplacement(context,
+                  //     MaterialPageRoute(builder: (context) => GmeetLink()));
+                },
+                child: Text(
+                  'G-meet link',
+                  style: GoogleFonts.inter(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -396,4 +391,6 @@ class _DashboardState extends State<Dashboard>
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
     );
   }
+
+  Future notificationSelected(String payload) async {}
 }
