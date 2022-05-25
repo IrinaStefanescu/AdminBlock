@@ -1,10 +1,12 @@
 import 'package:admin_block/pages/user_main_layout.dart';
+import 'package:admin_block/user/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../onboarding.dart';
 import 'forgot_password.dart';
+import 'notifications_api.dart';
 import 'register.dart';
 
 class LoginPage extends StatefulWidget {
@@ -23,12 +25,32 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => Dashboard()));
+
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
+  }
+
   userLogin() async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => UserMain()));
+
+      print('aici');
+      NotificationApi.showNotification(
+          title: 'AdminBlock Notification',
+          body: 'Welcome to your Dashboard!',
+          payload: 'adminblock');
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
         print("No user found for that email");

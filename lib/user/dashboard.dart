@@ -6,6 +6,7 @@ import 'package:admin_block/pages/download_standardized_document_one.dart';
 import 'package:admin_block/pages/download_standardized_document_six.dart';
 import 'package:admin_block/pages/download_standardized_document_three.dart';
 import 'package:admin_block/pages/download_standardized_document_two.dart';
+import 'package:admin_block/pages/service/notifications_api.dart';
 import 'package:admin_block/user/complaints.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,6 +35,8 @@ class _DashboardState extends State<Dashboard>
       zoom: 12,
     );
     super.initState();
+
+    NotificationApi.init();
   }
 
   _locateMe() async {
@@ -113,14 +116,7 @@ class _DashboardState extends State<Dashboard>
                   color: Colors.orangeAccent,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: TextButton(
-                onPressed: () {
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => MyHomePage(
-                  //               title: 'akjas',
-                  //             )));
-                },
+                onPressed: () {},
                 child: Text(
                   'G-meet link',
                   style: GoogleFonts.inter(
