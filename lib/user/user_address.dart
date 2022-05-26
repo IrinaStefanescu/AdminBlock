@@ -1,9 +1,12 @@
 import 'package:admin_block/pages/service/login.dart';
 import 'package:admin_block/pages/user_main_layout.dart';
+import 'package:admin_block/user/dashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../pages/service/notifications_api.dart';
 
 class UserAddress extends StatefulWidget {
   const UserAddress({Key? key}) : super(key: key);
@@ -33,6 +36,20 @@ class _UserAddressState extends State<UserAddress> {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final email = FirebaseAuth.instance.currentUser!.email;
   final displayName = FirebaseAuth.instance.currentUser!.displayName;
+
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => Dashboard()));
+
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
+  }
 
   @override
   void dispose() {
@@ -491,6 +508,11 @@ class _UserAddressState extends State<UserAddress> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => UserMain()));
+                            NotificationApi.showNotification(
+                              title: "AdminBlock Notification",
+                              body: "Welcome to your Dashboard!",
+                              payload: "user_login",
+                            );
                           } else {
                             Navigator.pushReplacement(
                                 context,

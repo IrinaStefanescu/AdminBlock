@@ -37,7 +37,35 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 40,
+                  height: 20,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.keyboard_arrow_left,
+                          size: 30,
+                        ),
+                        Text(
+                          'Dashboard',
+                          style: GoogleFonts.inter(
+                            color: Colors.grey.shade900,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Dashboard()));
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,

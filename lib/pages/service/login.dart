@@ -46,11 +46,11 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => UserMain()));
 
-      print('aici');
       NotificationApi.showNotification(
-          title: 'AdminBlock Notification',
-          body: 'Welcome to your Dashboard!',
-          payload: 'adminblock');
+        title: "AdminBlock Notification",
+        body: "Welcome to your Dashboard!",
+        payload: "user_login",
+      );
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
         print("No user found for that email");

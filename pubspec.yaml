@@ -17,14 +17,14 @@ dependencies:
   firebase_storage: ^10.2.4
   firebase_database: ^9.0.7
   firebase_messaging:
-  flutter_local_notifications:
-  rxdart:
 
+  getwidget: ^2.0.2
   open_file: ^3.2.1
   image_picker: ^0.8.4+4
-  google_ml_kit: ^0.7.3
   flutter_markdown: ^0.6.5
   image_gallery_saver: ^1.6.9
+  flutter_local_notifications:
+  rxdart:
   dio: ^4.0.0
   file_picker: ^4.3.0
   permission_handler: ^8.1.6

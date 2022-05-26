@@ -7,8 +7,12 @@ import 'package:admin_block/pages/download_standardized_document_six.dart';
 import 'package:admin_block/pages/download_standardized_document_three.dart';
 import 'package:admin_block/pages/download_standardized_document_two.dart';
 import 'package:admin_block/pages/service/notifications_api.dart';
+import 'package:admin_block/user/calculate_maintenance.dart';
 import 'package:admin_block/user/complaints.dart';
+import 'package:admin_block/user/pay_bill.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/components/toggle/gf_toggle.dart';
+import 'package:getwidget/types/gf_toggle_type.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -27,6 +31,13 @@ class _DashboardState extends State<Dashboard>
   late bool _serviceEnabled;
   late PermissionStatus _permissionGranted;
   late CameraPosition _currentPosition;
+  late bool _isFirstChecked;
+
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => PayBill()));
 
   @override
   void initState() {
@@ -36,7 +47,10 @@ class _DashboardState extends State<Dashboard>
     );
     super.initState();
 
+    _isFirstChecked = false;
+
     NotificationApi.init();
+    listenNotifications();
   }
 
   _locateMe() async {
@@ -108,25 +122,78 @@ class _DashboardState extends State<Dashboard>
               ),
             ),
             SizedBox(height: 10),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              height: MediaQuery.of(context).size.height / 14,
-              decoration: BoxDecoration(
-                  color: Colors.orangeAccent,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  'G-meet link',
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
+            _isFirstChecked == true
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    height: MediaQuery.of(context).size.height / 14,
+                    decoration: BoxDecoration(
+                        color: Colors.orangeAccent,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'I want to schedule weekly notifications \nfor housekeeping payment.',
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                        GFToggle(
+                          onChanged: (val) {
+                            setState(() {
+                              val = true;
+                              _isFirstChecked = true;
+                            });
+
+                            NotificationApi.showDailyScheduledNotification(
+                              title: "AdminBlock Notification",
+                              body:
+                                  "This is a reminder that you should pay your housekeeping bill!",
+                              payload: "housekeeping_bill_reminder",
+                            );
+                          },
+                          value: false,
+                          disabledThumbColor: Colors.deepOrange,
+                          disabledTrackColor: Colors.white,
+                          enabledTrackColor: Colors.deepOrange,
+                          enabledThumbColor: Colors.white,
+                          type: GFToggleType.ios,
+                        ),
+                      ],
+                    ),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CalculateMaintenance()));
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      height: MediaQuery.of(context).size.height / 14,
+                      decoration: BoxDecoration(
+                          color: Colors.orangeAccent,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'CALCULATE MAINTENANCE',
+                            style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             SizedBox(
               height: 10,
             ),

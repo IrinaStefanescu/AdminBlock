@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../pages/service/notifications_api.dart';
+
 class Indexes extends StatefulWidget {
   @override
   State<Indexes> createState() => _IndexesState();
@@ -31,9 +33,18 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
   final user = FirebaseAuth.instance.currentUser;
   final email = FirebaseAuth.instance.currentUser!.email;
 
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => Indexes()));
+
   @override
   void initState() {
     super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
   }
 
   @override
@@ -489,18 +500,6 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
                             title: 'SUBMIT',
                             action: () async {
                               if (_indexesFormKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Sending data...',
-                                      style: GoogleFonts.inter(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  ),
-                                );
                                 await indexes
                                     .doc(user!.uid)
                                     .set({
@@ -517,6 +516,12 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
                                     .then((value) => print("User's data added"))
                                     .catchError((error) =>
                                         print('Failed to add user: $error'));
+
+                                NotificationApi.showNotification(
+                                  title: "AdminBlock Notification",
+                                  body: "Indexes successfully sent!",
+                                  payload: "indexes_sent",
+                                );
 
                                 Navigator.pushReplacement(
                                     context,

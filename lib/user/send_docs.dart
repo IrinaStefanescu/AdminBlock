@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:admin_block/pages/service/notifications_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
@@ -29,6 +30,9 @@ class _SendDocsState extends State<SendDocs> {
       ccRecipients: <String>['irina.t.gh.stefanescu@gmail.com'],
       attachments: attachment_list,
     );
+
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => SendDocs()));
 
     String platformResponse;
 
@@ -86,6 +90,20 @@ class _SendDocsState extends State<SendDocs> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('Email was sent successfully!'),
     ));
+  }
+
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => SendDocs()));
+
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
   }
 
   @override
@@ -289,6 +307,11 @@ class _SendDocsState extends State<SendDocs> {
                       child: GestureDetector(
                         onTap: () {
                           sendEmail(context);
+                          NotificationApi.showScheduledNotification(
+                            title: "AdminBlock Notification",
+                            body: "Email successfully sent to administration!",
+                            payload: "email_sent",
+                          );
                         },
                         child: Row(
                           children: [
