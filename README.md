@@ -1,4 +1,4 @@
-# Proiect de licență - AdminBloc - aplicație mobilă de gestiune a administrației unei comunități de locatari
+# Proiect de licență - AdminBlock - aplicație mobilă de gestiune a administrației unei comunități de locatari
 
 A new Flutter project.
 
