@@ -1,4 +1,4 @@
-# crypto_wallet_licenta
+# Proiect de licență - AdminBloc - aplicație mobilă de gestiune a administrației unei comunități de locatari
 
 A new Flutter project.
 
