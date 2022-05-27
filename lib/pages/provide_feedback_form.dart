@@ -653,9 +653,10 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                   'encountered_bugs': _bugsIssues,
                                   'would_recommend_app': _wouldRecommend,
                                 })
-                                .then((value) => print("User's data added"))
-                                .catchError((error) =>
-                                    print('Failed to add user: $error'));
+                                .then((value) =>
+                                    print("Feedback provided by user."))
+                                .catchError((error) => print(
+                                    'Failed to add user feedback: $error'));
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

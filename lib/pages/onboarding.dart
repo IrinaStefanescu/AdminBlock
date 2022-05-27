@@ -78,14 +78,14 @@ class _OnBoardingUserState extends State<OnBoardingUser> {
                 height: 20,
               ),
               OnboardingComponent(
-                title: 'Download and send archived \n documents with password.',
+                title: 'Download images on your \nlocal storage.',
                 image: 'lib/assets/images/onboarding-icon-two.png',
               ),
               SizedBox(
                 height: 20,
               ),
               OnboardingComponent(
-                title: 'Take pictures of your indexes.',
+                title: 'Receive notifications when\ncompleting an action.',
                 image: 'lib/assets/images/onboarding-icon-three.png',
               ),
               SizedBox(

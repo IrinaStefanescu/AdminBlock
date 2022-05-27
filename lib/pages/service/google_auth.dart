@@ -22,12 +22,12 @@ class AuthClass {
       // pe care aplicatia il da in schimbul unui token de acces si a unui token de refesh.
       if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
         // cream un nou credential
-        final credential = GoogleAuthProvider.credential(
+        final userCredential = GoogleAuthProvider.credential(
           idToken: googleAuth?.idToken,
           accessToken: googleAuth?.accessToken,
         );
 
-        await auth.signInWithCredential(credential);
+        await auth.signInWithCredential(userCredential);
       }
     } catch (e) {
       print(e.toString());
