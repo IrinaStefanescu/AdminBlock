@@ -514,8 +514,8 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
                                           _warmWaterBathroomController.text,
                                     })
                                     .then((value) => print("User's data added"))
-                                    .catchError((error) =>
-                                        print('Failed to add user: $error'));
+                                    .catchError((error) => print(
+                                        'Failed to add user data: $error'));
 
                                 NotificationApi.showNotification(
                                   title: "AdminBlock Notification",

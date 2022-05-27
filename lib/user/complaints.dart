@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../pages/service/notifications_api.dart';
+
 class Complaints extends StatefulWidget {
   const Complaints({Key? key}) : super(key: key);
 
@@ -22,6 +24,20 @@ class _ComplaintsState extends State<Complaints> {
   final issueController = TextEditingController();
 
   final email = FirebaseAuth.instance.currentUser!.email;
+
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => Dashboard()));
+
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
+  }
 
   @override
   void dispose() {
@@ -332,6 +348,11 @@ class _ComplaintsState extends State<Complaints> {
                               .catchError((error) =>
                                   print('Failed to add user: $error'));
                           print("Name: $name");
+                          NotificationApi.showNotification(
+                            title: "AdminBlock Notification",
+                            body: "Compliant successfully sent!",
+                            payload: "compliant_sent",
+                          );
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

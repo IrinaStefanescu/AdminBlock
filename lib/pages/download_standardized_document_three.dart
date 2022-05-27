@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:admin_block/components/button_primary.dart';
+import 'package:admin_block/pages/service/notifications_api.dart';
 import 'package:admin_block/user/dashboard.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,6 +22,20 @@ class _DocumentThreeState extends State<DocumentThree> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) => Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => Dashboard()));
+
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
+  }
+
   @override
   Widget build(BuildContext context) {
     final url =
@@ -36,6 +51,13 @@ class _DocumentThreeState extends State<DocumentThree> {
             quality: 60,
             name: "working-capital");
         print(result);
+
+        NotificationApi.showNotification(
+          title: "AdminBlock Notification",
+          body:
+              "Request to get a returning working capital downloaded to local storage!",
+          payload: "document3",
+        );
       }
     }
 

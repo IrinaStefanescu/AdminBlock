@@ -816,13 +816,30 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                 ),
                 ButtonPrimary(
                     title: 'CALCULATE',
-                    action: () {
+                    action: () async {
                       userMaintenanceBill = userGeneralCosts +
                           userGeneralGasesCosts +
                           userGeneralHeatCosts +
                           userGeneralWaterCosts;
                       print("User bill: " +
                           userMaintenanceBill.toStringAsFixed(2));
+
+                      CollectionReference usersHousekeepingBills =
+                          FirebaseFirestore.instance
+                              .collection('users_housekeeping_bills');
+
+                      final user = FirebaseAuth.instance.currentUser;
+
+                      await usersHousekeepingBills
+                          .doc(user!.uid)
+                          .set({
+                            'email': user.email,
+                            'house_keeping_bill': userMaintenanceBill,
+                          })
+                          .then((value) => print(
+                              "User housekeeping bill saved in Cloud Firestore."))
+                          .catchError((error) => print(
+                              'Failed to add user housekeeping bill: $error'));
                     },
                     fontSize: 20,
                     fontColor: Colors.white,
