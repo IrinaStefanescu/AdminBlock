@@ -21,8 +21,8 @@ class _SendDocsState extends State<SendDocs> {
   final TextEditingController _subjectController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
 
-  Future<void> sendEmail(BuildContext context) async {
-    final MailOptions mailOptions = MailOptions(
+  Future<void> sendEmailToAdministration(BuildContext context) async {
+    final MailOptions myMailOptions = MailOptions(
       body: _bodyController.text,
       subject: _subjectController.text,
       recipients: <String>['administratie_bloc@gmail.com'],
@@ -37,7 +37,7 @@ class _SendDocsState extends State<SendDocs> {
     String platformResponse;
 
     try {
-      final MailerResponse response = await FlutterMailer.send(mailOptions);
+      final MailerResponse response = await FlutterMailer.send(myMailOptions);
       switch (response) {
         case MailerResponse.saved:
           platformResponse = 'Email was saved to draft!';
@@ -306,7 +306,7 @@ class _SendDocsState extends State<SendDocs> {
                       height: 40,
                       child: GestureDetector(
                         onTap: () {
-                          sendEmail(context);
+                          sendEmailToAdministration(context);
                           NotificationApi.showScheduledNotification(
                             title: "AdminBlock Notification",
                             body: "Email successfully sent to administration!",

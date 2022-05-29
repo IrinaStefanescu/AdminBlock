@@ -16,8 +16,8 @@ dependencies:
   cloud_firestore: ^2.5.2
   firebase_storage: ^10.2.4
   firebase_database: ^9.0.7
-  firebase_messaging:
 
+  flutter_stripe: 2.0.0
   getwidget: ^2.0.2
   open_file: ^3.2.1
   image_picker: ^0.8.4+4
