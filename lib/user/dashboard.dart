@@ -118,48 +118,6 @@ class _DashboardState extends State<Dashboard>
               ),
             ),
             SizedBox(height: 10),
-            // Container(
-            //    width: MediaQuery.of(context).size.width,
-            //    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-            //    height: MediaQuery.of(context).size.height / 14,
-            //    decoration: BoxDecoration(
-            //        color: Colors.orangeAccent,
-            //        borderRadius: BorderRadius.all(Radius.circular(10))),
-            //    child: Row(
-            //      mainAxisAlignment: MainAxisAlignment.center,
-            //      children: [
-            //        Text(
-            //          'I want to schedule weekly notifications \nfor housekeeping payment.',
-            //          style: GoogleFonts.inter(
-            //            color: Colors.white,
-            //            fontWeight: FontWeight.w600,
-            //            fontSize: 16,
-            //          ),
-            //        ),
-            //        GFToggle(
-            //          onChanged: (val) {
-            //            setState(() {
-            //              val = true;
-            //              _isFirstChecked = true;
-            //            });
-            //
-            //            NotificationApi.showDailyScheduledNotification(
-            //              title: "AdminBlock Notification",
-            //              body:
-            //                  "This is a reminder that you should pay your housekeeping bill!",
-            //              payload: "housekeeping_bill_reminder",
-            //            );
-            //          },
-            //          value: false,
-            //          disabledThumbColor: Colors.deepOrange,
-            //          disabledTrackColor: Colors.white,
-            //          enabledTrackColor: Colors.deepOrange,
-            //          enabledThumbColor: Colors.white,
-            //          type: GFToggleType.ios,
-            //        ),
-            //      ],
-            //    ),
-            //  )
             GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:admin_block/pages/blink_element.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' hide Card;
 import 'package:google_fonts/google_fonts.dart';
@@ -34,7 +36,22 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
       body: Column(
         children: [
           SizedBox(
-            height: 20,
+            height: 60,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 1.2,
+            child: Text(
+              'Pay house-keeping bill',
+              style: GoogleFonts.inter(
+                color: Colors.deepOrange,
+                fontWeight: FontWeight.w600,
+                fontSize: 22,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          SizedBox(
+            height: 50,
           ),
           Container(
             width: MediaQuery.of(context).size.width / 1.1,
@@ -136,14 +153,75 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
               ),
             ),
           ),
+          SizedBox(
+            height: 50,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 1.2,
+            child: StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.active) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                final user = FirebaseAuth.instance.currentUser;
+                final uid = user!.uid;
+                if (user != null) {
+                  print(user);
+
+                  CollectionReference user_bill = FirebaseFirestore.instance
+                      .collection('users_housekeeping_bills');
+
+                  return FutureBuilder<DocumentSnapshot>(
+                    future: user_bill.doc(uid).get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("Something went wrong");
+                      }
+
+                      if (snapshot.hasData && !snapshot.data!.exists) {
+                        return Text("");
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        Map<String, dynamic> data =
+                            snapshot.data!.data() as Map<String, dynamic>;
+                        return Text(
+                          'The payment amount for the current month is ${data['house_keeping_bill'].toString()} RON.'
+                          '\nZoom in on the picture above to be able to check if the total payment amount is \nthe same as the one mentioned above.',
+                          style: GoogleFonts.inter(
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                            height: 1.4,
+                          ),
+                          textAlign: TextAlign.start,
+                        );
+                      }
+                      return Container();
+                    },
+                  );
+                } else {
+                  return Text("user is not logged in");
+                }
+              },
+            ),
+          ),
+          SizedBox(
+            height: 100,
+          ),
           InkWell(
             onTap: () async {
               await makePayment();
             },
             child: Container(
-              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.deepOrange,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              height: 55,
               width: 200,
-              color: Colors.green,
               child: Center(
                 child: Text(
                   'Pay',
@@ -158,31 +236,37 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
   }
 
   Future<void> makePayment() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final user_bill = await FirebaseFirestore.instance
+        .collection('users_housekeeping_bills')
+        .doc(user?.uid)
+        .get();
     try {
       paymentIntentData =
-          await createPaymentIntent('20', 'USD'); //json.decode(response.body);
+          await createPaymentIntent(user_bill['house_keeping_bill'], 'RON');
       // print('Response body==>${response.body.toString()}');
       await Stripe.instance
           .initPaymentSheet(
               paymentSheetParameters: SetupPaymentSheetParameters(
-                  paymentIntentClientSecret:
-                      paymentIntentData!['client_secret'],
-                  applePay: true,
-                  googlePay: true,
-                  testEnv: true,
-                  style: ThemeMode.dark,
-                  merchantCountryCode: 'US',
-                  merchantDisplayName: 'ANNIE'))
+            primaryButtonColor: Colors.deepOrange,
+            paymentIntentClientSecret: paymentIntentData?['client_secret'],
+            applePay: true,
+            googlePay: true,
+            testEnv: true,
+            style: ThemeMode.dark,
+            merchantCountryCode: 'RON ',
+            merchantDisplayName:
+                FirebaseAuth.instance.currentUser?.displayName.toString(),
+          ))
           .then((value) {});
 
-      ///now finally display payment sheeet
-      displayPaymentSheet();
+      displayUserPaymentSheet();
     } catch (e, s) {
       print('exception:$e$s');
     }
   }
 
-  displayPaymentSheet() async {
+  displayUserPaymentSheet() async {
     try {
       await Stripe.instance
           .presentPaymentSheet(
@@ -191,16 +275,17 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         confirmPayment: true,
       ))
           .then((newValue) {
-        print('payment intent' + paymentIntentData!['id'].toString());
-        print(
-            'payment intent' + paymentIntentData!['client_secret'].toString());
-        print('payment intent' + paymentIntentData!['amount'].toString());
-        print('payment intent' + paymentIntentData.toString());
+        print('Payment intent id...' + paymentIntentData!['id'].toString());
+        print('Payment intent client_secret...' +
+            paymentIntentData!['client_secret'].toString());
+        print('Payment intent amount...' +
+            paymentIntentData!['amount'].toString());
+        print('Payment intent data...' + paymentIntentData.toString());
         //orderPlaceApi(paymentIntentData!['id'].toString());
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("paid successfully")));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Successfully payed your bill!")));
 
-        paymentIntentData = null;
+        //paymentIntentData = null;
       }).onError((error, stackTrace) {
         print('Exception/DISPLAYPAYMENTSHEET==> $error $stackTrace');
       });
@@ -218,9 +303,16 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
 
   //  Future<Map<String, dynamic>>
   createPaymentIntent(String amount, String currency) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final user_bill = await FirebaseFirestore.instance
+        .collection('users_housekeeping_bills')
+        .doc(user?.uid)
+        .get();
     try {
       Map<String, dynamic> body = {
-        'amount': calculateAmount('20'),
+        'amount': calculateUserAmount(
+          user_bill['house_keeping_bill'],
+        ),
         'currency': currency,
         'payment_method_types[]': 'card'
       };
@@ -240,8 +332,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
     }
   }
 
-  calculateAmount(String amount) {
-    final a = (int.parse(amount)) * 100;
-    return a.toString();
+  calculateUserAmount(String amount) {
+    return (int.parse(amount) * 100).toString();
   }
 }

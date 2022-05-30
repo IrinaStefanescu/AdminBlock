@@ -804,7 +804,8 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                         .doc(user!.uid)
                         .set({
                           'email': user.email,
-                          'house_keeping_bill': userMaintenanceBill,
+                          'house_keeping_bill':
+                              userMaintenanceBill.toStringAsFixed(0),
                         })
                         .then((value) => print(
                             "User housekeeping bill saved in Cloud Firestore."))
