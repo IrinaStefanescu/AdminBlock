@@ -28,7 +28,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Map<String, dynamic>? paymentData;
+  Map<String, dynamic>? userPaymentData;
 
   @override
   Widget build(BuildContext context) {
@@ -251,14 +251,13 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         .doc(user?.uid)
         .get();
     try {
-      paymentData =
+      userPaymentData =
           await createUserPayment(user_bill['house_keeping_bill'], 'RON');
-      // print('Response body==>${response.body.toString()}');
       await Stripe.instance
           .initPaymentSheet(
               paymentSheetParameters: SetupPaymentSheetParameters(
             primaryButtonColor: Colors.deepOrange,
-            paymentIntentClientSecret: paymentData?['client_secret'],
+            paymentIntentClientSecret: userPaymentData?['client_secret'],
             applePay: true,
             googlePay: true,
             testEnv: true,
@@ -268,10 +267,9 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
                 FirebaseAuth.instance.currentUser?.displayName.toString(),
           ))
           .then((value) {});
-
       displayUserPaymentSheet();
     } catch (e, s) {
-      print('exception:$e$s');
+      print('Exception:$e$s');
     }
   }
 
@@ -280,15 +278,16 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
       await Stripe.instance
           .presentPaymentSheet(
               parameters: PresentPaymentSheetParameters(
-        clientSecret: paymentData!['client_secret'],
+        clientSecret: userPaymentData!['client_secret'],
         confirmPayment: true,
       ))
           .then((newValue) {
-        print('Payment intent id...' + paymentData!['id'].toString());
+        print('Payment intent id...' + userPaymentData!['id'].toString());
         print('Payment intent client_secret...' +
-            paymentData!['client_secret'].toString());
-        print('Payment intent amount...' + paymentData!['amount'].toString());
-        print('Payment intent data...' + paymentData.toString());
+            userPaymentData!['client_secret'].toString());
+        print(
+            'Payment intent amount...' + userPaymentData!['amount'].toString());
+        print('Payment intent data...' + userPaymentData.toString());
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Successfully payed your bill!")));
 
@@ -315,7 +314,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         .doc(user?.uid)
         .get();
     try {
-      Map<String, dynamic> body = {
+      Map<String, dynamic> bodyStructure = {
         'amount': calculateUserAmount(
           user_bill['house_keeping_bill'],
         ),
@@ -324,16 +323,15 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
       };
       var stripeApiResponse = await http.post(
           Uri.parse('https://api.stripe.com/v1/payment_intents'),
-          body: body,
+          body: bodyStructure,
           headers: {
-            'Authorization':
-                'Bearer sk_test_51L4gMzA5V4GUDZql4LMqPGqHoqehyyGlok1tu3B5FXjuD7ph4mf0sPTOQtByV2kLTONf0VB5BPqARhM1HIqYYOkh00L4NC0EZ9',
+            'Authorization': 'Bearer sk_test_51L4gMzA5V4GUDZql4LMqPGqHoqehyyGlok'
+                '1tu3B5FXjuD7ph4mf0sPTOQtByV2kLTONf0VB5BPqARhM1HIqYYOkh00L4NC0EZ9',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
-      print('Create Intent reponse ===> ${stripeApiResponse.body.toString()}');
       return jsonDecode(stripeApiResponse.body);
     } catch (err) {
-      print('err charging user: ${err.toString()}');
+      print('Error charging user house-keeping bill: ${err.toString()}');
     }
   }
 
