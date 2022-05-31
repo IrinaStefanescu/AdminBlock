@@ -33,8 +33,8 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
   final user = FirebaseAuth.instance.currentUser;
   final email = FirebaseAuth.instance.currentUser!.email;
 
-  void listenNotifications() =>
-      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+  void listenNotifications() => NotificationApi.onNotificationsCallback.stream
+      .listen(onClickedNotification);
 
   void onClickedNotification(String? payload) => Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => Indexes()));

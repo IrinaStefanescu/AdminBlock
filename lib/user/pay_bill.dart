@@ -28,7 +28,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Map<String, dynamic>? paymentIntentData;
+  Map<String, dynamic>? paymentData;
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +181,16 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
                       }
 
                       if (snapshot.hasData && !snapshot.data!.exists) {
-                        return Text("");
+                        return Text(
+                          'You first need to enter Indexes and Maintenance screens and complete those steps in order to pay your bill.',
+                          style: GoogleFonts.inter(
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                            height: 1.4,
+                          ),
+                          textAlign: TextAlign.start,
+                        );
                       }
 
                       if (snapshot.connectionState == ConnectionState.done) {
@@ -213,7 +222,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
           ),
           InkWell(
             onTap: () async {
-              await makePayment();
+              await makeUserPayment();
             },
             child: Container(
               decoration: BoxDecoration(
@@ -235,21 +244,21 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
     );
   }
 
-  Future<void> makePayment() async {
+  Future<void> makeUserPayment() async {
     final user = FirebaseAuth.instance.currentUser;
     final user_bill = await FirebaseFirestore.instance
         .collection('users_housekeeping_bills')
         .doc(user?.uid)
         .get();
     try {
-      paymentIntentData =
-          await createPaymentIntent(user_bill['house_keeping_bill'], 'RON');
+      paymentData =
+          await createUserPayment(user_bill['house_keeping_bill'], 'RON');
       // print('Response body==>${response.body.toString()}');
       await Stripe.instance
           .initPaymentSheet(
               paymentSheetParameters: SetupPaymentSheetParameters(
             primaryButtonColor: Colors.deepOrange,
-            paymentIntentClientSecret: paymentIntentData?['client_secret'],
+            paymentIntentClientSecret: paymentData?['client_secret'],
             applePay: true,
             googlePay: true,
             testEnv: true,
@@ -271,17 +280,15 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
       await Stripe.instance
           .presentPaymentSheet(
               parameters: PresentPaymentSheetParameters(
-        clientSecret: paymentIntentData!['client_secret'],
+        clientSecret: paymentData!['client_secret'],
         confirmPayment: true,
       ))
           .then((newValue) {
-        print('Payment intent id...' + paymentIntentData!['id'].toString());
+        print('Payment intent id...' + paymentData!['id'].toString());
         print('Payment intent client_secret...' +
-            paymentIntentData!['client_secret'].toString());
-        print('Payment intent amount...' +
-            paymentIntentData!['amount'].toString());
-        print('Payment intent data...' + paymentIntentData.toString());
-        //orderPlaceApi(paymentIntentData!['id'].toString());
+            paymentData!['client_secret'].toString());
+        print('Payment intent amount...' + paymentData!['amount'].toString());
+        print('Payment intent data...' + paymentData.toString());
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Successfully payed your bill!")));
 
@@ -301,8 +308,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
     }
   }
 
-  //  Future<Map<String, dynamic>>
-  createPaymentIntent(String amount, String currency) async {
+  createUserPayment(String userBill, String userCurrency) async {
     final user = FirebaseAuth.instance.currentUser;
     final user_bill = await FirebaseFirestore.instance
         .collection('users_housekeeping_bills')
@@ -313,11 +319,10 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         'amount': calculateUserAmount(
           user_bill['house_keeping_bill'],
         ),
-        'currency': currency,
+        'currency': userCurrency,
         'payment_method_types[]': 'card'
       };
-      print(body);
-      var response = await http.post(
+      var stripeApiResponse = await http.post(
           Uri.parse('https://api.stripe.com/v1/payment_intents'),
           body: body,
           headers: {
@@ -325,14 +330,14 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
                 'Bearer sk_test_51L4gMzA5V4GUDZql4LMqPGqHoqehyyGlok1tu3B5FXjuD7ph4mf0sPTOQtByV2kLTONf0VB5BPqARhM1HIqYYOkh00L4NC0EZ9',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
-      print('Create Intent reponse ===> ${response.body.toString()}');
-      return jsonDecode(response.body);
+      print('Create Intent reponse ===> ${stripeApiResponse.body.toString()}');
+      return jsonDecode(stripeApiResponse.body);
     } catch (err) {
       print('err charging user: ${err.toString()}');
     }
   }
 
-  calculateUserAmount(String amount) {
-    return (int.parse(amount) * 100).toString();
+  calculateUserAmount(String userBill) {
+    return (int.parse(userBill) * 100).toString();
   }
 }

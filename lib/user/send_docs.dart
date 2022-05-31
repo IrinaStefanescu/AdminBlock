@@ -92,8 +92,8 @@ class _SendDocsState extends State<SendDocs> {
     ));
   }
 
-  void listenNotifications() =>
-      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+  void listenNotifications() => NotificationApi.onNotificationsCallback.stream
+      .listen(onClickedNotification);
 
   void onClickedNotification(String? payload) => Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => SendDocs()));

@@ -22,8 +22,8 @@ class _DocumentThreeState extends State<DocumentThree> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
-  void listenNotifications() =>
-      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+  void listenNotifications() => NotificationApi.onNotificationsCallback.stream
+      .listen(onClickedNotification);
 
   void onClickedNotification(String? payload) => Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => Dashboard()));

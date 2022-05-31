@@ -31,8 +31,8 @@ class _DashboardState extends State<Dashboard>
   late CameraPosition _currentPosition;
   late bool _isFirstChecked;
 
-  void listenNotifications() =>
-      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+  void listenNotifications() => NotificationApi.onNotificationsCallback.stream
+      .listen(onClickedNotification);
 
   void onClickedNotification(String? payload) => Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => PayBill()));
