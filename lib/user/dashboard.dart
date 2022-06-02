@@ -29,7 +29,6 @@ class _DashboardState extends State<Dashboard>
   late bool _serviceEnabled;
   late PermissionStatus _permissionGranted;
   late CameraPosition _currentPosition;
-  late bool _isFirstChecked;
 
   void listenNotifications() => NotificationApi.onNotificationsCallback.stream
       .listen(onClickedNotification);

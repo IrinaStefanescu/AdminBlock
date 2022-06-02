@@ -255,7 +255,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                               groupValue: _expRate,
                               onChanged: (experienceRate? value) {
                                 setState(() {
-                                  _expRate = value;
+                                  _expRate = value!;
                                 });
                               },
                             )),
@@ -272,7 +272,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                               groupValue: _expRate,
                               onChanged: (experienceRate? value) {
                                 setState(() {
-                                  _expRate = value;
+                                  _expRate = value!;
                                 });
                               },
                             )),
@@ -289,7 +289,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                               groupValue: _expRate,
                               onChanged: (experienceRate? value) {
                                 setState(() {
-                                  _expRate = value;
+                                  _expRate = value!;
                                 });
                               },
                             )),
@@ -306,7 +306,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                               groupValue: _expRate,
                               onChanged: (experienceRate? value) {
                                 setState(() {
-                                  _expRate = value;
+                                  _expRate = value!;
                                 });
                               },
                             )),
@@ -323,7 +323,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                               groupValue: _expRate,
                               onChanged: (experienceRate? value) {
                                 setState(() {
-                                  _expRate = value;
+                                  _expRate = value!;
                                 });
                               },
                             )),
@@ -457,7 +457,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _bugsIssues,
                                 onChanged: (bugsAndIssues? value) {
                                   setState(() {
-                                    _bugsIssues = value;
+                                    _bugsIssues = value!;
                                   });
                                 },
                               )),
@@ -474,7 +474,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _bugsIssues,
                                 onChanged: (bugsAndIssues? value) {
                                   setState(() {
-                                    _bugsIssues = value;
+                                    _bugsIssues = value!;
                                   });
                                 },
                               )),
@@ -490,7 +490,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _bugsIssues,
                                 onChanged: (bugsAndIssues? value) {
                                   setState(() {
-                                    _bugsIssues = value;
+                                    _bugsIssues = value!;
                                   });
                                 },
                               )),
@@ -547,7 +547,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _wouldRecommend,
                                 onChanged: (wouldRecommendApp? value) {
                                   setState(() {
-                                    _wouldRecommend = value;
+                                    _wouldRecommend = value!;
                                   });
                                 },
                               )),
@@ -564,7 +564,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _wouldRecommend,
                                 onChanged: (wouldRecommendApp? value) {
                                   setState(() {
-                                    _wouldRecommend = value;
+                                    _wouldRecommend = value!;
                                   });
                                 },
                               )),
@@ -581,7 +581,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _wouldRecommend,
                                 onChanged: (wouldRecommendApp? value) {
                                   setState(() {
-                                    _wouldRecommend = value;
+                                    _wouldRecommend = value!;
                                   });
                                 },
                               )),
@@ -597,7 +597,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _wouldRecommend,
                                 onChanged: (wouldRecommendApp? value) {
                                   setState(() {
-                                    _wouldRecommend = value;
+                                    _wouldRecommend = value!;
                                   });
                                 },
                               )),
@@ -614,7 +614,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 groupValue: _wouldRecommend,
                                 onChanged: (wouldRecommendApp? value) {
                                   setState(() {
-                                    _wouldRecommend = value;
+                                    _wouldRecommend = value!;
                                   });
                                 },
                               )),
@@ -647,11 +647,12 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                             await provided_feedback
                                 .doc(user!.uid)
                                 .set({
-                                  'email': _emailController.text,
-                                  'rate_experience': _expRate,
-                                  'feedback': _bodyController.text,
-                                  'encountered_bugs': _bugsIssues,
-                                  'would_recommend_app': _wouldRecommend,
+                                  'email': _emailController,
+                                  'rate_experience': _expRate.toString(),
+                                  'feedback': _bodyController,
+                                  'encountered_bugs': _bugsIssues.toString(),
+                                  'would_recommend_app':
+                                      _wouldRecommend.toString(),
                                 })
                                 .then((value) =>
                                     print("Feedback provided by user."))

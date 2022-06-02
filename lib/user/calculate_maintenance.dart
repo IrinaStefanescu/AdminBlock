@@ -628,10 +628,10 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                     return Center(child: CircularProgressIndicator());
                   }
                   final user = FirebaseAuth.instance.currentUser;
-                  final uid = user!.uid;
                   if (user != null) {
                     print(user);
 
+                    final uid = user.uid;
                     CollectionReference costsPerPerson =
                         FirebaseFirestore.instance.collection('users_data');
 
@@ -811,6 +811,46 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                             "User housekeeping bill saved in Cloud Firestore."))
                         .catchError((error) => print(
                             'Failed to add user housekeeping bill: $error'));
+
+                    showDialog(
+                      context: context,
+                      builder: (context) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: AlertDialog(
+                          title: Text(
+                            'House-keeping Bill.',
+                            style: GoogleFonts.inter(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                            ),
+                          ),
+                          content: Text(
+                            'You should pay ${userMaintenanceBill.toStringAsFixed(0)} RON.',
+                            style: GoogleFonts.inter(
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                          ),
+                          actions: [
+                            GestureDetector(
+                              child: Text('OK',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.grey[800],
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 17,
+                                  )),
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                   },
                   fontSize: 20,
                   fontColor: Colors.white,

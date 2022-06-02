@@ -2,7 +2,6 @@ import 'package:admin_block/components/terms_of_use.dart';
 import 'package:admin_block/pages/onboarding.dart';
 import 'package:admin_block/pages/service/google_auth.dart';
 import 'package:admin_block/user/user_address.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +18,6 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
   final user = FirebaseAuth.instance.currentUser;
 
   var email = "";
@@ -382,14 +380,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                     confirmPasswordController.text;
                               });
                               registerUser();
-                              await users
-                                  .doc(user!.uid)
-                                  .set({
-                                    'email': email,
-                                  })
-                                  .then((value) => print("User added"))
-                                  .catchError((error) =>
-                                      print('Failed to add user: $error'));
                               isRegistered = false;
                             }
                           }),

@@ -242,6 +242,9 @@ class _ComplaintsState extends State<Complaints> {
                       ),
                     ),
                     controller: issueController,
+                    onChanged: (value) {
+                      issue = value;
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please provide your name';
@@ -341,7 +344,7 @@ class _ComplaintsState extends State<Complaints> {
                               .set({
                                 'name': name,
                                 'email': email,
-                                'issue': issue,
+                                'issue': issue.toString(),
                                 'compliant_date': _selectedDate,
                               })
                               .then((value) => print("User's data added"))
