@@ -1,6 +1,7 @@
 import 'package:admin_block/components/terms_of_use.dart';
 import 'package:admin_block/pages/onboarding.dart';
 import 'package:admin_block/pages/service/google_auth.dart';
+import 'package:admin_block/pages/service/validators.dart';
 import 'package:admin_block/user/user_address.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -202,19 +203,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
                     errorStyle: TextStyle(
-                      color: Colors.black26,
-                      fontSize: 15.0,
+                      color: Colors.deepOrange,
+                      fontSize: 16.0,
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
                   ),
                   controller: emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please provide email address';
-                    } else if (!value.contains('@')) {
-                      return 'Please enter valid email';
-                    }
-                    return null;
-                  },
+                  validator: UserInputValidator.validatedUserEmail,
                 ),
               ),
               Padding(
@@ -249,17 +249,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
                     errorStyle: TextStyle(
-                      color: Colors.black26,
-                      fontSize: 15.0,
+                      color: Colors.deepOrange,
+                      fontSize: 16.0,
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
                   ),
                   controller: passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please provide password';
-                    }
-                    return null;
-                  },
+                  validator: UserInputValidator.validatedUserPassword,
                 ),
               ),
               Padding(
@@ -294,17 +295,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
                     errorStyle: TextStyle(
-                      color: Colors.black26,
-                      fontSize: 15.0,
+                      color: Colors.deepOrange,
+                      fontSize: 16.0,
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     ),
                   ),
                   controller: confirmPasswordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please provide password';
-                    }
-                    return null;
-                  },
+                  validator: UserInputValidator.validatedUserPassword,
                 ),
               ),
               SizedBox(

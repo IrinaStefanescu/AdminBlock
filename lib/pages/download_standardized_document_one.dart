@@ -62,7 +62,8 @@ class _DocumentOneState extends State<DocumentOne> {
 
     Future<Widget> getImage(BuildContext context, String imageName) async {
       late Image image;
-      await FireStorageServiceApi.loadImage(context, imageName).then((value) {
+      await FireStorageServiceApi.loadUserImage(context, imageName)
+          .then((value) {
         image = Image.network(
           value.toString(),
           fit: BoxFit.fill,
@@ -288,11 +289,10 @@ class _DocumentOneState extends State<DocumentOne> {
 }
 
 class FireStorageServiceApi {
+  static final fbInstance = FirebaseStorage.instance;
   FireStorageServiceApi();
-  static Future<dynamic> loadImage(BuildContext context, String image) async {
-    return await FirebaseStorage.instance
-        .ref("documents/")
-        .child(image)
-        .getDownloadURL();
+  static Future<dynamic> loadUserImage(
+      BuildContext context, String userImage) async {
+    return await fbInstance.ref("documents/").child(userImage).getDownloadURL();
   }
 }
