@@ -1,4 +1,5 @@
 import 'package:admin_block/components/button_primary.dart';
+import 'package:admin_block/pages/service/validators.dart';
 import 'package:admin_block/pages/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -192,16 +193,21 @@ class _ReportBugState extends State<ReportBug> {
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
                       ),
+                      errorStyle: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 16.0,
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
                     ),
                     onChanged: (value) {
                       email = value;
                     },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide your email';
-                      }
-                      return null;
-                    },
+                    validator: UserInputValidator.validatedUserEmail,
                   ),
                 ),
                 Padding(
@@ -265,16 +271,21 @@ class _ReportBugState extends State<ReportBug> {
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                           borderSide:
                               BorderSide(color: Colors.orange, width: 2)),
+                      errorStyle: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 16.0,
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
                     ),
                     onChanged: (value) {
                       bug = value;
                     },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide your bug';
-                      }
-                      return null;
-                    },
+                    validator: UserInputValidator.validateUserAddressFields,
                   ),
                 ),
                 SizedBox(

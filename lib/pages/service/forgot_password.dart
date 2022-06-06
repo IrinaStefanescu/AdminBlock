@@ -1,4 +1,5 @@
 import 'package:admin_block/pages/service/register.dart';
+import 'package:admin_block/pages/service/validators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -136,19 +137,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 BorderRadius.all(Radius.circular(15.0)),
                           ),
                           errorStyle: TextStyle(
-                            color: Colors.black26,
-                            fontSize: 15.0,
+                            color: Colors.deepOrange,
+                            fontSize: 16.0,
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
                           ),
                         ),
                         controller: emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter email address.';
-                          } else if (!value.contains('@')) {
-                            return 'Please enter a valid email.';
-                          }
-                          return null;
-                        },
+                        validator: UserInputValidator.validatedUserEmail,
                       ),
                     ),
                     SizedBox(

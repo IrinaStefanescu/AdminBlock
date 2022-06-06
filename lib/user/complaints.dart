@@ -1,3 +1,4 @@
+import 'package:admin_block/pages/service/validators.dart';
 import 'package:admin_block/user/dashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -175,20 +176,21 @@ class _ComplaintsState extends State<Complaints> {
                         ),
                       ),
                       errorStyle: TextStyle(
-                        color: Colors.black26,
-                        fontSize: 15.0,
+                        color: Colors.deepOrange,
+                        fontSize: 16.0,
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
                       ),
                     ),
                     controller: nameController,
                     onChanged: (value) {
                       name = value;
                     },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide your name';
-                      }
-                      return null;
-                    },
+                    validator: UserInputValidator.validateUserAddressFields,
                   ),
                 ),
                 SizedBox(
@@ -236,21 +238,22 @@ class _ComplaintsState extends State<Complaints> {
                           width: 2,
                         ),
                       ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
                       errorStyle: TextStyle(
-                        color: Colors.black26,
-                        fontSize: 15.0,
+                        color: Colors.deepOrange,
+                        fontSize: 16.0,
                       ),
                     ),
                     controller: issueController,
                     onChanged: (value) {
                       issue = value;
                     },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide your name';
-                      }
-                      return null;
-                    },
+                    validator: UserInputValidator.validateUserAddressFields,
                   ),
                 ),
                 SizedBox(

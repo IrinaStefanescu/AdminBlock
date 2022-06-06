@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../pages/service/validators.dart';
+
 class DeleteUser extends StatefulWidget {
   const DeleteUser({Key? key}) : super(key: key);
 
@@ -182,16 +184,21 @@ class _DeleteUserState extends State<DeleteUser> {
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
                       ),
+                      errorStyle: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 16.0,
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
                     ),
                     onChanged: (value) {
                       email = value;
                     },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide your email';
-                      }
-                      return null;
-                    },
+                    validator: UserInputValidator.validatedUserEmail,
                   ),
                 ),
                 StatefulBuilder(

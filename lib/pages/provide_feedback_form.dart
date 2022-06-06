@@ -1,4 +1,5 @@
 import 'package:admin_block/components/button_primary.dart';
+import 'package:admin_block/pages/service/validators.dart';
 import 'package:admin_block/pages/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -197,16 +198,21 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
                       ),
+                      errorStyle: TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 16.0,
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
                     ),
                     onChanged: (value) {
                       email = value;
                     },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please provide your email';
-                      }
-                      return null;
-                    },
+                    validator: UserInputValidator.validatedUserEmail,
                   ),
                 ),
                 SizedBox(
@@ -396,16 +402,21 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                                 BorderRadius.all(Radius.circular(15.0)),
                             borderSide:
                                 BorderSide(color: Colors.orange, width: 2)),
+                        errorStyle: TextStyle(
+                          color: Colors.deepOrange,
+                          fontSize: 16.0,
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
                       ),
                       onChanged: (value) {
                         feedback = value;
                       },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please provide your feedback';
-                        }
-                        return null;
-                      },
+                      validator: UserInputValidator.validateUserAddressFields,
                     ),
                   ),
                 ),
@@ -647,9 +658,9 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                             await provided_feedback
                                 .doc(user!.uid)
                                 .set({
-                                  'email': _emailController,
+                                  'email': _emailController.text,
                                   'rate_experience': _expRate.toString(),
-                                  'feedback': _bodyController,
+                                  'feedback': _bodyController.text,
                                   'encountered_bugs': _bugsIssues.toString(),
                                   'would_recommend_app':
                                       _wouldRecommend.toString(),
