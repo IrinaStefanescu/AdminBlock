@@ -1,7 +1,6 @@
 import 'package:admin_block/pages/service/login.dart';
 import 'package:admin_block/pages/service/validators.dart';
 import 'package:admin_block/pages/user_main_layout.dart';
-import 'package:admin_block/user/dashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +40,8 @@ class _UserAddressState extends State<UserAddress> {
   void listenNotifications() => NotificationApi.onNotificationsCallback.stream
       .listen(onClickedNotification);
 
-  void onClickedNotification(String? payload) => Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => Dashboard()));
+  void onClickedNotification(String? payload) =>
+      NotificationApi.cancelAllUserNotifications();
 
   @override
   void initState() {

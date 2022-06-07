@@ -24,8 +24,8 @@ class _DocumentTwoState extends State<DocumentTwo> {
   void listenNotifications() => NotificationApi.onNotificationsCallback.stream
       .listen(onClickedNotification);
 
-  void onClickedNotification(String? payload) => Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => Dashboard()));
+  void onClickedNotification(String? payload) =>
+      NotificationApi.cancelAllUserNotifications();
 
   @override
   void initState() {

@@ -9,7 +9,6 @@ import 'package:admin_block/pages/download_standardized_document_two.dart';
 import 'package:admin_block/pages/service/notifications_api.dart';
 import 'package:admin_block/user/calculate_maintenance.dart';
 import 'package:admin_block/user/complaints.dart';
-import 'package:admin_block/user/pay_bill.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -33,8 +32,7 @@ class _DashboardState extends State<Dashboard>
   void listenNotifications() => NotificationApi.onNotificationsCallback.stream
       .listen(onClickedNotification);
 
-  void onClickedNotification(String? payload) => Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => PayBill()));
+  void onClickedNotification(String? payload) => {};
 
   @override
   void initState() {

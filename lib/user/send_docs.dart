@@ -92,18 +92,10 @@ class _SendDocsState extends State<SendDocs> {
     ));
   }
 
-  void listenNotifications() => NotificationApi.onNotificationsCallback.stream
-      .listen(onClickedNotification);
-
-  void onClickedNotification(String? payload) => Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => SendDocs()));
 
   @override
   void initState() {
     super.initState();
-
-    NotificationApi.init();
-    listenNotifications();
   }
 
   @override
@@ -307,11 +299,6 @@ class _SendDocsState extends State<SendDocs> {
                       child: GestureDetector(
                         onTap: () {
                           sendEmailToAdministration(context);
-                          NotificationApi.showScheduledNotification(
-                            title: "AdminBlock Notification",
-                            body: "Email successfully sent to administration!",
-                            payload: "email_sent",
-                          );
                         },
                         child: Row(
                           children: [

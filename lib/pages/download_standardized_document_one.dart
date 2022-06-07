@@ -24,8 +24,8 @@ class _DocumentOneState extends State<DocumentOne> {
   void listenNotifications() => NotificationApi.onNotificationsCallback.stream
       .listen(onClickedNotification);
 
-  void onClickedNotification(String? payload) => Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => DocumentOne()));
+  void onClickedNotification(String? payload) =>
+      NotificationApi.cancelAllUserNotifications();
 
   @override
   void initState() {

@@ -11,6 +11,7 @@ class NotificationApi {
         'id',
         'name',
         'description',
+        autoCancel: true,
         importance: Importance.max,
         priority: Priority.high,
         ongoing: true,
@@ -29,18 +30,16 @@ class NotificationApi {
   }
 
   static Future showNotification({
-    int id = 0,
     String? title,
     String? body,
     String? payload,
   }) async {
     await _userNotifications.show(
-        id, title, body, await _createUserNotificationDetails(),
+        0, title, body, await _createUserNotificationDetails(),
         payload: payload);
   }
 
   static Future showScheduledNotification({
-    int id = 0,
     String? title,
     String? body,
     String? payload,
@@ -48,7 +47,7 @@ class NotificationApi {
   }) async {
     scheduledTime = DateTime.now().add(Duration(seconds: 5));
     _userNotifications.schedule(
-        id, title, body, scheduledTime, await _createUserNotificationDetails());
+        0, title, body, scheduledTime, await _createUserNotificationDetails());
   }
 
   static Future showDailyScheduledNotification({
@@ -64,5 +63,7 @@ class NotificationApi {
         payload: payload);
   }
 
-  static void cancelNotification(int id) => _userNotifications.cancel(id);
+  static void cancelUserNotification(int id) async =>
+      await _userNotifications.cancel(id);
+  static void cancelAllUserNotifications() => _userNotifications.cancelAll;
 }

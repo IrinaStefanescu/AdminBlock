@@ -1,6 +1,5 @@
 import 'package:admin_block/pages/service/validators.dart';
 import 'package:admin_block/pages/user_main_layout.dart';
-import 'package:admin_block/user/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,8 +28,8 @@ class _LoginPageState extends State<LoginPage> {
   void listenNotifications() => NotificationApi.onNotificationsCallback.stream
       .listen(onClickedNotification);
 
-  void onClickedNotification(String? payload) => Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => Dashboard()));
+  void onClickedNotification(String? payload) =>
+      NotificationApi.cancelAllUserNotifications();
 
   @override
   void initState() {
@@ -50,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
       NotificationApi.showNotification(
         title: "AdminBlock Notification",
         body: "Welcome to your Dashboard!",
-        payload: "user_login",
       );
     } on FirebaseAuthException catch (error) {
       if (error.code == 'user-not-found') {
