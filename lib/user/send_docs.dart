@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
@@ -23,7 +24,7 @@ class _SendDocsState extends State<SendDocs> {
     final MailOptions myMailOptions = MailOptions(
       body: _bodyController.text,
       subject: _subjectController.text,
-      recipients: <String>['administratie_bloc@gmail.com'],
+      recipients: <String>['irina.block22@gmail.com'],
       isHTML: true,
       ccRecipients: <String>['irina.t.gh.stefanescu@gmail.com'],
       attachments: attachment_list,
@@ -89,7 +90,6 @@ class _SendDocsState extends State<SendDocs> {
       content: Text('Email was sent successfully!'),
     ));
   }
-
 
   @override
   void initState() {
