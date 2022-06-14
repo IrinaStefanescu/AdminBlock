@@ -92,295 +92,307 @@ class _DashboardState extends State<Dashboard>
             Color(0xFFF8D8A1),
           ],
         )),
-        child: Column(
-          children: [
-            Container(
-              height: 190,
-              width: MediaQuery.of(context).size.width,
-              child: GoogleMap(
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                initialCameraPosition: _currentPosition,
-                zoomControlsEnabled: false,
-                zoomGesturesEnabled: true,
-                markers: {
-                  Marker(
-                    markerId: MarkerId('current'),
-                    position: LatLng(_lat, _lng),
-                  )
-                },
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CalculateMaintenance()));
-              },
-              child: Container(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Container(
+                height: 190,
                 width: MediaQuery.of(context).size.width,
+                child: GoogleMap(
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  initialCameraPosition: _currentPosition,
+                  zoomControlsEnabled: false,
+                  zoomGesturesEnabled: true,
+                  markers: {
+                    Marker(
+                      markerId: MarkerId('current'),
+                      position: LatLng(_lat, _lng),
+                    )
+                  },
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                ),
+              ),
+              SizedBox(height: 10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CalculateMaintenance()));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  height: MediaQuery.of(context).size.height / 14,
+                  decoration: BoxDecoration(
+                      color: Colors.orangeAccent,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'CALCULATE MAINTENANCE',
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'Standardized applications',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
                 margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                height: MediaQuery.of(context).size.height / 14,
-                decoration: BoxDecoration(
-                    color: Colors.orangeAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Stack(
                   children: [
-                    Text(
-                      'CALCULATE MAINTENANCE',
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xFFEC936E),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: 120,
+                        height: 120,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DocumentOne()));
+                          },
+                          child: Center(
+                            child: Text(
+                              'Remove person from house-keeping',
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xFF795C48),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: 120,
+                        height: 120,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DocumentTwo()));
+                          },
+                          child: Center(
+                            child: Text(
+                              'Meter reading form',
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xFFEE882F),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: 120,
+                        height: 120,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DocumentThree()));
+                          },
+                          child: Center(
+                            child: Text(
+                              'Returning working capital',
+                              style: GoogleFonts.inter(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xFF993737),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: 120,
+                        height: 120,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DocumentFour()));
+                          },
+                          child: Text(
+                            'Sale-purchase certificate',
+                            style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0x88A56333),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: 120,
+                        height: 120,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DocumentFive()));
+                          },
+                          child: Text(
+                            'Owners association application',
+                            style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xFFE7C878),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: 120,
+                        height: 120,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DocumentSix()));
+                          },
+                          child: Text(
+                            'Add person for house-keeping',
+                            style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  'Complaints',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                height: MediaQuery.of(context).size.height / 13,
+                decoration: BoxDecoration(
+                    color: Color(0xFFAC4B32),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Complaints()));
+                    },
+                    child: Text(
+                      'Complaints related to neighbours',
                       style: GoogleFonts.inter(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Text(
-                'Standardized applications',
-                style: GoogleFonts.inter(
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xFFEC936E),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: 120,
-                      height: 120,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DocumentOne()));
-                        },
-                        child: Center(
-                          child: Text(
-                            'Remove person from house-keeping',
-                            style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xFF795C48),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: 120,
-                      height: 120,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DocumentTwo()));
-                        },
-                        child: Center(
-                          child: Text(
-                            'Meter reading form',
-                            style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xFFEE882F),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: 120,
-                      height: 120,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DocumentThree()));
-                        },
-                        child: Center(
-                          child: Text(
-                            'Returning working capital',
-                            style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xFF993737),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: 120,
-                      height: 120,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DocumentFour()));
-                        },
-                        child: Text(
-                          'Sale-purchase certificate',
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0x88A56333),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: 120,
-                      height: 120,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DocumentFive()));
-                        },
-                        child: Text(
-                          'Owners association application',
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xFFE7C878),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      width: 120,
-                      height: 120,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DocumentSix()));
-                        },
-                        child: Text(
-                          'Add person for house-keeping',
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Text(
-                'Complaints',
-                style: GoogleFonts.inter(
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              height: MediaQuery.of(context).size.height / 13,
-              decoration: BoxDecoration(
-                  color: Color(0xFFAC4B32),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Center(
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Complaints()));
-                  },
-                  child: Text(
-                    'Complaints related to neighbours',
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: Padding(

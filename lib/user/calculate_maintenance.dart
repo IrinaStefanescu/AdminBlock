@@ -521,10 +521,7 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Dashboard()));
+                                    Navigator.of(context).pop();
                                   },
                                 ),
                               ],

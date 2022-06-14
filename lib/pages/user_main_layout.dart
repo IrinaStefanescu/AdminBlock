@@ -37,7 +37,7 @@ class _UserMainState extends State<UserMain> {
                   return Center(child: CircularProgressIndicator());
                 }
                 final user = FirebaseAuth.instance.currentUser;
-                final uid = user!.uid;
+                final uid = user?.uid;
                 if (user != null) {
                   print(user);
 
