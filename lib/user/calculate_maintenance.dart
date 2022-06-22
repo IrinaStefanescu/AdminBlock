@@ -26,8 +26,8 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Form(
+    return Scaffold(
+      body: Form(
         key: _calculateMaintenanceFormKey,
         child: SingleChildScrollView(
           child: Column(

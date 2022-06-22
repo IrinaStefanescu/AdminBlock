@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../onboarding.dart';
 import 'forgot_password.dart';
+import 'google_auth.dart';
 import 'notifications_api.dart';
 import 'register.dart';
 
@@ -239,34 +240,80 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 20,
               ),
-              Center(
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 2.2,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.grey[700],
-                  ),
-                  child: MaterialButton(
-                    child: Text(
-                      'LOGIN',
-                      style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 19,
+              Row(
+                children: [
+                  Spacer(),
+                  Spacer(),
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2.6,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        // color: Colors.grey[700],
+                      ),
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          await AuthClass(FirebaseAuth.instance)
+                              .signInWithGoogle(context);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserMain()));
+                        },
+                        icon: Image.asset(
+                          'lib/assets/images/gmail.png',
+                          width: 20,
+                          height: 20,
+                        ),
+                        label: Text(
+                          'Continue with Gmail',
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey[700],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
                       ),
                     ),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          email = emailController.text;
-                          password = passwordController.text;
-                        });
-                        userLogin();
-                      }
-                    },
                   ),
-                ),
+                  Spacer(),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2.2,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[700],
+                    ),
+                    child: MaterialButton(
+                      child: Text(
+                        'LOGIN',
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 19,
+                        ),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            email = emailController.text;
+                            password = passwordController.text;
+                          });
+                          userLogin();
+                        }
+                      },
+                    ),
+                  ),
+                  Spacer(),
+                  Spacer(),
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

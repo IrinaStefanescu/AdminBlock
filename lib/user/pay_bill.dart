@@ -33,213 +33,217 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: 60,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 1.2,
-            child: Text(
-              'Pay house-keeping bill',
-              style: GoogleFonts.inter(
-                color: Colors.deepOrange,
-                fontWeight: FontWeight.w600,
-                fontSize: 22,
-              ),
-              textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 60,
             ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 1.1,
-            height: 140,
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-            child: InteractiveViewer(
-              transformationController: controller,
-              minScale: minScale,
-              maxScale: maxScale,
-              clipBehavior: Clip.none,
-              scaleEnabled: true,
-              panEnabled: true,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  child: Image.asset(
-                    'lib/assets/images/intretinere.png',
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    height: 140,
-                    fit: BoxFit.fill,
+            Container(
+              width: MediaQuery.of(context).size.width / 1.2,
+              child: Text(
+                'Pay house-keeping bill',
+                style: GoogleFonts.inter(
+                  color: Colors.deepOrange,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.1,
+              height: 140,
+              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+              child: InteractiveViewer(
+                transformationController: controller,
+                minScale: minScale,
+                maxScale: maxScale,
+                clipBehavior: Clip.none,
+                scaleEnabled: true,
+                panEnabled: true,
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                    child: Image.asset(
+                      'lib/assets/images/intretinere.png',
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      height: 140,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                  title: Center(
-                    child: Text(
-                      "Information",
-                      style: GoogleFonts.mukta(
-                        fontSize: 26,
-                        color: Colors.grey.shade900,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  content: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 240,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "The zoom feature is enabled. You \ncan zoom in and out as in the gif below.",
-                          style: GoogleFonts.mukta(
-                            fontSize: 18,
-                            color: Colors.grey.shade900,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Image.asset(
-                          "lib/assets/images/zoom-fingers.gif",
-                          width: MediaQuery.of(context).size.width / 1.4,
-                          height: 150,
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                      },
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Center(
                       child: Text(
-                        "Ok",
+                        "Information",
                         style: GoogleFonts.mukta(
-                          fontSize: 22,
+                          fontSize: 26,
                           color: Colors.grey.shade900,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                  ],
-                ),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 14.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: BlinkWidget(
-                  children: [
-                    Icon(
-                      Icons.info_outlined,
-                      color: Colors.grey.shade900,
-                      size: 30,
-                    ),
-                    Icon(
-                      Icons.info_outlined,
-                      color: Colors.transparent,
-                      size: 30,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 1.2,
-            child: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.active) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                final user = FirebaseAuth.instance.currentUser;
-                final uid = user?.uid;
-                if (user != null) {
-                  print(user);
-
-                  CollectionReference user_bill = FirebaseFirestore.instance
-                      .collection('users_housekeeping_bills');
-
-                  return FutureBuilder<DocumentSnapshot>(
-                    future: user_bill.doc(uid).get(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<DocumentSnapshot> snapshot) {
-                      if (snapshot.hasError) {
-                        return Text("Something went wrong");
-                      }
-
-                      if (snapshot.hasData && !snapshot.data!.exists) {
-                        return Text(
-                          'You first need to enter Indexes and Maintenance screens and complete those steps in order to pay your bill.',
-                          style: GoogleFonts.inter(
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17,
-                            height: 1.4,
+                    content: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 240,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "The zoom feature is enabled. You \ncan zoom in and out as in the gif below.",
+                            style: GoogleFonts.mukta(
+                              fontSize: 18,
+                              color: Colors.grey.shade900,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                          textAlign: TextAlign.start,
-                        );
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        Map<String, dynamic> data =
-                            snapshot.data!.data() as Map<String, dynamic>;
-                        return Text(
-                          'The payment amount for the current month is ${data['house_keeping_bill'].toString()} RON.'
-                          '\nZoom in on the picture above to be able to check if the total payment amount is \nthe same as the one mentioned above.',
-                          style: GoogleFonts.inter(
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17,
-                            height: 1.4,
+                          Image.asset(
+                            "lib/assets/images/zoom-fingers.gif",
+                            width: MediaQuery.of(context).size.width / 1.4,
+                            height: 150,
                           ),
-                          textAlign: TextAlign.start,
-                        );
-                      }
-                      return Container();
-                    },
-                  );
-                } else {
-                  return Text("user is not logged in");
-                }
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                        },
+                        child: Text(
+                          "Ok",
+                          style: GoogleFonts.mukta(
+                            fontSize: 22,
+                            color: Colors.grey.shade900,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               },
-            ),
-          ),
-          SizedBox(
-            height: 100,
-          ),
-          InkWell(
-            onTap: () async {
-              await makeUserPayment();
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.deepOrange,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              height: 55,
-              width: 200,
-              child: Center(
-                child: Text(
-                  'Pay',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 14.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    child: BlinkWidget(
+                      children: [
+                        Icon(
+                          Icons.info_outlined,
+                          color: Colors.grey.shade900,
+                          size: 30,
+                        ),
+                        Icon(
+                          Icons.info_outlined,
+                          color: Colors.transparent,
+                          size: 30,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.2,
+              child: StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.active) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  final user = FirebaseAuth.instance.currentUser;
+                  final uid = user?.uid;
+                  if (user != null) {
+                    print(user);
+
+                    CollectionReference user_bill = FirebaseFirestore.instance
+                        .collection('users_housekeeping_bills');
+
+                    return FutureBuilder<DocumentSnapshot>(
+                      future: user_bill.doc(uid).get(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text("Something went wrong");
+                        }
+
+                        if (snapshot.hasData && !snapshot.data!.exists) {
+                          return Text(
+                            'You first need to enter Indexes and Maintenance screens and complete those steps in order to pay your bill.',
+                            style: GoogleFonts.inter(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                              height: 1.4,
+                            ),
+                            textAlign: TextAlign.start,
+                          );
+                        }
+
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          Map<String, dynamic> data =
+                              snapshot.data!.data() as Map<String, dynamic>;
+                          return Text(
+                            'The payment amount for the current month is ${data['house_keeping_bill'].toString()} RON.'
+                            '\nZoom in on the picture above to be able to check if the total payment amount is \nthe same as the one mentioned above.',
+                            style: GoogleFonts.inter(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                              height: 1.4,
+                            ),
+                            textAlign: TextAlign.start,
+                          );
+                        }
+                        return Container();
+                      },
+                    );
+                  } else {
+                    return Text("user is not logged in");
+                  }
+                },
+              ),
+            ),
+            SizedBox(
+              height: 100,
+            ),
+            InkWell(
+              onTap: () async {
+                await makeUserPayment();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                height: 55,
+                width: 200,
+                child: Center(
+                  child: Text(
+                    'Pay',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

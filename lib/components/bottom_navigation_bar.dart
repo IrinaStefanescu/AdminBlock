@@ -25,6 +25,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
+        resizeToAvoidBottomInset: true,
         tabBar: CupertinoTabBar(
           currentIndex: 2,
           backgroundColor: Color(0xF5F3A866),
@@ -53,6 +54,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
             case 1:
               return CupertinoTabView(builder: (context) {
                 return CupertinoPageScaffold(
+                  resizeToAvoidBottomInset: true,
                   child: PayBill(),
                 );
               });
@@ -69,6 +71,7 @@ class _BottomNavigationNavBarState extends State<BottomNavigationNavBar> {
             case 4:
               return CupertinoTabView(builder: (context) {
                 return CupertinoPageScaffold(
+                  resizeToAvoidBottomInset: true,
                   child: CalculateMaintenance(),
                 );
               });
