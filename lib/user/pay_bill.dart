@@ -288,7 +288,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         .doc(user!.email)
         .collection('information')
         .add({
-      'date': DateTime.utc(2021, 5, 15).toString(),
+      'date': DateTime.now().toString(),
       'bill': user_bill['house_keeping_bill'].toString(),
     });
   }
