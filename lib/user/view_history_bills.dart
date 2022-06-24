@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import 'dashboard.dart';
 
@@ -15,12 +14,8 @@ class ViewHistoryBills extends StatefulWidget {
 }
 
 class _ViewHistoryBillsState extends State<ViewHistoryBills> {
-  getUserBooks() async {}
-
   @override
   Widget build(BuildContext context) {
-    var _filteredBills = <String>[];
-
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: Container(
@@ -63,13 +58,6 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
                   height: 20,
                 ),
                 Container(
-                  height: 75,
-                  padding: EdgeInsets.only(
-                    bottom: 20,
-                  ),
-                  child: buildFloatingSearchBar(),
-                ),
-                Container(
                   padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Your history bills',
@@ -80,6 +68,9 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 Container(
                   height: MediaQuery.of(context).size.width / 0.9,
@@ -92,6 +83,8 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var doc = snapshot.data!.docs;
+                        print(snapshot.data!.docs);
+
                         print("Doc Length:" + doc.length.toString());
                         return Container(
                           width: MediaQuery.of(context).size.width / 1.2,
@@ -101,8 +94,8 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
                                   itemCount: doc.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 8.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 4.0, bottom: 4.0),
                                       child: Container(
                                         height: 70,
                                         child: Card(
@@ -115,8 +108,8 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
                                           child: Row(
                                             children: <Widget>[
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
                                                 child: Icon(
                                                   Icons.payment_outlined,
                                                   size: 30,
@@ -128,9 +121,9 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            top: 3),
+                                                            top: 3.0, left: 3),
                                                     child: Text(
-                                                      'Transaction ${snapshot.data!.docs[index].id}',
+                                                      'Transaction ${snapshot.data!.docs[index].id.substring(0, 16)}...',
                                                       style: GoogleFonts.inter(
                                                         color: Colors.black45,
                                                         fontWeight:
@@ -162,6 +155,20 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
                                                   ),
                                                 ],
                                               ),
+                                              Spacer(),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  deleteUserHistoryBill(snapshot
+                                                      .data!.docs[index].id);
+                                                },
+                                                child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 2, right: 10.0),
+                                                    child: Icon(
+                                                      Icons.delete_forever,
+                                                      size: 25,
+                                                    )),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -190,59 +197,53 @@ class _ViewHistoryBillsState extends State<ViewHistoryBills> {
     );
   }
 
-  Widget buildFloatingSearchBar() {
-    return FloatingSearchBar(
-      borderRadius: BorderRadius.circular(25),
-      hint: 'Filter',
-      scrollPadding: const EdgeInsets.only(bottom: 10),
-      transitionDuration: const Duration(milliseconds: 200),
-      transitionCurve: Curves.easeInOut,
-      physics: const BouncingScrollPhysics(),
-      axisAlignment: 0.0,
-      openAxisAlignment: 0.0,
-      hintStyle: TextStyle(
-        fontSize: 17,
-        color: Colors.grey[600],
-        fontWeight: FontWeight.w400,
-      ),
-      debounceDelay: const Duration(milliseconds: 100),
-      automaticallyImplyBackButton: false,
-      backdropColor: Colors.grey[200],
-      backgroundColor: Colors.white,
-      onQueryChanged: (query) {
-        // _filteredBills.clear();
-        // List<String> filteredBills = _userBills
-        //     .where((option) => option.title.toLowerCase().contains(query))
-        //     .toList();
-        //
-        // setState(() {
-        //   _filteredBills = List<String>.from(filteredBills);
-        // });
-      },
-      // Specify a custom transition to be used for
-      // animating between opened and closed stated.
-      transition: CircularFloatingSearchBarTransition(),
-      actions: [
-        FloatingSearchBarAction(
-          showIfOpened: false,
-          child: CircularButton(
-            icon: const Icon(
-              Icons.search,
-              color: Colors.grey,
+  void deleteUserHistoryBill(id) {
+    FirebaseFirestore.instance
+        .collection('users_history_bills')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection('information')
+        .doc(id)
+        .delete();
+
+    showDialog(
+      context: context,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: AlertDialog(
+          title: Text(
+            'Informative alert',
+            style: GoogleFonts.inter(
+              color: Colors.grey[800],
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
             ),
-            onPressed: () {},
           ),
+          content: Text(
+            'You just deleted a transaction from the history list.',
+            style: GoogleFonts.inter(
+              color: Colors.grey[800],
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+            ),
+          ),
+          actions: [
+            GestureDetector(
+              child: Text('OK',
+                  style: GoogleFonts.inter(
+                    color: Colors.grey[800],
+                    fontWeight: FontWeight.w700,
+                    fontSize: 17,
+                  )),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
-      ],
-      builder: (context, _) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Material(),
-        );
-      },
+      ),
     );
+    print("Transaction history bill deleted!");
   }
 }

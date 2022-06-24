@@ -261,8 +261,6 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         .doc(user?.uid)
         .get();
 
-    var billNumber = 0;
-
     try {
       userPaymentData =
           await createUserPayment(user_bill['house_keeping_bill'], 'RON');
@@ -290,7 +288,7 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         .doc(user!.email)
         .collection('information')
         .add({
-      'date': DateTime.utc(2022, 5, 15).toString(),
+      'date': DateTime.utc(2021, 5, 15).toString(),
       'bill': user_bill['house_keeping_bill'].toString(),
     });
   }
