@@ -1,5 +1,4 @@
 import 'package:admin_block/components/button_primary.dart';
-import 'package:admin_block/user/dashboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,31 +34,6 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
             children: [
               SizedBox(
                 height: 20,
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: GestureDetector(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.keyboard_arrow_left,
-                        size: 30,
-                      ),
-                      Text(
-                        'Dashboard',
-                        style: GoogleFonts.inter(
-                          color: Colors.grey.shade900,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Dashboard()));
-                  },
-                ),
               ),
               SizedBox(
                 height: 20,

@@ -18,9 +18,15 @@ class PayBill extends StatefulWidget {
 class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
   final double minScale = 1;
   final double maxScale = 4;
+  final uid = FirebaseAuth.instance.currentUser!.uid;
 
   TransformationController controller = TransformationController();
   Animation<Matrix4>? animation;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -254,6 +260,9 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
         .collection('users_housekeeping_bills')
         .doc(user?.uid)
         .get();
+
+    var billNumber = 0;
+
     try {
       userPaymentData =
           await createUserPayment(user_bill['house_keeping_bill'], 'RON');
@@ -275,6 +284,15 @@ class _PayBillState extends State<PayBill> with SingleTickerProviderStateMixin {
     } catch (e, s) {
       print('Exception:$e$s');
     }
+
+    FirebaseFirestore.instance
+        .collection('users_history_bills')
+        .doc(user!.email)
+        .collection('information')
+        .add({
+      'date': DateTime.utc(2022, 5, 15).toString(),
+      'bill': user_bill['house_keeping_bill'].toString(),
+    });
   }
 
   displayUserPaymentSheet() async {

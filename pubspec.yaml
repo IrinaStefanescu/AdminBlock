@@ -34,6 +34,7 @@ dependencies:
   avatar_glow: 2.0.2
   path: ^1.8.0
   carousel_slider: ^4.0.0
+  material_floating_search_bar: ^0.3.0
 
 #Cupertion, Google fonts, http, modal, provider
   modal_bottom_sheet: ^2.0.0

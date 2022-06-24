@@ -7,8 +7,8 @@ import 'package:admin_block/pages/download_standardized_document_six.dart';
 import 'package:admin_block/pages/download_standardized_document_three.dart';
 import 'package:admin_block/pages/download_standardized_document_two.dart';
 import 'package:admin_block/pages/service/notifications_api.dart';
-import 'package:admin_block/user/calculate_maintenance.dart';
 import 'package:admin_block/user/complaints.dart';
+import 'package:admin_block/user/view_history_bills.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -123,7 +123,7 @@ class _DashboardState extends State<Dashboard>
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CalculateMaintenance()));
+                          builder: (context) => ViewHistoryBills()));
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -136,7 +136,7 @@ class _DashboardState extends State<Dashboard>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'CALCULATE MAINTENANCE',
+                        'VIEW HISTORY BILLS',
                         style: GoogleFonts.inter(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
