@@ -6,6 +6,7 @@ import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SendDocs extends StatefulWidget {
   const SendDocs({Key? key}) : super(key: key);
@@ -349,11 +350,14 @@ class _SendDocsState extends State<SendDocs> {
   }
 
   void _picker() async {
-    final pick = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pick != null) {
-      setState(() {
-        attachment_list.add(pick.path);
-      });
+    var status = await Permission.storage.request();
+    if (status.isGranted) {
+      final pick = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pick != null) {
+        setState(() {
+          attachment_list.add(pick.path);
+        });
+      }
     }
   }
 
