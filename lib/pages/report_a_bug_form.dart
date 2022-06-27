@@ -207,7 +207,7 @@ class _ReportBugState extends State<ReportBug> {
                     onChanged: (value) {
                       email = value;
                     },
-                    validator: UserInputValidator.validatedUserEmail,
+                    validator: UserInputValidator.validateReportFormEmailField,
                   ),
                 ),
                 Padding(

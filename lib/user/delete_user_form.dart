@@ -198,7 +198,7 @@ class _DeleteUserState extends State<DeleteUser> {
                     onChanged: (value) {
                       email = value;
                     },
-                    validator: UserInputValidator.validatedUserEmail,
+                    validator: UserInputValidator.validateReportFormEmailField,
                   ),
                 ),
                 StatefulBuilder(

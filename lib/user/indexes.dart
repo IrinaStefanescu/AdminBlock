@@ -1,5 +1,6 @@
 import 'package:admin_block/components/button_primary.dart';
 import 'package:admin_block/pages/blink_element.dart';
+import 'package:admin_block/pages/service/validators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -199,12 +200,8 @@ class _IndexesState extends State<Indexes> with SingleTickerProviderStateMixin {
                               onChanged: (value) {
                                 coldWaterBathroom = value;
                               },
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please provide your email';
-                                }
-                                return null;
-                              },
+                              validator:
+                                  UserInputValidator.validateIndexesValues,
                             ),
                           ),
                           Spacer(),

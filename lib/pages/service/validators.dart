@@ -1,7 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class UserInputValidator {
   static String? validateUserAddressFields(String? input) {
     if (input == null || input.isEmpty) {
       return 'Please enter a value!';
+    }
+    return null;
+  }
+
+  static String? validateNoOfPersonsDeclared(String? input) {
+    RegExp noOfPersonsDeclaredRegExp = RegExp(r"^[0-9]*$");
+    if (input == null || input.isEmpty) {
+      return 'Please enter a value!';
+    } else if (!noOfPersonsDeclaredRegExp.hasMatch(input)) {
+      return 'You should enter an integer!';
+    }
+    return null;
+  }
+
+  static String? validateIndexesValues(String? input) {
+    RegExp indexesValuesRegExp = RegExp(r"^[0-9]*$");
+    if (input == null || input.isEmpty) {
+      return 'Please enter a value!';
+    } else if (!indexesValuesRegExp.hasMatch(input)) {
+      return 'You should enter an integer!';
+    }
+    return null;
+  }
+
+  static String? validateReportFormEmailField(String? input) {
+    final email = FirebaseAuth.instance.currentUser!.email;
+    RegExp complaintsEmailFieldRegExp = RegExp(
+        r"[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+    if (input == null || input.isEmpty) {
+      return 'Please enter an email!';
+    } else if (!complaintsEmailFieldRegExp.hasMatch(input)) {
+      return 'Please enter a valid email!';
+    } else if (input != email) {
+      return 'Email address doesn\'t match the one you\n registered!';
     }
     return null;
   }

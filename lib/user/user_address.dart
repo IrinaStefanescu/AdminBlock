@@ -448,8 +448,9 @@ class _UserAddressState extends State<UserAddress> {
                   controller: numberOfPersonsController,
                   onChanged: (value) {
                     numberOfPersons = value;
+                    print(apartmentController.toString());
                   },
-                  validator: UserInputValidator.validateUserAddressFields,
+                  validator: UserInputValidator.validateNoOfPersonsDeclared,
                 ),
                 SizedBox(
                   height: 20,

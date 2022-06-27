@@ -212,7 +212,7 @@ class _ProvideFeedbackState extends State<ProvideFeedback> {
                     onChanged: (value) {
                       email = value;
                     },
-                    validator: UserInputValidator.validatedUserEmail,
+                    validator: UserInputValidator.validateReportFormEmailField,
                   ),
                 ),
                 SizedBox(
