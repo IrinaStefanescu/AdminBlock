@@ -29,7 +29,7 @@ class UserInputValidator {
   }
 
   static String? validateReportFormEmailField(String? input) {
-    final email = FirebaseAuth.instance.currentUser!.email;
+    final email = FirebaseAuth.instance.currentUser?.email;
     RegExp complaintsEmailFieldRegExp = RegExp(
         r"[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
     if (input == null || input.isEmpty) {
