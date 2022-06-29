@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../pages/service/notifications_api.dart';
+
 class CalculateMaintenance extends StatefulWidget {
   @override
   _CalculateMaintenanceState createState() => _CalculateMaintenanceState();
@@ -18,9 +20,17 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
   late double userGeneralGasesCosts;
   late double userMaintenanceBill;
 
+  void listenNotifications() => NotificationApi.onNotificationsCallback.stream
+      .listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) =>
+      NotificationApi.cancelAllUserNotifications();
+
   @override
   initState() {
     super.initState();
+    NotificationApi.init();
+    listenNotifications();
   }
 
   @override
@@ -786,6 +796,12 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                             "User housekeeping bill saved in Cloud Firestore."))
                         .catchError((error) => print(
                             'Failed to add user housekeeping bill: $error'));
+
+                    NotificationApi.showDailyScheduledNotification(
+                      title: "AdminBlock Notification",
+                      body: "Don\'t forget to pay your bill in time!",
+                      payload: "indexes_sent",
+                    );
 
                     showDialog(
                       context: context,

@@ -57,7 +57,7 @@ class NotificationApi {
     String? payload,
     var time,
   }) async {
-    var time = Time(14, 25, 0);
+    var time = Time(12, 00, 0);
     _userNotifications.showDailyAtTime(
         id, title, body, time, await _createUserNotificationDetails(),
         payload: payload);
