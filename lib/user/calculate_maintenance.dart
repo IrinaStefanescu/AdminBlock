@@ -485,19 +485,23 @@ class _CalculateMaintenanceState extends State<CalculateMaintenance> {
                                 ],
                               ),
                               actions: <Widget>[
-                                TextButton(
-                                  child: Text(
-                                    'OK',
-                                    style: GoogleFonts.inter(
-                                      color: Colors.deepOrange,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
+                                // TextButton(
+                                //   child: Text(
+                                //     'OK',
+                                //     style: GoogleFonts.inter(
+                                //       color: Colors.deepOrange,
+                                //       fontWeight: FontWeight.w500,
+                                //       fontSize: 18,
+                                //     ),
+                                //   ),
+                                //   onPressed: () {
+                                //     Navigator.of(context).pop();
+                                //     Navigator.pushReplacement(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //             builder: (context) => Dashboard()));
+                                //   },
+                                // ),
                               ],
                             ),
                           );

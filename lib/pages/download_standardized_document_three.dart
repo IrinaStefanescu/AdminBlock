@@ -10,7 +10,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DocumentThree extends StatefulWidget {
   const DocumentThree({Key? key}) : super(key: key);
@@ -42,23 +41,20 @@ class _DocumentThreeState extends State<DocumentThree> {
         "https://imgv2-2-f.scribdassets.com/img/document/288326596/original/0a8b11190c/1645305873?v=1";
 
     _save() async {
-      var status = await Permission.storage.request();
-      if (status.isGranted) {
-        var response = await Dio()
-            .get(url, options: Options(responseType: ResponseType.bytes));
-        final result = await ImageGallerySaver.saveImage(
-            Uint8List.fromList(response.data),
-            quality: 60,
-            name: "working-capital");
-        print(result);
+      var response = await Dio()
+          .get(url, options: Options(responseType: ResponseType.bytes));
+      final result = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(response.data),
+          quality: 60,
+          name: "working-capital");
+      print(result);
 
-        NotificationApi.showNotification(
-          title: "AdminBlock Notification",
-          body:
-              "Request to get a returning working capital downloaded to local storage!",
-          payload: "document3",
-        );
-      }
+      NotificationApi.showNotification(
+        title: "AdminBlock Notification",
+        body:
+            "Request to get a returning working capital downloaded to local storage!",
+        payload: "document3",
+      );
     }
 
     Future<Widget> getImage(BuildContext context, String imageName) async {

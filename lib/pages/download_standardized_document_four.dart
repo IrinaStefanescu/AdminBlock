@@ -10,7 +10,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DocumentFour extends StatefulWidget {
   const DocumentFour({Key? key}) : super(key: key);
@@ -42,23 +41,20 @@ class _DocumentFourState extends State<DocumentFour> {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRggdsCnataHWXR1m8BK7E4YW-xxyZPrYpgkk5kwbWsODMqfgOwXRjK2PI2v0Y13IiyMHs&usqp=CAU";
 
     _save() async {
-      var status = await Permission.storage.request();
-      if (status.isGranted) {
-        var response = await Dio()
-            .get(url, options: Options(responseType: ResponseType.bytes));
-        final result = await ImageGallerySaver.saveImage(
-            Uint8List.fromList(response.data),
-            quality: 60,
-            name: "sale-purchase");
-        print(result);
+      var response = await Dio()
+          .get(url, options: Options(responseType: ResponseType.bytes));
+      final result = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(response.data),
+          quality: 60,
+          name: "sale-purchase");
+      print(result);
 
-        NotificationApi.showNotification(
-          title: "AdminBlock Notification",
-          body:
-              "Request to get a sale-purchase certificate downloaded to local storage!",
-          payload: "document4",
-        );
-      }
+      NotificationApi.showNotification(
+        title: "AdminBlock Notification",
+        body:
+            "Request to get a sale-purchase certificate downloaded to local storage!",
+        payload: "document4",
+      );
     }
 
     Future<Widget> getImage(BuildContext context, String imageName) async {

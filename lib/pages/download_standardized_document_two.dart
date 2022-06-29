@@ -9,7 +9,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DocumentTwo extends StatefulWidget {
   const DocumentTwo({Key? key}) : super(key: key);
@@ -41,23 +40,20 @@ class _DocumentTwoState extends State<DocumentTwo> {
         "https://imgv2-1-f.scribdassets.com/img/document/36206655/original/3ade4fcc21/1645519679?v=1";
 
     _save() async {
-      var status = await Permission.storage.request();
-      if (status.isGranted) {
-        var response = await Dio()
-            .get(url, options: Options(responseType: ResponseType.bytes));
-        final result = await ImageGallerySaver.saveImage(
-            Uint8List.fromList(response.data),
-            quality: 60,
-            name: "meter-reading");
-        print(result);
+      var response = await Dio()
+          .get(url, options: Options(responseType: ResponseType.bytes));
+      final result = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(response.data),
+          quality: 60,
+          name: "meter-reading");
+      print(result);
 
-        NotificationApi.showNotification(
-          title: "AdminBlock Notification",
-          body:
-              "Request to get a meter reading form downloaded to local storage!",
-          payload: "document2",
-        );
-      }
+      NotificationApi.showNotification(
+        title: "AdminBlock Notification",
+        body:
+            "Request to get a meter reading form downloaded to local storage!",
+        payload: "document2",
+      );
     }
 
     Future<Widget> getImage(BuildContext context, String imageName) async {

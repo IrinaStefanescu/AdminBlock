@@ -9,7 +9,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DocumentSix extends StatefulWidget {
   const DocumentSix({Key? key}) : super(key: key);
@@ -41,23 +40,20 @@ class _DocumentSixState extends State<DocumentSix> {
         "https://www.factura-fiscala.com/wp-content/uploads/2020/07/cerere-introduce-persoane-la-intretinere.jpg";
 
     _save() async {
-      var status = await Permission.storage.request();
-      if (status.isGranted) {
-        var response = await Dio()
-            .get(url, options: Options(responseType: ResponseType.bytes));
-        final result = await ImageGallerySaver.saveImage(
-            Uint8List.fromList(response.data),
-            quality: 80,
-            name: "add-person");
-        print(result);
+      var response = await Dio()
+          .get(url, options: Options(responseType: ResponseType.bytes));
+      final result = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(response.data),
+          quality: 80,
+          name: "add-person");
+      print(result);
 
-        NotificationApi.showNotification(
-          title: "AdminBlock Notification",
-          body:
-              "Request to get add a person to housekeeping downloaded to local storage!",
-          payload: "document6",
-        );
-      }
+      NotificationApi.showNotification(
+        title: "AdminBlock Notification",
+        body:
+            "Request to get add a person to housekeeping downloaded to local storage!",
+        payload: "document6",
+      );
     }
 
     Future<Widget> getImage(BuildContext context, String imageName) async {

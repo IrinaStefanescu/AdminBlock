@@ -351,6 +351,7 @@ class _SendDocsState extends State<SendDocs> {
 
   void _picker() async {
     var status = await Permission.storage.request();
+
     if (status.isGranted) {
       final pick = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (pick != null) {

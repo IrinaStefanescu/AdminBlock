@@ -9,7 +9,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DocumentOne extends StatefulWidget {
   const DocumentOne({Key? key}) : super(key: key);
@@ -41,23 +40,20 @@ class _DocumentOneState extends State<DocumentOne> {
         "https://www.factura-fiscala.com/wp-content/uploads/2020/07/cerere-introduce-persoane-la-intretinere.jpg";
 
     _save() async {
-      var status = await Permission.storage.request();
-      if (status.isGranted) {
-        var response = await Dio()
-            .get(url, options: Options(responseType: ResponseType.bytes));
-        final result = await ImageGallerySaver.saveImage(
-            Uint8List.fromList(response.data),
-            quality: 60,
-            name: "remove-person");
-        print(result);
+      var response = await Dio()
+          .get(url, options: Options(responseType: ResponseType.bytes));
+      final result = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(response.data),
+          quality: 60,
+          name: "remove-person");
+      print(result);
 
-        NotificationApi.showNotification(
-          title: "AdminBlock Notification",
-          body:
-              "Request to remove person from housekeeping downloaded to local storage!",
-          payload: "document1",
-        );
-      }
+      NotificationApi.showNotification(
+        title: "AdminBlock Notification",
+        body:
+            "Request to remove person from housekeeping downloaded to local storage!",
+        payload: "document1",
+      );
     }
 
     Future<Widget> getImage(BuildContext context, String imageName) async {
